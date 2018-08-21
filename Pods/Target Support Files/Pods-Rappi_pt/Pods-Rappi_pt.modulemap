@@ -1,0 +1,6 @@
+framework module Pods_Rappi_pt {
+  umbrella header "Pods-Rappi_pt-umbrella.h"
+
+  export *
+  module * { export * }
+}
