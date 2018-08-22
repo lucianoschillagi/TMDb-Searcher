@@ -51,6 +51,8 @@ extension TMDbClient {
 		
 		// MARK: Search
 		static let SearchPopularMovie = "/movie/popular"
+		static let SearchTopRatedMovies = "/movie/top_rated"
+		static let SearchUpcomingMovies = "/upcoming"
 		
 //		// MARK: Config
 //		static let Config = "/configuration"
