@@ -6,12 +6,12 @@
 //  Copyright © 2018 luko. All rights reserved.
 //
 
-/* Networking */
+/* Model */
 
 import Foundation
 
 /* Abstract:
-Una objeto preparada para recibir, mapear y almacenar (para usar cuando sea necesario) los datos de las películas más populares.
+Una objeto preparado para recibir, mapear y almacenar (para usar cuando sea necesario) los datos de las películas más populares.
 */
 
 struct PopularMovies {
@@ -25,18 +25,19 @@ struct PopularMovies {
 	var releaseDate: String = ""
 	var overview: String = ""
 	
-	
 	// un array que contiene los diversos 'titulos' obtenidos
-	static var titleArray: [String] = []
+	var titleArray: [String] = []
 	// un array que contiene los diversos 'release date' obtenidos
-	static var releaseDateArray: [String] = []
+	var releaseDateArray: [String] = []
 	// un array que contiene los diversos 'overview' obtenidos
-	static var overview: [String] = []
+	var overviewArray: [String] = []
+	
 	//*****************************************************************
 	// MARK: - Initializers
 	//*****************************************************************
 	
 	// task: construir el objeto 'TopRated' desde un diccionario (el JSON obtenido '[String:AnyObject]')
+	
 	init(dictionary: [String:AnyObject]) {
 		
 		// los resultados de la petición sobre ´popular movies´
@@ -57,15 +58,16 @@ struct PopularMovies {
 				overview = item["overview"] as! String
 				
 				// agrega cada uno de de esos valores dentro del array 'PopularMovies.titleArray' (que queda lleno LISTA PARA USAR!)
-				PopularMovies.titleArray.append(title)
-				PopularMovies.releaseDateArray.append(releaseDate)
-				PopularMovies.overview.append(overview)
+				titleArray.append(title)
+				releaseDateArray.append(releaseDate)
+				overviewArray.append(overview)
 			}
 		}
 		
-		//		debugPrint("Extrae y almacena los títulos de \(PopularMovies.titleArray.count) películas.")
-		//		debugPrint("Título: \(PopularMovies.titleArray). \n  Fechas de lanzamiento: \(PopularMovies.releaseDateArray). \n Resúmen: \(PopularMovies.overview)")
-		debugPrint(PopularMovies.titleArray, separator: "", terminator: "👏")
+		//test
+		debugPrint("Los títulos obtenidos del objeto de películas populares es:\(titleArray). Es decir, en total son \(titleArray.count) títulos.")
+
+	
 		
 	}
 	
@@ -76,9 +78,9 @@ struct PopularMovies {
 	// task: transformar al resultado obtenido (objeto JSON) en un objeto Foundation 'PopularMovies'
 	static func popularMoviesFromResults(_ results: [String:AnyObject]) -> PopularMovies {
 		// convierte el diccionario obtenido a una estructura 'PopularMovies'
-		let completePopularObject = PopularMovies(dictionary: results)
+		let completePopularMoviesObject = PopularMovies(dictionary: results)
 		// devuelve el objeto completo convertido a una struct 'TopRated'
-		return completePopularObject
+		return completePopularMoviesObject
 	}
 	
 } // end class

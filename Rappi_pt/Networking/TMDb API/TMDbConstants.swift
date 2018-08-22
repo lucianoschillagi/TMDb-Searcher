@@ -11,6 +11,7 @@
 import Foundation
 
 /* Abstract:
+Almacena valores a usar en las api calls.
 */
 
 extension TMDbClient {
@@ -37,22 +38,22 @@ extension TMDbClient {
 	//*****************************************************************
 	struct Methods {
 		
-		// MARK: Account
-		static let Account = "/account"
-		static let AccountIDFavoriteMovies = "/account/{id}/favorite/movies"
-		static let AccountIDFavorite = "/account/{id}/favorite"
-		static let AccountIDWatchlistMovies = "/account/{id}/watchlist/movies"
-		static let AccountIDWatchlist = "/account/{id}/watchlist"
-		
-		// MARK: Authentication
-		static let AuthenticationTokenNew = "/authentication/token/new"
-		static let AuthenticationSessionNew = "/authentication/session/new"
+//		// MARK: Account
+//		static let Account = "/account"
+//		static let AccountIDFavoriteMovies = "/account/{id}/favorite/movies"
+//		static let AccountIDFavorite = "/account/{id}/favorite"
+//		static let AccountIDWatchlistMovies = "/account/{id}/watchlist/movies"
+//		static let AccountIDWatchlist = "/account/{id}/watchlist"
+//
+//		// MARK: Authentication
+//		static let AuthenticationTokenNew = "/authentication/token/new"
+//		static let AuthenticationSessionNew = "/authentication/session/new"
 		
 		// MARK: Search
-		static let SearchMovie = "/search/movie"
+		static let SearchPopularMovie = "/movie/popular"
 		
-		// MARK: Config
-		static let Config = "/configuration"
+//		// MARK: Config
+//		static let Config = "/configuration"
 		
 	}
 	
@@ -65,15 +66,29 @@ extension TMDbClient {
 	}
 	
 	//*****************************************************************
-	// MARK: - Paramter Keys
+	// MARK: - Parameter Keys
 	//*****************************************************************
 	
 	struct ParameterKeys {
 		static let ApiKey = "api_key"
-		static let SessionID = "session_id"
-		static let RequestToken = "request_token"
-		static let Query = "query"
+		static let Language = "language"
+		static let Page = "page"
 	}
+	
+	
+	//*****************************************************************
+	// MARK: - Parameter Values
+	//*****************************************************************
+	
+	struct ParameterValues {
+		static let ApiKey = "0942529e191d0558f888245403b4dca7"
+		static let Language = "en-US"
+		static let Page = "1"
+
+	}
+	
+	
+	
 	
 	//*****************************************************************
 	// MARK: - JSON Body Keys

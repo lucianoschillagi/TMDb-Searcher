@@ -27,7 +27,7 @@
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 </activityIndicatorView>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="z9C-6h-dfi">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="z9C-6h-dfi">
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="z9C-6h-dfi" id="yIO-AT-PN3">
@@ -36,6 +36,10 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="9hj-TT-o9B" id="Oei-OH-DPT"/>
+                                    <outlet property="delegate" destination="9hj-TT-o9B" id="SKs-cd-AKC"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -44,6 +48,7 @@
                     <tabBarItem key="tabBarItem" title="Top Rated" id="oaq-5z-kZw"/>
                     <connections>
                         <outlet property="activityIndicator" destination="qqL-4j-RQf" id="vwh-Kt-9G1"/>
+                        <outlet property="tableView" destination="Nfm-FE-ygI" id="PSO-iq-a3s"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wNu-ke-NSY" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -62,8 +67,12 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <activityIndicatorView key="tableFooterView" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="gray" id="zXd-Ns-HnJ">
+                                    <rect key="frame" x="0.0" y="72" width="375" height="20"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                </activityIndicatorView>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="bXU-64-4bK">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="bXU-64-4bK">
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="bXU-64-4bK" id="f0t-qN-z5V">
@@ -72,16 +81,24 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="zMD-r0-pUA" id="1gJ-bv-hjd"/>
+                                    <outlet property="delegate" destination="zMD-r0-pUA" id="82u-i9-M5T"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="MWK-Hb-JuW"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Upcoming" id="B4v-Fg-3gb"/>
+                    <connections>
+                        <outlet property="activityIndicator" destination="zXd-Ns-HnJ" id="7dN-MH-cQe"/>
+                        <outlet property="tableView" destination="3Ry-VK-hFK" id="o7q-qs-Rak"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oRh-dN-cb9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-223" y="790"/>
+            <point key="canvasLocation" x="-223" y="761"/>
         </scene>
         <!--Popular-->
         <scene sceneID="moW-07-ID3">
@@ -100,7 +117,7 @@
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 </activityIndicatorView>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="rRX-2F-cTk">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="rRX-2F-cTk">
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="rRX-2F-cTk" id="RR3-Xg-2eJ">
@@ -109,6 +126,10 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="nOL-9T-ZZD" id="Bhk-qi-dL3"/>
+                                    <outlet property="delegate" destination="nOL-9T-ZZD" id="o21-6i-Agg"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -117,11 +138,12 @@
                     <tabBarItem key="tabBarItem" title="Popular" id="M6L-5W-KQ8"/>
                     <connections>
                         <outlet property="activityIndicator" destination="PVq-vX-AXm" id="BDd-Jk-sWf"/>
+                        <outlet property="tableView" destination="SdP-90-LwN" id="zxt-hK-t6e"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5WT-Xn-DGu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-223" y="-777"/>
+            <point key="canvasLocation" x="-223" y="-758"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="HBk-DG-Vqe">
