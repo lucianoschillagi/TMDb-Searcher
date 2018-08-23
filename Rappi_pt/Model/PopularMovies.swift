@@ -21,9 +21,9 @@ struct PopularMovies {
 	//*****************************************************************
 	
 	let results: [[String:AnyObject]]?
-	var title: String = ""
-	var releaseDate: String = ""
-	var overview: String = ""
+	var title: String?
+	var releaseDate: String?
+	var overview: String?
 	
 	// un array que contiene los diversos 'titulos' obtenidos
 	var titleArray: [String] = []
@@ -58,17 +58,12 @@ struct PopularMovies {
 				overview = item["overview"] as! String
 				
 				// agrega cada uno de de esos valores dentro del array 'PopularMovies.titleArray' (que queda lleno LISTA PARA USAR!)
-				titleArray.append(title)
-				releaseDateArray.append(releaseDate)
-				overviewArray.append(overview)
+				titleArray.append(title!)
+				releaseDateArray.append(releaseDate!)
+				overviewArray.append(overview!)
 			}
 		}
-		
-		//test
-		debugPrint("Los títulos obtenidos del objeto de películas populares es:\(titleArray). Es decir, en total son \(titleArray.count) títulos.")
 
-	
-		
 	}
 	
 	//*****************************************************************
@@ -83,4 +78,43 @@ struct PopularMovies {
 		return completePopularMoviesObject
 	}
 	
+	
+
 } // end class
+
+//static func popularMoviesFromResults(_ results: [[String:AnyObject]]) -> [PopularMovies] {
+//
+//	var titleArray = [PopularMovies]()
+//
+//	for result in results {
+//
+//		titleArray.append(PopularMovies(dictionary: result))
+//		titleArray.append(PopularMovies(dictionary: result))
+//
+//
+//	}
+//
+//	return titleArray
+//
+//
+//}
+
+
+
+
+
+
+//// task: de los resultados de la solicitud devolver un array que contenga las urls para construir las imagenes (las fotos)
+//static func photosPathFromResults(_ results: [[String:AnyObject]]) -> [FlickrImage] {
+//
+//	// guarda las fotos obtenidas en un array de 'FlickrImage'
+//	var photosPath = [FlickrImage]()
+//
+//	// itera a través de un array de diccionarios, cada 'FlickrImage' es un diccionario 👈
+//	for result in results {
+//		photosPath.append(FlickrImage(dictionary: result))
+//	}
+//
+//	return photosPath
+//
+//}

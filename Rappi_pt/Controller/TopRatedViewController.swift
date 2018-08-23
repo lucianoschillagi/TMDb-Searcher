@@ -10,13 +10,17 @@
 
 import UIKit
 
-
 /* Abstract:
-
-
 */
 
 class TopRatedViewController: UIViewController {
+	
+	//*****************************************************************
+	// MARK: - Properties
+	//*****************************************************************
+	
+	// crea una instancia con todos los objetos 'PopularMovies' recibidos y almacenados
+	var topRatedMovies: TopRatedMovies?
 	
 	
 	//*****************************************************************
@@ -34,38 +38,68 @@ class TopRatedViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
+		// networking 🚀
+		startRequest()
+		
+	} // end view did load
+	
+	
+	//*****************************************************************
+	// MARK: - Networking
+	//*****************************************************************
+	
+	// task: obtener, mediante una solicitud web a la API de TMDb, el array de películas populares
+	func startRequest() {
+		
 		// networking ⬇
 		TMDbClient.getTopRatedMovies { (success, topRatedMovies, error) in
 			
 			// dispatch
 			DispatchQueue.main.async {
 				
+				// si la solicitud fue exitosa
 				if success {
+					print("HOLA")
 					
-					// si la solicitud fue exitosa, detener el indicador de actividad
-					self.activityIndicator.stopAnimating()
+					// comprueba si el 'popularMovies' recibido contiene algún valor
+					if let topRatedMovies = topRatedMovies {
+						// si es así, se lo asigna a la propiedad ´popularMovies´
+						self.topRatedMovies = topRatedMovies // 🔌 👏
+	
+						self.tableView.reloadData()
+						
+						
+						
+					}
 					
-					// test
-					debugPrint("🙌🏻 Leo el valor que almacené en la propiedad ´results´ del objeto ´TopRatedMovies´ \(topRatedMovies?.results)")
+				} else {
+					
 				}
-			} // end dispatch
+				
+			}
+			
+		}
 		
-		} // end closure
-		
-	} // end view did load
+	}
 	
+	//*****************************************************************
+	// MARK: - Activity Indicator
+	//*****************************************************************
 	
-    /*
-    // MARK: - Navigation
+	func startActivityIndicator() {
+		activityIndicator.alpha = 1.0
+		activityIndicator.startAnimating()
+	}
+	
+	func stopActivityIndicator() {
+		activityIndicator.alpha = 0.0
+		self.activityIndicator.stopAnimating()
+	}
+	
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
+} // end class
 
-}
+
 
 
 //*****************************************************************

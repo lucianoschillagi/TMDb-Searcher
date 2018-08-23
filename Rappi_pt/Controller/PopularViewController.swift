@@ -21,7 +21,7 @@ class PopularViewController: UIViewController {
 	//*****************************************************************
 	
 	// crea una instancia con todos los objetos 'PopularMovies' recibidos y almacenados
-	var popularMovies = PopularMovies(dictionary: [:])
+	var popularMovies: PopularMovies?
 	
 	//*****************************************************************
 	// MARK: - IBOutlets
@@ -37,11 +37,16 @@ class PopularViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 			
+			debugPrint("↗️\(popularMovies)")
+			
 			// networking 🚀
 			startRequest()
 			
 	} // end view did load
 
+	//*****************************************************************
+	// MARK: - Networking
+	//*****************************************************************
 	
 	// task: obtener, mediante una solicitud web a la API de TMDb, el array de películas populares
 	func startRequest() {
@@ -63,7 +68,7 @@ class PopularViewController: UIViewController {
 						self.stopActivityIndicator()
 						self.tableView.reloadData()
 						
-						debugPrint("SONNNNN\(popularMovies.titleArray.count)")
+						debugPrint("SONNNNN\(popularMovies.titleArray)")
 						
 					}
 					
@@ -74,7 +79,6 @@ class PopularViewController: UIViewController {
 			}
 			
 		}
-		
 		
 	}
 	
@@ -120,8 +124,8 @@ extension PopularViewController: UITableViewDataSource {
 	// task: determinar cuantas filas tendrá la tabla
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		
-		debugPrint("SOXXXX\(popularMovies.titleArray.count)")
-		return 0
+		debugPrint("SOXXXX\(popularMovies?.titleArray.count)")
+		return popularMovies!.titleArray.count
 	}
 	
 	// task: configurar las celdas de la tabla
