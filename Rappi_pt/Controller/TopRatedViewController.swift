@@ -19,8 +19,8 @@ class TopRatedViewController: UIViewController {
 	// MARK: - Properties
 	//*****************************************************************
 	
-	// crea una instancia con todos los objetos 'PopularMovies' recibidos y almacenados
-	var topRatedMovies: TopRatedMovies?
+	//
+	var topRatedMovies: [TMDbMovie] = [TMDbMovie]()
 	
 	
 	//*****************************************************************
@@ -65,8 +65,10 @@ class TopRatedViewController: UIViewController {
 					if let topRatedMovies = topRatedMovies {
 						// si es así, se lo asigna a la propiedad ´popularMovies´
 						self.topRatedMovies = topRatedMovies // 🔌 👏
-	
+						self.stopActivityIndicator()
 						self.tableView.reloadData()
+						
+						debugPrint("↗️\(topRatedMovies.count)")
 						
 						
 						
@@ -77,6 +79,11 @@ class TopRatedViewController: UIViewController {
 				}
 				
 			}
+			
+			
+			
+			
+			
 			
 		}
 		
@@ -110,17 +117,20 @@ extension TopRatedViewController: UITableViewDataSource {
 	
 	// task: determinar cuantas filas tendrá la tabla
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		//debugPrint("la tabla de las tarjetas de crédito tiene \(allCreditCards.count) filas.")
-		return 10
+
+		return topRatedMovies.count
 	}
 	
 	// task: configurar las celdas de la tabla
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		
 		let cellReuseId = "cell"
-		//let creditCard = allCreditCards[(indexPath as NSIndexPath).row]
+		let movie = topRatedMovies[(indexPath as NSIndexPath).row]
 		let cell = tableView.dequeueReusableCell(withIdentifier: cellReuseId, for: indexPath) as UITableViewCell!
-		//		cell?.textLabel?.text = creditCard.name
+		cell?.textLabel?.text = movie.title
+		
+		
+		
 		//		cell?.imageView!.contentMode = UIView.ContentMode.scaleAspectFit
 		//
 		//

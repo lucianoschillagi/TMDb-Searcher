@@ -63,12 +63,12 @@ class TMDbClient: NSObject {
 				
 				if let results = jsonObjectResultDictionary["results"] {
 				
-				let resultsPopularMovies = TMDbMovie.moviesFromResults(results as! [[String : AnyObject]])
+				let resultsFavoriteMovies = TMDbMovie.moviesFromResults(results as! [[String : AnyObject]])
 					
 					//test
-					debugPrint("🤾🏼‍♂️ TMDBMovie...\(resultsPopularMovies)")
+					debugPrint("🤾🏼‍♂️ TMDBMovie...\(resultsFavoriteMovies)")
 
-				completionHandlerForGetPopularMovies(true, resultsPopularMovies, nil)
+				completionHandlerForGetPopularMovies(true, resultsFavoriteMovies, nil)
 			
 				}
 			}
@@ -80,7 +80,7 @@ class TMDbClient: NSObject {
 	
 	// MARK: Top Rated Movies
 	// task: obtener las películar mejor ranqueadas de TMDb
-	static func getTopRatedMovies(_ completionHandlerForTopRatedMovies: @escaping ( _ success: Bool, _ topRatedMovies: TopRatedMovies?, _ errorString: String?) -> Void) {
+	static func getTopRatedMovies(_ completionHandlerForTopRatedMovies: @escaping ( _ success: Bool, _ topRatedMovies:  [TMDbMovie]?, _ errorString: String?) -> Void) {
 		
 		/* 1. 📞 Realiza la llamada a la API, a través de la función request() de Alamofire 🚀 */
 		Alamofire.request(configureUrl(TMDbClient.Methods.SearchTopRatedMovies)).responseJSON { response in
@@ -95,19 +95,25 @@ class TMDbClient: NSObject {
 					completionHandlerForTopRatedMovies(false, nil, errorMessage)
 				}
 			}
-			/* 2. Almacena la respuesta del servidor (response.result.value) en la constante 'jsonObjectResult' 📦 */
-			if let jsonObjectResult = response.result.value {
-				
-				debugPrint("\(jsonObjectResult)")
-				
-				/* 3. Almacena el resultado de la solicitud en la constante 'resultsPopularMovies' 📦 */
-				let resultsTopRatedMovies = TopRatedMovies.topRatedMoviesFromResults(jsonObjectResult as! [String:AnyObject])
-				
-				/* 4.  Pasa al completion handler el objeto recibido 'resultsPopularMovies' y que la solcitud fue exitosa ⬆ */
-				completionHandlerForTopRatedMovies(true, resultsTopRatedMovies, nil)
-				
-			}
 			
+			/* 2. Almacena la respuesta del servidor (response.result.value) en la constante 'jsonObjectResult' 📦 */
+			if let jsonObjectResult: Any = response.result.value {
+				
+				let jsonObjectResultDictionary = jsonObjectResult as! [String:AnyObject]
+				
+				debugPrint("🤜JSON POPULAR MOVIES: \(jsonObjectResult)") // JSON obtenido
+				
+				if let results = jsonObjectResultDictionary["results"] {
+					
+					let resultsTopRatedMovies = TMDbMovie.moviesFromResults(results as! [[String : AnyObject]])
+					
+					//test
+					debugPrint("🤾🏼‍♂️ TMDBMovie...\(resultsTopRatedMovies)")
+					
+					completionHandlerForTopRatedMovies(true, resultsTopRatedMovies, nil)
+					
+				}
+			}
 		}
 		
 	}
@@ -115,11 +121,11 @@ class TMDbClient: NSObject {
 	
 	// MARK: Upcoming Movies
 	// task: obtener las películas por venir de TMDb
-	static func getUpcomingMovies(_ completionHandlerForUpcomingMovies: @escaping ( _ success: Bool, _ upcomingMovies: UpcomingMovies?, _ errorString: String?) -> Void) {
+	static func getUpcomingMovies(_ completionHandlerForUpcomingMovies: @escaping ( _ success: Bool, _ upcomingMovies: [TMDbMovie]?, _ errorString: String?) -> Void) {
 
 		/* 1. 📞 Realiza la llamada a la API, a través de la función request() de Alamofire 🚀 */
 		Alamofire.request(configureUrl(TMDbClient.Methods.SearchUpcomingMovies)).responseJSON { response in
-
+			
 			// response status code
 			if let status = response.response?.statusCode {
 				switch(status){
@@ -130,19 +136,25 @@ class TMDbClient: NSObject {
 					completionHandlerForUpcomingMovies(false, nil, errorMessage)
 				}
 			}
-			/* 2. Almacena la respuesta del servidor (response.result.value) en la constante 'jsonObjectResult' 📦 */
-			if let jsonObjectResult = response.result.value {
-				
-				debugPrint("\(jsonObjectResult)")
-				
-				/* 3. Almacena el resultado de la solicitud en la constante 'resultsPopularMovies' 📦 */
-				let resultsUpcomingMovies = UpcomingMovies.upcomingMoviesFromResults(jsonObjectResult as! [String:AnyObject])
-				
-				/* 4.  Pasa al completion handler el objeto recibido 'resultsPopularMovies' y que la solcitud fue exitosa ⬆ */
-				completionHandlerForUpcomingMovies(true, resultsUpcomingMovies, nil)
-				
-			}
 			
+			/* 2. Almacena la respuesta del servidor (response.result.value) en la constante 'jsonObjectResult' 📦 */
+			if let jsonObjectResult: Any = response.result.value {
+				
+				let jsonObjectResultDictionary = jsonObjectResult as! [String:AnyObject]
+				
+				debugPrint("🥋JSON POPULAR MOVIES: \(jsonObjectResult)") // JSON obtenido
+				
+				if let results = jsonObjectResultDictionary["results"] {
+					
+					let resultsUpcomingdMovies = TMDbMovie.moviesFromResults(results as! [[String : AnyObject]])
+					
+					//test
+					debugPrint("🤾🏼‍♂️ TMDBMovie...\(resultsUpcomingdMovies)")
+					
+					completionHandlerForUpcomingMovies(true, resultsUpcomingdMovies, nil)
+					
+				}
+			}
 		}
 		
 	}
