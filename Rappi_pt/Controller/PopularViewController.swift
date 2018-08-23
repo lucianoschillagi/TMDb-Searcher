@@ -20,8 +20,8 @@ class PopularViewController: UIViewController {
 	// MARK: - Properties
 	//*****************************************************************
 	
-	// crea una instancia con todos los objetos 'PopularMovies' recibidos y almacenados
-	var popularMovies: PopularMovies?
+	//
+	var popularMovies: [TMDbMovie] = [TMDbMovie]()
 	
 	//*****************************************************************
 	// MARK: - IBOutlets
@@ -68,7 +68,9 @@ class PopularViewController: UIViewController {
 						self.stopActivityIndicator()
 						self.tableView.reloadData()
 						
-						debugPrint("SONNNNN\(popularMovies.titleArray)")
+						debugPrint("↗️\(popularMovies.count)")
+						
+						
 						
 					}
 					
@@ -124,17 +126,20 @@ extension PopularViewController: UITableViewDataSource {
 	// task: determinar cuantas filas tendrá la tabla
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		
-		debugPrint("SOXXXX\(popularMovies?.titleArray.count)")
-		return popularMovies!.titleArray.count
+	
+		return popularMovies.count
 	}
 	
 	// task: configurar las celdas de la tabla
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		
 		let cellReuseId = "cell"
-		//let creditCard = allCreditCards[(indexPath as NSIndexPath).row]
+		let movie = popularMovies[(indexPath as NSIndexPath).row]
 		let cell = tableView.dequeueReusableCell(withIdentifier: cellReuseId, for: indexPath) as UITableViewCell!
-//		cell?.textLabel?.text = creditCard.name
+		cell?.textLabel?.text = movie.title
+			
+			
+	
 //		cell?.imageView!.contentMode = UIView.ContentMode.scaleAspectFit
 //
 //

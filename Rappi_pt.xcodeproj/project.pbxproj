@@ -17,6 +17,7 @@
 		A6B227192128A49D0024E410 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A6B227172128A49D0024E410 /* Main.storyboard */; };
 		A6B2271B2128A49E0024E410 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A6B2271A2128A49E0024E410 /* Assets.xcassets */; };
 		A6B2271E2128A49E0024E410 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A6B2271C2128A49E0024E410 /* LaunchScreen.storyboard */; };
+		A6BAFE44212F516E00A7E1C9 /* TMDbMovie.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6BAFE43212F516E00A7E1C9 /* TMDbMovie.swift */; };
 		A6E7B357212919AD00CCFBB2 /* MovieDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6E7B356212919AD00CCFBB2 /* MovieDetailViewController.swift */; };
 		A6E7B359212919DE00CCFBB2 /* TMDbConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6E7B358212919DE00CCFBB2 /* TMDbConstants.swift */; };
 		A6EFACFF212A49AF006AF9A0 /* TopRatedMovies.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6EFACFE212A49AF006AF9A0 /* TopRatedMovies.swift */; };
@@ -38,6 +39,7 @@
 		A6B2271A2128A49E0024E410 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A6B2271D2128A49E0024E410 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A6B2271F2128A49E0024E410 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A6BAFE43212F516E00A7E1C9 /* TMDbMovie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TMDbMovie.swift; path = Rappi_pt/Model/TMDbMovie.swift; sourceTree = SOURCE_ROOT; };
 		A6E7B356212919AD00CCFBB2 /* MovieDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailViewController.swift; sourceTree = "<group>"; };
 		A6E7B358212919DE00CCFBB2 /* TMDbConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TMDbConstants.swift; sourceTree = "<group>"; };
 		A6EFACFE212A49AF006AF9A0 /* TopRatedMovies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TopRatedMovies.swift; path = Rappi_pt/Model/TopRatedMovies.swift; sourceTree = SOURCE_ROOT; };
@@ -127,6 +129,7 @@
 		A6E7B35C212922BC00CCFBB2 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				A6BAFE43212F516E00A7E1C9 /* TMDbMovie.swift */,
 				A6A74B5A212CD19900425599 /* PopularMovies.swift */,
 				A6EFACFE212A49AF006AF9A0 /* TopRatedMovies.swift */,
 				A6EFAD05212A7EFA006AF9A0 /* UpcomingMovies.swift */,
@@ -267,6 +270,7 @@
 			files = (
 				A6A74B5B212CD19900425599 /* PopularMovies.swift in Sources */,
 				A6EFAD06212A7EFA006AF9A0 /* UpcomingMovies.swift in Sources */,
+				A6BAFE44212F516E00A7E1C9 /* TMDbMovie.swift in Sources */,
 				A6E7B359212919DE00CCFBB2 /* TMDbConstants.swift in Sources */,
 				A67B4B862129173400097CB9 /* UpcomingViewController.swift in Sources */,
 				A6EFACFF212A49AF006AF9A0 /* TopRatedMovies.swift in Sources */,
