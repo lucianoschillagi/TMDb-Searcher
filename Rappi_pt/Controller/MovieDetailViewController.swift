@@ -31,6 +31,7 @@ class MovieDetailViewController: UIViewController {
 	@IBOutlet weak var movieDetailTitle: UILabel!
 	@IBOutlet weak var moviePoster: UIImageView!
 	@IBOutlet weak var movieOverview: UITextView!
+	@IBOutlet weak var movieVoteAverage: UILabel!
 	
 	
 	//*****************************************************************
@@ -40,24 +41,38 @@ class MovieDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 			
-			self.title = movie?.title
-			
-			// el título de la película seleccionada
-			debugPrint(movie?.title)
-			
-			//movieDetailTitle.text = movie?.title
-			movieOverview.text = movie?.overview
-			
-			
-			
-			
-			
-
+			getTitleAndYear()
+			configureUIDetail()
     }
     
 
+	//*****************************************************************
+	// MARK: - Configure UI Elements
+	//*****************************************************************
 	
+	// task: obtener el título y el año de lanzamiento de la película
+	func getTitleAndYear() {
+		
+		var title = movie?.title
+		var releaseYear = movie?.releaseYear
+		
+		if let titleString = title, let yearString = releaseYear {
+			title = titleString
+			releaseYear = yearString
+			var titleReleaseYear = titleString + " (\(yearString))"
+			self.title = titleReleaseYear
+		}
+	}
 	
+	// task: configurar los elementos que componene la interfaz de usuario del detalle de la película
+	func configureUIDetail() {
+		
+		// pone el overview
+		movieOverview.text = movie?.overview
+		// el promedio de votos
+		movieVoteAverage.text = movie?.voteAverage
+		
+	}
 	
 	
 	

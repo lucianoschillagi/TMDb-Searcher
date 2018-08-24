@@ -125,8 +125,7 @@
 			children = (
 				A6BAFE43212F516E00A7E1C9 /* TMDbMovie.swift */,
 			);
-			name = Model;
-			path = "New Group";
+			path = Model;
 			sourceTree = "<group>";
 		};
 		A6EFAD04212A4B7E006AF9A0 /* TMDb API */ = {

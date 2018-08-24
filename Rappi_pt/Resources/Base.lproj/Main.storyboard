@@ -173,9 +173,19 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eCD-xw-JBh">
+                                <rect key="frame" x="162" y="636" width="42" height="21"/>
+                                <color key="backgroundColor" red="1" green="0.98823529409999999" blue="0.47450980390000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="0.2527923882" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="TEI-lO-6zg" firstAttribute="bottom" secondItem="eCD-xw-JBh" secondAttribute="bottom" constant="10" id="0qP-cA-jS4"/>
+                            <constraint firstItem="eCD-xw-JBh" firstAttribute="leading" secondItem="TEI-lO-6zg" secondAttribute="leading" constant="162" id="B3e-sE-DhL"/>
+                            <constraint firstItem="TEI-lO-6zg" firstAttribute="trailing" secondItem="eCD-xw-JBh" secondAttribute="trailing" constant="171" id="Cht-c8-1CE"/>
                             <constraint firstItem="waj-Uw-N7f" firstAttribute="leading" secondItem="TEI-lO-6zg" secondAttribute="leading" constant="38" id="LdK-eQ-Qw8"/>
                             <constraint firstItem="waj-Uw-N7f" firstAttribute="top" secondItem="FGR-fo-Zzz" secondAttribute="top" constant="143" id="NKy-Ub-HWX"/>
                             <constraint firstItem="TEI-lO-6zg" firstAttribute="bottom" secondItem="lln-Uu-qoA" secondAttribute="bottom" constant="51" id="R8n-nU-Xwr"/>
@@ -192,6 +202,7 @@
                         <outlet property="movieDetailTitle" destination="XtW-l6-p07" id="VOZ-IF-yHZ"/>
                         <outlet property="movieOverview" destination="lln-Uu-qoA" id="Uzo-dP-8ey"/>
                         <outlet property="moviePoster" destination="waj-Uw-N7f" id="2LI-Rl-fN5"/>
+                        <outlet property="movieVoteAverage" destination="eCD-xw-JBh" id="jN5-hZ-iJB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="q3n-Up-kSG" userLabel="First Responder" sceneMemberID="firstResponder"/>
