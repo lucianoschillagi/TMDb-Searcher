@@ -38,17 +38,6 @@ extension TMDbClient {
 	//*****************************************************************
 	struct Methods {
 		
-//		// MARK: Account
-//		static let Account = "/account"
-//		static let AccountIDFavoriteMovies = "/account/{id}/favorite/movies"
-//		static let AccountIDFavorite = "/account/{id}/favorite"
-//		static let AccountIDWatchlistMovies = "/account/{id}/watchlist/movies"
-//		static let AccountIDWatchlist = "/account/{id}/watchlist"
-//
-//		// MARK: Authentication
-//		static let AuthenticationTokenNew = "/authentication/token/new"
-//		static let AuthenticationSessionNew = "/authentication/session/new"
-		
 		// MARK: Search
 		static let SearchPopularMovie = "/movie/popular"
 		static let SearchTopRatedMovies = "/movie/top_rated"
@@ -133,6 +122,7 @@ extension TMDbClient {
 		static let MoviePosterPath = "poster_path"
 		static let MovieReleaseDate = "release_date"
 		static let MovieReleaseYear = "release_year"
+		static let MovieOverview = "overview"
 		static let MovieResults = "results"
 
 	}

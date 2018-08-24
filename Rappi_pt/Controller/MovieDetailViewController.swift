@@ -6,25 +6,59 @@
 //  Copyright © 2018 luko. All rights reserved.
 //
 
+/* Controller */
+
 import UIKit
 
+/* Abstract:
+
+*/
+
 class MovieDetailViewController: UIViewController {
+	
+	
+	//*****************************************************************
+	// MARK: - Properties
+	//*****************************************************************
+	
+	// la película seleccionada en la pantalla anterior
+	 var movie: TMDbMovie?
+	
+	//*****************************************************************
+	// MARK: - IBOutlets
+	//*****************************************************************
+	
+	@IBOutlet weak var movieDetailTitle: UILabel!
+	@IBOutlet weak var moviePoster: UIImageView!
+	@IBOutlet weak var movieOverview: UITextView!
+	
+	
+	//*****************************************************************
+	// MARK: - VC Life Cycle
+	//*****************************************************************
 
     override func viewDidLoad() {
         super.viewDidLoad()
+			
+			self.title = movie?.title
+			
+			// el título de la película seleccionada
+			debugPrint(movie?.title)
+			
+			//movieDetailTitle.text = movie?.title
+			movieOverview.text = movie?.overview
+			
+			
+			
+			
+			
 
-        // Do any additional setup after loading the view.
     }
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
-}
+	
+	
+	
+	
+	
+} // end class

@@ -30,6 +30,7 @@ struct TMDbMovie {
 	let id: Int
 	let posterPath: String?
 	let releaseYear: String?
+	let overview: String?
 	
 	//*****************************************************************
 	// MARK: - Initializers
@@ -40,6 +41,7 @@ struct TMDbMovie {
 		title = dictionary[TMDbClient.JSONResponseKeys.MovieTitle] as! String // "title"
 		id = dictionary[TMDbClient.JSONResponseKeys.MovieID] as! Int // "id"
 		posterPath = dictionary[TMDbClient.JSONResponseKeys.MoviePosterPath] as? String // "poster_path"
+		overview = dictionary[TMDbClient.JSONResponseKeys.MovieOverview] as? String // "poster_path"
 		
 		if let releaseDateString = dictionary[TMDbClient.JSONResponseKeys.MovieReleaseDate] as? String, releaseDateString.isEmpty == false {
 			releaseYear = releaseDateString.substring(to: releaseDateString.characters.index(releaseDateString.startIndex, offsetBy: 4))

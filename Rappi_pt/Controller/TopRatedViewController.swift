@@ -160,19 +160,17 @@ extension TopRatedViewController: UITableViewDataSource {
 // MARK: - Table View Delegate Methods
 //*****************************************************************
 
-//extension PopularViewController: UITableViewDelegate {
-//
-//	// task: almacenar el nombre de la tarjeta seleccionada para su posterior uso en la solicitud web
-//	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//
-//		let creditCard = allCreditCards[(indexPath as NSIndexPath).row]
-//		MercadoPagoClient.ParameterValues.PaymentMethod = creditCard.id // 🔌 👏
-//		PayMethodViewController.creditCardChoosen = creditCard.name // 🔌 👏
-//
-//		setUIEnabled(true)
-//	}
-//
-//} // end ext
+extension TopRatedViewController: UITableViewDelegate {
+	
+	// task: almacenar el nombre de la tarjeta seleccionada para su posterior uso en la solicitud web
+	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		
+		let controller = storyboard!.instantiateViewController(withIdentifier: "Detail") as! MovieDetailViewController
+		controller.movie = topRatedMovies[(indexPath as NSIndexPath).row]
+		navigationController!.pushViewController(controller, animated: true)
+	}
+	
+} // end ext
 
 
 //*****************************************************************

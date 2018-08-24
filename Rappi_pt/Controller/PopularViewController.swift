@@ -37,13 +37,17 @@ class PopularViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 			
-			debugPrint("↗️\(popularMovies)")
-			
+			navigationController?.navigationBar.prefersLargeTitles = true // large titles
+		
 			// networking 🚀
 			startRequest()
 			
+			// test
+			debugPrint("↗️\(popularMovies)")
+			
 	} // end view did load
-
+	
+	
 	//*****************************************************************
 	// MARK: - Networking
 	//*****************************************************************
@@ -169,19 +173,17 @@ extension PopularViewController: UITableViewDataSource {
 // MARK: - Table View Delegate Methods
 //*****************************************************************
 
-//extension PopularViewController: UITableViewDelegate {
-//	
-//	// task: almacenar el nombre de la tarjeta seleccionada para su posterior uso en la solicitud web
-//	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//		
-//		let creditCard = allCreditCards[(indexPath as NSIndexPath).row]
-//		MercadoPagoClient.ParameterValues.PaymentMethod = creditCard.id // 🔌 👏
-//		PayMethodViewController.creditCardChoosen = creditCard.name // 🔌 👏
-//		
-//		setUIEnabled(true)
-//	}
-//	
-//} // end ext
+extension PopularViewController: UITableViewDelegate {
+	
+	// task: almacenar el nombre de la tarjeta seleccionada para su posterior uso en la solicitud web
+	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		
+		let controller = storyboard!.instantiateViewController(withIdentifier: "Detail") as! MovieDetailViewController
+		controller.movie = popularMovies[(indexPath as NSIndexPath).row]
+		navigationController!.pushViewController(controller, animated: true)
+	}
+	
+} // end ext
 
 
 //*****************************************************************
