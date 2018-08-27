@@ -22,7 +22,13 @@ class MovieDetailViewController: UIViewController {
 	//*****************************************************************
 	
 	// la película seleccionada en la pantalla anterior
-	 var movie: TMDbMovie?
+
+	var detailMovie: TMDbMovie?
+	
+	// esconde la barra de estado
+	override var prefersStatusBarHidden: Bool {
+		return true
+	}
 	
 	//*****************************************************************
 	// MARK: - IBOutlets
@@ -43,6 +49,7 @@ class MovieDetailViewController: UIViewController {
 			
 			getTitleAndYear()
 			configureUIDetail()
+			
     }
     
 
@@ -53,8 +60,8 @@ class MovieDetailViewController: UIViewController {
 	// task: obtener el título y el año de lanzamiento de la película
 	func getTitleAndYear() {
 		
-		var title = movie?.title
-		var releaseYear = movie?.releaseYear
+		var title = detailMovie?.title
+		var releaseYear = detailMovie?.releaseYear
 		
 		if let titleString = title, let yearString = releaseYear {
 			title = titleString
@@ -68,9 +75,10 @@ class MovieDetailViewController: UIViewController {
 	func configureUIDetail() {
 		
 		// pone el overview
-		movieOverview.text = movie?.overview
+		movieOverview.text = detailMovie?.overview
 		// el promedio de votos
-		movieVoteAverage.text = movie?.voteAverage
+		let voteAverage = "Vote Average: \(Float((detailMovie?.voteAverage)!))"
+		movieVoteAverage.text = String(voteAverage)
 		
 	}
 	

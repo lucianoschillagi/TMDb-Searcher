@@ -167,7 +167,7 @@ extension UpcomingViewController: UITableViewDelegate {
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		
 		let controller = storyboard!.instantiateViewController(withIdentifier: "Detail") as! MovieDetailViewController
-		controller.movie = upcomingMovies[(indexPath as NSIndexPath).row]
+		controller.detailMovie = upcomingMovies[(indexPath as NSIndexPath).row]
 		navigationController!.pushViewController(controller, animated: true)
 	}
 	

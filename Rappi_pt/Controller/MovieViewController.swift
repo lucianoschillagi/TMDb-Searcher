@@ -1,8 +1,8 @@
 //
-//  TopRatedViewController.swift
+//  MasterViewController.swift
 //  Rappi_pt
 //
-//  Created by Luciano Schillagi on 19/08/2018.
+//  Created by Luciano Schillagi on 27/08/2018.
 //  Copyright © 2018 luko. All rights reserved.
 //
 
@@ -11,38 +11,99 @@
 import UIKit
 
 /* Abstract:
+
 */
 
-class TopRatedViewController: UIViewController {
+class MovieViewController: UIViewController {
 	
 	//*****************************************************************
 	// MARK: - Properties
 	//*****************************************************************
 	
-	//
+	
 	var topRatedMovies: [TMDbMovie] = [TMDbMovie]()
+	
+	
+	
+	// esconde la barra de estado
+	override var prefersStatusBarHidden: Bool {
+		return true
+	}
+	
+	// una referencia al siguiente vc
+	var detailViewController: MovieDetailViewController? = nil
+	
+	
+//	// MODEL
+//	// un array para contener todos los candies
+//	var candies = [Candy]()
+//	// un array para contener sólo los candies filtrados
+//	var filteredCandies = [Candy]()
+	
+	// crea el 'controlador de búsqueda' programáticamente
+	// searchResultsController a nil significa que los resultados serán mostrados en la misma vista del search controller (podría especificarse otro vc para que se muestren los resultados)
+	let searchController = UISearchController(searchResultsController: nil)
+	
 	
 	
 	//*****************************************************************
 	// MARK: - IBOutlets
 	//*****************************************************************
 	
+	@IBOutlet weak var searchBar: UISearchBar!
+	@IBOutlet weak var categories: UISegmentedControl!
 	@IBOutlet weak var tableView: UITableView!
 	@IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-	
+
 	
 	//*****************************************************************
 	// MARK: - VC Life Cycle
 	//*****************************************************************
-	
-	override func viewDidLoad() {
-		super.viewDidLoad()
-		
-		// networking 🚀
-		startRequest()
-		
-	} // end view did load
-	
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+			
+			startRequest()
+
+			// Configurando el Search Controller ////////////////////////////////////////////
+			// conforma el search controller con el protocolo 'UISearchResultsUpdating' 👈
+			//searchController.searchResultsUpdater = self // hecho desde el sb
+			
+			// no oscurecer el fondo cuando se presentan los resultados
+			searchController.obscuresBackgroundDuringPresentation = false
+			// agrega la barra de búsqueda dentro de la barra de navegación
+			navigationItem.searchController = searchController
+			// para que no permanezca la barra de búsqueda si el usuario navega hacia otro vc
+			definesPresentationContext = true
+
+			// the model (data source)
+//			candies = [
+//				Candy(category:"Chocolate", name:"Chocolate Bar"),
+//				Candy(category:"Chocolate", name:"Chocolate Chip"),
+//				Candy(category:"Chocolate", name:"Dark Chocolate"),
+//				Candy(category:"Hard", name:"Lollipop"),
+//				Candy(category:"Hard", name:"Candy Cane"),
+//				Candy(category:"Hard", name:"Jaw Breaker"),
+//				Candy(category:"Other", name:"Caramel"),
+//				Candy(category:"Other", name:"Sour Chew"),
+//				Candy(category:"Other", name:"Gummi Bear"),
+//				Candy(category:"Other", name:"Candy Floss"),
+//				Candy(category:"Chocolate", name:"Chocolate Coin"),
+//				Candy(category:"Chocolate", name:"Chocolate Egg"),
+//				Candy(category:"Other", name:"Jelly Beans"),
+//				Candy(category:"Other", name:"Liquorice"),
+//				Candy(category:"Hard", name:"Toffee Apple")
+//			]
+
+
+			if let splitViewController = splitViewController {
+				let controllers = splitViewController.viewControllers
+				detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? MovieDetailViewController
+			}
+			
+			
+			
+    } // end view did load
 	
 	//*****************************************************************
 	// MARK: - Networking
@@ -103,19 +164,28 @@ class TopRatedViewController: UIViewController {
 		self.activityIndicator.stopAnimating()
 	}
 	
+	
+	
+	
+	
+	
+	
+
 
 } // end class
+
 
 
 //*****************************************************************
 // MARK: - Table View Data Source Methods
 //*****************************************************************
 
-extension TopRatedViewController: UITableViewDataSource {
+extension MovieViewController: UITableViewDataSource {
 	
 	// task: determinar cuantas filas tendrá la tabla
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-
+		
+		//return topRatedMovies.count
 		return topRatedMovies.count
 	}
 	
@@ -125,7 +195,17 @@ extension TopRatedViewController: UITableViewDataSource {
 		let cellReuseId = "cell"
 		let movie = topRatedMovies[(indexPath as NSIndexPath).row]
 		let cell = tableView.dequeueReusableCell(withIdentifier: cellReuseId, for: indexPath) as UITableViewCell!
-		//cell?.textLabel?.text = movie.title
+		cell?.textLabel?.text = movie.title
+		let popularity = Float(movie.popularity!)
+		cell?.detailTextLabel?.text = "popularity: \(String(popularity)) "
+		
+		//test
+		debugPrint("👐\(cell?.detailTextLabel?.text)")
+		
+		debugPrint("datos sobre la películas: \(movie.id) \(movie.overview) \(movie.posterPath) \(movie.title), \(movie.voteAverage)")
+		
+		
+		
 		
 		
 		
@@ -158,12 +238,12 @@ extension TopRatedViewController: UITableViewDataSource {
 // MARK: - Table View Delegate Methods
 //*****************************************************************
 
-extension TopRatedViewController: UITableViewDelegate {
+extension MovieViewController: UITableViewDelegate {
 	
 	// task: almacenar el nombre de la tarjeta seleccionada para su posterior uso en la solicitud web
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		
-		let controller = storyboard!.instantiateViewController(withIdentifier: "Detail") as! MovieDetailViewController
+		let storyboardId = "Detail"
+		let controller = storyboard!.instantiateViewController(withIdentifier: storyboardId) as! MovieDetailViewController
 		controller.detailMovie = topRatedMovies[(indexPath as NSIndexPath).row]
 		navigationController!.pushViewController(controller, animated: true)
 	}
@@ -171,20 +251,6 @@ extension TopRatedViewController: UITableViewDelegate {
 } // end ext
 
 
-//*****************************************************************
-// MARK: - Navigation (Segue)
-//*****************************************************************
 
-//extension PopularViewController {
-//
-//	// task: enviar a 'BankViewController' el valor de la tarjeta seleccionada, para imprimirla luego en una etiqueta
-//	override func prepare(for segue: UIStoryboardSegue,sender: Any?) {
-//
-//		// si este vc tiene un segue con el identificador "toBankVC"
-//		if segue.identifier == "toBankVC" {
-//			let bankVC = segue.destination as! BankViewController
-//			bankVC.creditCardSelected = PayMethodViewController.creditCardChoosen
-//
-//		}
-//	}
-//}
+
+
