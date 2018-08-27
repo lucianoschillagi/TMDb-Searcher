@@ -22,6 +22,7 @@ class MovieViewController: UIViewController {
 	
 	
 	var topRatedMovies: [TMDbMovie] = [TMDbMovie]()
+	var upcomingMovies: [TMDbMovie] = [TMDbMovie]()
 	
 	var movie: TMDbMovie?
 	
@@ -52,7 +53,6 @@ class MovieViewController: UIViewController {
 	//*****************************************************************
 	
 	@IBOutlet weak var searchBar: UISearchBar!
-	@IBOutlet weak var categories: UISegmentedControl!
 	@IBOutlet weak var tableView: UITableView!
 	@IBOutlet weak var activityIndicator: UIActivityIndicatorView!
 
@@ -76,6 +76,11 @@ class MovieViewController: UIViewController {
 			navigationItem.searchController = searchController
 			// para que no permanezca la barra de búsqueda si el usuario navega hacia otro vc
 			definesPresentationContext = true
+			
+			// Setup the Scope Bar
+			let categories = ["All", "Popular", "Top Rated", "Uncoming"]
+			searchController.searchBar.scopeButtonTitles = categories
+			searchController.searchBar.delegate = self
 
 			// the model (data source)
 //			candies = [
@@ -101,7 +106,6 @@ class MovieViewController: UIViewController {
 				let controllers = splitViewController.viewControllers
 				detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? MovieDetailViewController
 			}
-			
 			
 			
     } // end view did load
@@ -189,7 +193,19 @@ extension MovieViewController: UITableViewDataSource {
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		
 		let cellReuseId = "cell"
+		
+		
+		if searchBar.selectedScopeButtonIndex == 3 {
+			
+			debugPrint("SIIIII")
+			let movie = upcomingMovies[(indexPath as NSIndexPath).row]
+			
+		}
+		
 		let movie = topRatedMovies[(indexPath as NSIndexPath).row]
+		
+		
+		
 		let cell = tableView.dequeueReusableCell(withIdentifier: cellReuseId, for: indexPath) as UITableViewCell!
 		cell?.textLabel?.text = movie.title
 		let popularity = Float(movie.popularity!)
@@ -237,4 +253,66 @@ extension MovieViewController: UITableViewDelegate {
 
 
 
+//*****************************************************************
+// MARK: - Search Result Updating Method
+//*****************************************************************
+
+extension MovieViewController: UISearchResultsUpdating {
+	// MARK: - UISearchResultsUpdating Delegate
+	
+	// task: actualizar los resultados de la búsqueda de acuerdo a la información ingresada por el usuario en le barra de búsqueda
+	func updateSearchResults(for searchController: UISearchController) { // 👈
+		//filterContentForSearchText(searchController.searchBar.text!)
+	}
+	
+}
+
+//*****************************************************************
+// MARK: - Search Bar Delegate
+//*****************************************************************
+
+extension MovieViewController: UISearchBarDelegate {
+	// MARK: - UISearchBar Delegate
+	func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
+		//filterContentForSearchText(searchBar.text!, scope: searchBar.scopeButtonTitles![selectedScope])
+		
+		
+		debugPrint("el scope seleccionado es el: \(selectedScope)")
+		
+		if selectedScope == 3 {
+		// networking ⬇
+		TMDbClient.getUpcomingMovies { (success, upcomingMovies, error) in
+			
+			// dispatch
+			DispatchQueue.main.async {
+				
+				// si la solicitud fue exitosa
+				if success {
+					print("UPCOMING MOVIES")
+					
+					// comprueba si el 'popularMovies' recibido contiene algún valor
+					if let upcomingMovies = upcomingMovies {
+						// si es así, se lo asigna a la propiedad ´upcomingMovies´
+						self.upcomingMovies = upcomingMovies // 🔌 👏
+						self.stopActivityIndicator()
+						self.tableView.reloadData()
+						
+						debugPrint("↗️\(upcomingMovies.count)")
+						
+						
+						
+					}
+					
+				} else {
+					
+				}
+				
+			}
+			
+		}
+		
+		} // end if
+		
+	}
+} // end ext
 

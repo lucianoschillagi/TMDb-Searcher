@@ -256,7 +256,7 @@
                                 <rect key="frame" x="178" y="323" width="20" height="20"/>
                             </activityIndicatorView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="lnE-BF-VWQ">
-                                <rect key="frame" x="0.0" y="92" width="375" height="575"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" textLabel="dUP-3N-Y1q" detailTextLabel="Ngr-vT-7K4" rowHeight="96" style="IBUITableViewCellStyleSubtitle" id="OWS-j0-NVL">
@@ -289,38 +289,26 @@
                                     <outlet property="delegate" destination="3Tp-jd-D2j" id="vWE-ut-FTa"/>
                                 </connections>
                             </tableView>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="VXD-i2-HrD">
-                                <rect key="frame" x="0.0" y="64" width="375" height="29"/>
-                                <segments>
-                                    <segment title="Popular"/>
-                                    <segment title="Top Rated"/>
-                                    <segment title="Upcoming"/>
-                                </segments>
-                            </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="vTn-6b-pr5" firstAttribute="leading" secondItem="wmX-vI-upb" secondAttribute="leading" id="0di-2I-cYk"/>
-                            <constraint firstItem="VXD-i2-HrD" firstAttribute="top" secondItem="5Of-KX-X4g" secondAttribute="top" id="4rh-GG-nCO"/>
-                            <constraint firstItem="VXD-i2-HrD" firstAttribute="leading" secondItem="lnE-BF-VWQ" secondAttribute="leading" id="CPh-Lg-GBM"/>
-                            <constraint firstItem="lnE-BF-VWQ" firstAttribute="top" secondItem="VXD-i2-HrD" secondAttribute="bottom" id="IJm-ku-tOx"/>
-                            <constraint firstItem="vTn-6b-pr5" firstAttribute="trailing" secondItem="VXD-i2-HrD" secondAttribute="trailing" id="Pz8-DV-cAN"/>
+                            <constraint firstItem="lnE-BF-VWQ" firstAttribute="centerX" secondItem="hQt-PI-0ou" secondAttribute="centerX" id="ERB-Fu-3a7"/>
+                            <constraint firstItem="lnE-BF-VWQ" firstAttribute="leading" secondItem="vTn-6b-pr5" secondAttribute="leading" id="QxT-cR-ADe"/>
                             <constraint firstItem="lnE-BF-VWQ" firstAttribute="bottom" secondItem="5Of-KX-X4g" secondAttribute="bottom" id="UbN-fU-uEf"/>
+                            <constraint firstItem="lnE-BF-VWQ" firstAttribute="top" secondItem="5Of-KX-X4g" secondAttribute="top" id="Xhn-KQ-qH0"/>
                             <constraint firstItem="5Of-KX-X4g" firstAttribute="bottom" secondItem="hQt-PI-0ou" secondAttribute="bottom" constant="324" id="bEz-t8-MXq"/>
                             <constraint firstAttribute="trailing" secondItem="vTn-6b-pr5" secondAttribute="trailing" id="c7H-tt-aKZ"/>
-                            <constraint firstItem="VXD-i2-HrD" firstAttribute="trailing" secondItem="lnE-BF-VWQ" secondAttribute="trailing" id="cGM-Nc-GPB"/>
+                            <constraint firstItem="lnE-BF-VWQ" firstAttribute="trailing" secondItem="vTn-6b-pr5" secondAttribute="trailing" id="lHH-iA-Y6O"/>
                             <constraint firstItem="hQt-PI-0ou" firstAttribute="leading" secondItem="5Of-KX-X4g" secondAttribute="leading" constant="178" id="qP7-Ux-LrD"/>
                             <constraint firstItem="vTn-6b-pr5" firstAttribute="top" secondItem="wmX-vI-upb" secondAttribute="top" id="qcw-fw-MOI"/>
-                            <constraint firstItem="vTn-6b-pr5" firstAttribute="leading" secondItem="VXD-i2-HrD" secondAttribute="leading" id="rlU-tn-05a"/>
                             <constraint firstItem="hQt-PI-0ou" firstAttribute="centerY" secondItem="wmX-vI-upb" secondAttribute="centerY" id="s3J-kZ-geX"/>
-                            <constraint firstItem="VXD-i2-HrD" firstAttribute="centerX" secondItem="hQt-PI-0ou" secondAttribute="centerX" id="t5Q-kV-CW1"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="5Of-KX-X4g"/>
                     </view>
                     <navigationItem key="navigationItem" title="Movies" largeTitleDisplayMode="always" id="OaS-Md-jAP"/>
                     <connections>
                         <outlet property="activityIndicator" destination="hQt-PI-0ou" id="MmO-Hr-cnm"/>
-                        <outlet property="categories" destination="VXD-i2-HrD" id="T4Q-xJ-yGZ"/>
                         <outlet property="searchBar" destination="vTn-6b-pr5" id="Srg-Yb-Vft"/>
                         <outlet property="tableView" destination="lnE-BF-VWQ" id="7Af-nd-gag"/>
                     </connections>
