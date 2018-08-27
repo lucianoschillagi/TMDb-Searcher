@@ -75,7 +75,10 @@ extension TMDbClient {
 		static let ApiKey = "0942529e191d0558f888245403b4dca7"
 		static let Language = "en-US"
 		static let Page = "1"
-
+		
+		// MARK: Get Poster Images
+		static let secureBaseImageURLString = "https://image.tmdb.org/t/p/"
+		static let posterSizes = ["w92", "w154", "w185", "w342", "w500", "w780", "original"]
 	}
 	
 	
@@ -124,8 +127,23 @@ extension TMDbClient {
 		static let MovieReleaseYear = "release_year"
 		static let MovieOverview = "overview"
 		static let MovieResults = "results"
+		static let MovieAverage = "vote_average"
+		static let MoviePopularity = "popularity"
 
 	}
 	
 	}
 
+
+/* para solicitar la IMAGEN del poster de la película se necesitan 3 piezas de datos:
+
+1- base_url
+var secureBaseImageURLString =  "https://image.tmdb.org/t/p/"
+
+2- file_size
+var posterSizes = ["w92", "w154", "w185", "w342", "w500", "w780", "original"]
+
+3- file_path
+var posterPath = "/adOzdWS35KAo21r9R4BuFCkLer6.jpg"
+
+*/

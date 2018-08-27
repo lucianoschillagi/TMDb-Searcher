@@ -44,8 +44,8 @@ struct TMDbMovie {
 		id = dictionary[TMDbClient.JSONResponseKeys.MovieID] as! Int // "id"
 		posterPath = dictionary[TMDbClient.JSONResponseKeys.MoviePosterPath] as? String // "poster_path"
 		overview = dictionary[TMDbClient.JSONResponseKeys.MovieOverview] as? String // "poster_path"
-		voteAverage = dictionary["vote_average"] as? Double // "vote_average"
-		popularity = dictionary["popularity"] as? Double // "popularity"
+		voteAverage = dictionary[TMDbClient.JSONResponseKeys.MovieAverage] as? Double // "vote_average"
+		popularity = dictionary[TMDbClient.JSONResponseKeys.MoviePopularity] as? Double // "popularity"
 		
 		if let releaseDateString = dictionary[TMDbClient.JSONResponseKeys.MovieReleaseDate] as? String, releaseDateString.isEmpty == false {
 			releaseYear = releaseDateString.substring(to: releaseDateString.characters.index(releaseDateString.startIndex, offsetBy: 4))

@@ -23,6 +23,7 @@ class MovieViewController: UIViewController {
 	
 	var topRatedMovies: [TMDbMovie] = [TMDbMovie]()
 	
+	var movie: TMDbMovie?
 	
 	
 	// esconde la barra de estado
@@ -141,11 +142,6 @@ class MovieViewController: UIViewController {
 				
 			}
 			
-			
-			
-			
-			
-			
 		}
 		
 	}
@@ -198,38 +194,26 @@ extension MovieViewController: UITableViewDataSource {
 		cell?.textLabel?.text = movie.title
 		let popularity = Float(movie.popularity!)
 		cell?.detailTextLabel?.text = "popularity: \(String(popularity)) "
-		
-		//test
-		debugPrint("👐\(cell?.detailTextLabel?.text)")
-		
-		debugPrint("datos sobre la películas: \(movie.id) \(movie.overview) \(movie.posterPath) \(movie.title), \(movie.voteAverage)")
-		
-		
-		
-		
-		
-		
-		//		cell?.imageView!.contentMode = UIView.ContentMode.scaleAspectFit
-		//
-		//
-		//		if let thumbPath = creditCard.thumb {
-		//			// realiza la solicitud para obtener la imágen
-		//			let _ = MercadoPagoClient.taskForGETImage(thumbPath) { (imageData, error) in
-		//				if let image = UIImage(data:imageData!) {
-		//
-		//					DispatchQueue.main.async {
-		//						cell?.imageView?.image = image
-		//					}
-		//				} else {
-		//					print(error ?? "empty error")
-		//				}
-		//			}
-		//
-		//		} // end optional binding
+	
+			// poster path
+			if let posterPath = movie.posterPath {
+				let _ = TMDbClient.getPosterImage(TMDbClient.ParameterValues.posterSizes[0], filePath: posterPath , { (imageData, error) in
+					if let image = UIImage(data: imageData!) {
+						DispatchQueue.main.async {
+							cell?.imageView!.image = image
+							debugPrint("👈\(image)")
+						}
+					} else {
+						print(error ?? "empty error")
+					}
+				})
+			}
 		
 		return cell!
 		
 	}
+		
+		
 	
 } // end class
 

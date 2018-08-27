@@ -50,6 +50,25 @@ class MovieDetailViewController: UIViewController {
 			getTitleAndYear()
 			configureUIDetail()
 			
+			
+			//TODO: obtener la imagen del poster y ponerla en el image view
+			// poster path
+			if let posterPath = detailMovie?.posterPath {
+				let _ = TMDbClient.getPosterImage(TMDbClient.ParameterValues.posterSizes[2], filePath: posterPath , { (imageData, error) in
+					if let image = UIImage(data: imageData!) {
+						DispatchQueue.main.async {
+							self.moviePoster.contentMode = UIView.ContentMode.scaleAspectFit
+							self.moviePoster.image = UIImage(data: imageData!)
+						}
+					} else {
+						print(error ?? "empty error")
+					}
+				})
+			}
+			
+			
+			
+			
     }
     
 
