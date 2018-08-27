@@ -17,6 +17,7 @@
 		A6B2271B2128A49E0024E410 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A6B2271A2128A49E0024E410 /* Assets.xcassets */; };
 		A6B2271E2128A49E0024E410 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A6B2271C2128A49E0024E410 /* LaunchScreen.storyboard */; };
 		A6BAFE44212F516E00A7E1C9 /* TMDbMovie.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6BAFE43212F516E00A7E1C9 /* TMDbMovie.swift */; };
+		A6CA8C48213439CE00AB0D67 /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6CA8C47213439CE00AB0D67 /* MasterViewController.swift */; };
 		A6E7B357212919AD00CCFBB2 /* MovieDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6E7B356212919AD00CCFBB2 /* MovieDetailViewController.swift */; };
 		A6E7B359212919DE00CCFBB2 /* TMDbConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6E7B358212919DE00CCFBB2 /* TMDbConstants.swift */; };
 /* End PBXBuildFile section */
@@ -36,6 +37,7 @@
 		A6B2271D2128A49E0024E410 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A6B2271F2128A49E0024E410 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A6BAFE43212F516E00A7E1C9 /* TMDbMovie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TMDbMovie.swift; path = Rappi_pt/Model/TMDbMovie.swift; sourceTree = SOURCE_ROOT; };
+		A6CA8C47213439CE00AB0D67 /* MasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
 		A6E7B356212919AD00CCFBB2 /* MovieDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailViewController.swift; sourceTree = "<group>"; };
 		A6E7B358212919DE00CCFBB2 /* TMDbConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TMDbConstants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -71,6 +73,7 @@
 		A67B4B80212916EF00097CB9 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				A6CA8C47213439CE00AB0D67 /* MasterViewController.swift */,
 				A67B4B812129171D00097CB9 /* PopularViewController.swift */,
 				A67B4B832129172B00097CB9 /* TopRatedViewController.swift */,
 				A67B4B852129173400097CB9 /* UpcomingViewController.swift */,
@@ -82,10 +85,10 @@
 		A67B4B872129175200097CB9 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				A6B227172128A49D0024E410 /* Main.storyboard */,
+				A6B2271F2128A49E0024E410 /* Info.plist */,
 				A6B2271A2128A49E0024E410 /* Assets.xcassets */,
 				A6B2271C2128A49E0024E410 /* LaunchScreen.storyboard */,
-				A6B2271F2128A49E0024E410 /* Info.plist */,
+				A6B227172128A49D0024E410 /* Main.storyboard */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -263,6 +266,7 @@
 				A67B4B862129173400097CB9 /* UpcomingViewController.swift in Sources */,
 				A67B4B822129171D00097CB9 /* PopularViewController.swift in Sources */,
 				A67B4B7E2129143300097CB9 /* TMDbClient.swift in Sources */,
+				A6CA8C48213439CE00AB0D67 /* MasterViewController.swift in Sources */,
 				A6B227142128A49D0024E410 /* AppDelegate.swift in Sources */,
 				A6E7B357212919AD00CCFBB2 /* MovieDetailViewController.swift in Sources */,
 				A67B4B842129172B00097CB9 /* TopRatedViewController.swift in Sources */,
