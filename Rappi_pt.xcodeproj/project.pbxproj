@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		5E8046B9E2B067F23CB90C92 /* Pods_Rappi_pt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F8B4ED3DEFF23A9AB0081AB /* Pods_Rappi_pt.framework */; };
+		A6561A522135B93A00DA3437 /* MovieTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6561A512135B93A00DA3437 /* MovieTheme.swift */; };
 		A67B4B7E2129143300097CB9 /* TMDbClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A67B4B7D2129143300097CB9 /* TMDbClient.swift */; };
 		A67B4B822129171D00097CB9 /* PopularViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A67B4B812129171D00097CB9 /* PopularViewController.swift */; };
 		A67B4B842129172B00097CB9 /* TopRatedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A67B4B832129172B00097CB9 /* TopRatedViewController.swift */; };
@@ -26,6 +27,7 @@
 		677D63495A11716697F18E9A /* Pods-Rappi_pt.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Rappi_pt.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Rappi_pt/Pods-Rappi_pt.debug.xcconfig"; sourceTree = "<group>"; };
 		97D29087A8CABF721A63A04B /* Pods-Rappi_pt.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Rappi_pt.release.xcconfig"; path = "Pods/Target Support Files/Pods-Rappi_pt/Pods-Rappi_pt.release.xcconfig"; sourceTree = "<group>"; };
 		9F8B4ED3DEFF23A9AB0081AB /* Pods_Rappi_pt.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Rappi_pt.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A6561A512135B93A00DA3437 /* MovieTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieTheme.swift; sourceTree = "<group>"; };
 		A67B4B7D2129143300097CB9 /* TMDbClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TMDbClient.swift; sourceTree = "<group>"; };
 		A67B4B812129171D00097CB9 /* PopularViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularViewController.swift; sourceTree = "<group>"; };
 		A67B4B832129172B00097CB9 /* TopRatedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopRatedViewController.swift; sourceTree = "<group>"; };
@@ -60,6 +62,15 @@
 				9F8B4ED3DEFF23A9AB0081AB /* Pods_Rappi_pt.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A6561A532135B93F00DA3437 /* VIew */ = {
+			isa = PBXGroup;
+			children = (
+				A6561A512135B93A00DA3437 /* MovieTheme.swift */,
+			);
+			name = VIew;
+			path = "New Group";
 			sourceTree = "<group>";
 		};
 		A67B4B7F212916E200097CB9 /* Networking */ = {
@@ -118,6 +129,7 @@
 				A67B4B80212916EF00097CB9 /* Controller */,
 				A67B4B7F212916E200097CB9 /* Networking */,
 				A6E7B35C212922BC00CCFBB2 /* Model */,
+				A6561A532135B93F00DA3437 /* VIew */,
 				A67B4B872129175200097CB9 /* Resources */,
 			);
 			path = Rappi_pt;
@@ -265,6 +277,7 @@
 				A6E7B359212919DE00CCFBB2 /* TMDbConstants.swift in Sources */,
 				A67B4B862129173400097CB9 /* UpcomingViewController.swift in Sources */,
 				A67B4B822129171D00097CB9 /* PopularViewController.swift in Sources */,
+				A6561A522135B93A00DA3437 /* MovieTheme.swift in Sources */,
 				A67B4B7E2129143300097CB9 /* TMDbClient.swift in Sources */,
 				A6CA8C48213439CE00AB0D67 /* MovieViewController.swift in Sources */,
 				A6B227142128A49D0024E410 /* AppDelegate.swift in Sources */,

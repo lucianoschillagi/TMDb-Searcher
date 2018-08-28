@@ -37,10 +37,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
 			splitViewController.preferredDisplayMode = .allVisible
 		splitViewController.delegate = self
 		
-		debugPrint("↗️\(navigationController)")
-	
-			UISearchBar.appearance().tintColor = .gray
-			UINavigationBar.appearance().tintColor = .gray
+			// configura la apariencia de la barra de búsqueda y de la barra de navegación
+			UISearchBar.appearance().tintColor = .movieGreen
+			UINavigationBar.appearance().tintColor = .movieGreen
 	
 			return true
 		}
