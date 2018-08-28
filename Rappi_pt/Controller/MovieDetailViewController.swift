@@ -11,7 +11,7 @@
 import UIKit
 
 /* Abstract:
-
+Una pantalla que muestra el detalle de la película seleccionada en la pantalla anterior.
 */
 
 class MovieDetailViewController: UIViewController {
@@ -22,8 +22,7 @@ class MovieDetailViewController: UIViewController {
 	//*****************************************************************
 	
 	// la película seleccionada en la pantalla anterior
-
-	var detailMovie: TMDbMovie?
+	var selectedMovie: TMDbMovie?
 	
 	// esconde la barra de estado
 	override var prefersStatusBarHidden: Bool {
@@ -34,10 +33,10 @@ class MovieDetailViewController: UIViewController {
 	// MARK: - IBOutlets
 	//*****************************************************************
 	
-	@IBOutlet weak var movieDetailTitle: UILabel!
 	@IBOutlet weak var moviePoster: UIImageView!
 	@IBOutlet weak var movieOverview: UITextView!
 	@IBOutlet weak var movieVoteAverage: UILabel!
+	@IBOutlet weak var trailerButton: UIButton!
 	
 	
 	//*****************************************************************
@@ -47,13 +46,16 @@ class MovieDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 			
+			debugPrint("😆\(selectedMovie)")
+			
 			getTitleAndYear()
 			configureUIDetail()
 			
 			
+			
 			//TODO: obtener la imagen del poster y ponerla en el image view
 			// poster path
-			if let posterPath = detailMovie?.posterPath {
+			if let posterPath = selectedMovie?.posterPath {
 				let _ = TMDbClient.getPosterImage(TMDbClient.ParameterValues.posterSizes[2], filePath: posterPath , { (imageData, error) in
 					if let image = UIImage(data: imageData!) {
 						DispatchQueue.main.async {
@@ -66,12 +68,9 @@ class MovieDetailViewController: UIViewController {
 				})
 			}
 			
-			
-			
-			
     }
     
-
+	
 	//*****************************************************************
 	// MARK: - Configure UI Elements
 	//*****************************************************************
@@ -79,8 +78,8 @@ class MovieDetailViewController: UIViewController {
 	// task: obtener el título y el año de lanzamiento de la película
 	func getTitleAndYear() {
 		
-		var title = detailMovie?.title
-		var releaseYear = detailMovie?.releaseYear
+		var title = selectedMovie?.title
+		var releaseYear = selectedMovie?.releaseYear
 		
 		if let titleString = title, let yearString = releaseYear {
 			title = titleString
@@ -94,9 +93,9 @@ class MovieDetailViewController: UIViewController {
 	func configureUIDetail() {
 		
 		// pone el overview
-		movieOverview.text = detailMovie?.overview
+		movieOverview.text = selectedMovie?.overview
 		// el promedio de votos
-		let voteAverage = "Vote Average: \(Float((detailMovie?.voteAverage)!))"
+		let voteAverage = "Vote Average: \(Float((selectedMovie?.voteAverage)!))"
 		movieVoteAverage.text = String(voteAverage)
 		
 	}
@@ -104,3 +103,21 @@ class MovieDetailViewController: UIViewController {
 	
 	
 } // end class
+
+extension MovieDetailViewController {
+	
+	// task: inyectar a 'MovieTrailerViewController' el 'selected moview object'
+	override func prepare(for segue: UIStoryboardSegue,sender: Any?) {
+		
+		if segue.identifier == "toTrailer" {
+			
+			// el destino de la transición, el 'MovieTrailerViewController'
+			let trailerVC = segue.destination as! MovieTrailerViewController
+			
+			// el controlador de datos
+			trailerVC.selectedMovie = selectedMovie
+			
+		}
+		
+	}
+}

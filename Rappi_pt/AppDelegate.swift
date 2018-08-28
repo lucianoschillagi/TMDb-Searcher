@@ -52,7 +52,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
 			
 			guard let secondaryAsNavController = secondaryViewController as? UINavigationController else { return false }
 			guard let topAsDetailController = secondaryAsNavController.topViewController as? MovieDetailViewController else { return false }
-			if topAsDetailController.detailMovie == nil {
+			if topAsDetailController.selectedMovie == nil {
 				// Return true to indicate that we have handled the collapse by doing nothing; the secondary controller will be discarded.
 				debugPrint("😉\(topAsDetailController)")
 				

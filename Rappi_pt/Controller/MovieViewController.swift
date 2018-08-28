@@ -20,20 +20,27 @@ class MovieViewController: UIViewController {
 	// MARK: - Properties
 	//*****************************************************************
 	
-	
-	var topRatedMovies: [TMDbMovie] = [TMDbMovie]()
-	var upcomingMovies: [TMDbMovie] = [TMDbMovie]()
-	
+	// MARK: Movies 🎬
+	// un objeto que representa a UNA película
 	var movie: TMDbMovie?
+	// trae las 'popular movies'
+	var popularMovies: [TMDbMovie] = [TMDbMovie]()
+	// trae las 'top rated movies'
+	var topRatedMovies: [TMDbMovie] = [TMDbMovie]()
+	// trae las 'upcoming movies'
+	var upcomingMovies: [TMDbMovie] = [TMDbMovie]()
+
 	
-	
-	// esconde la barra de estado
+	// MARK: Status Bar
 	override var prefersStatusBarHidden: Bool {
 		return true
 	}
 	
-	// una referencia al siguiente vc
-	var detailViewController: MovieDetailViewController? = nil
+	// MARK: Movie Detail VC 🔜
+	var detailViewController: MovieDetailViewController? = nil // una instancia del 'movie detail view controller'
+	
+	// MARK: Search Controller 🔎
+	let searchController = UISearchController(searchResultsController: nil)
 	
 	
 //	// MODEL
@@ -41,11 +48,6 @@ class MovieViewController: UIViewController {
 //	var candies = [Candy]()
 //	// un array para contener sólo los candies filtrados
 //	var filteredCandies = [Candy]()
-	
-	// crea el 'controlador de búsqueda' programáticamente
-	// searchResultsController a nil significa que los resultados serán mostrados en la misma vista del search controller (podría especificarse otro vc para que se muestren los resultados)
-	let searchController = UISearchController(searchResultsController: nil)
-	
 	
 	
 	//*****************************************************************
@@ -64,52 +66,76 @@ class MovieViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 			
+			// search & scope bar
+			configureSearchAndScopeBar()
+			// detail vc
+			configureDetailVC()
+			// network request
 			startRequest()
 
-			// Configurando el Search Controller ////////////////////////////////////////////
-			// conforma el search controller con el protocolo 'UISearchResultsUpdating' 👈
-			//searchController.searchResultsUpdater = self // hecho desde el sb
-			
-			// no oscurecer el fondo cuando se presentan los resultados
-			searchController.obscuresBackgroundDuringPresentation = false
-			// agrega la barra de búsqueda dentro de la barra de navegación
-			navigationItem.searchController = searchController
-			// para que no permanezca la barra de búsqueda si el usuario navega hacia otro vc
-			definesPresentationContext = true
-			
-			// Setup the Scope Bar
-			let categories = ["All", "Popular", "Top Rated", "Uncoming"]
-			searchController.searchBar.scopeButtonTitles = categories
-			searchController.searchBar.delegate = self
-
-			// the model (data source)
-//			candies = [
-//				Candy(category:"Chocolate", name:"Chocolate Bar"),
-//				Candy(category:"Chocolate", name:"Chocolate Chip"),
-//				Candy(category:"Chocolate", name:"Dark Chocolate"),
-//				Candy(category:"Hard", name:"Lollipop"),
-//				Candy(category:"Hard", name:"Candy Cane"),
-//				Candy(category:"Hard", name:"Jaw Breaker"),
-//				Candy(category:"Other", name:"Caramel"),
-//				Candy(category:"Other", name:"Sour Chew"),
-//				Candy(category:"Other", name:"Gummi Bear"),
-//				Candy(category:"Other", name:"Candy Floss"),
-//				Candy(category:"Chocolate", name:"Chocolate Coin"),
-//				Candy(category:"Chocolate", name:"Chocolate Egg"),
-//				Candy(category:"Other", name:"Jelly Beans"),
-//				Candy(category:"Other", name:"Liquorice"),
-//				Candy(category:"Hard", name:"Toffee Apple")
-//			]
-
-
-			if let splitViewController = splitViewController {
-				let controllers = splitViewController.viewControllers
-				detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? MovieDetailViewController
-			}
-			
-			
-    } // end view did load
+    }
 	
+	
+	//*****************************************************************
+	// MARK: - Helpers
+	//*****************************************************************
+	
+	
+	func setModel() {
+		
+		// the model (data source)
+		//			candies = [
+		//				Candy(category:"Chocolate", name:"Chocolate Bar"),
+		//				Candy(category:"Chocolate", name:"Chocolate Chip"),
+		//				Candy(category:"Chocolate", name:"Dark Chocolate"),
+		//				Candy(category:"Hard", name:"Lollipop"),
+		//				Candy(category:"Hard", name:"Candy Cane"),
+		//				Candy(category:"Hard", name:"Jaw Breaker"),
+		//				Candy(category:"Other", name:"Caramel"),
+		//				Candy(category:"Other", name:"Sour Chew"),
+		//				Candy(category:"Other", name:"Gummi Bear"),
+		//				Candy(category:"Other", name:"Candy Floss"),
+		//				Candy(category:"Chocolate", name:"Chocolate Coin"),
+		//				Candy(category:"Chocolate", name:"Chocolate Egg"),
+		//				Candy(category:"Other", name:"Jelly Beans"),
+		//				Candy(category:"Other", name:"Liquorice"),
+		//				Candy(category:"Hard", name:"Toffee Apple")
+		//			]
+		
+	}
+	
+	
+	
+	
+	
+	// task: -----
+	func configureDetailVC(){
+		if let splitViewController = splitViewController {
+			let controllers = splitViewController.viewControllers
+			detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? MovieDetailViewController
+		}
+	}
+	
+
+	// task: configurar la barra de búsqueda y la barra de alcance
+	func configureSearchAndScopeBar() {
+		
+		// MARK: Configurando el 'Search Controller'
+		// conforma el search controller con el protocolo 'UISearchResultsUpdating'
+		searchController.searchResultsUpdater = self
+		// no oscurecer el fondo cuando se presentan los resultados
+		searchController.obscuresBackgroundDuringPresentation = false
+		// agrega la barra de búsqueda dentro de la barra de navegación
+		navigationItem.searchController = searchController
+		// para que no permanezca la barra de búsqueda si el usuario navega hacia otro vc
+		definesPresentationContext = true
+		
+		// MARK: Configurando el 'Scope Bar'
+		searchController.searchBar.delegate = self
+		let categories = ["Popular", "Top Rated", "Uncoming"]
+		searchController.searchBar.scopeButtonTitles = categories
+	}
+
 	//*****************************************************************
 	// MARK: - Networking
 	//*****************************************************************
@@ -163,17 +189,9 @@ class MovieViewController: UIViewController {
 		activityIndicator.alpha = 0.0
 		self.activityIndicator.stopAnimating()
 	}
-	
-	
-	
-	
-	
-	
-	
 
 
 } // end class
-
 
 
 //*****************************************************************
@@ -244,7 +262,7 @@ extension MovieViewController: UITableViewDelegate {
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		let storyboardId = "Detail"
 		let controller = storyboard!.instantiateViewController(withIdentifier: storyboardId) as! MovieDetailViewController
-		controller.detailMovie = topRatedMovies[(indexPath as NSIndexPath).row]
+		controller.selectedMovie = topRatedMovies[(indexPath as NSIndexPath).row]
 		navigationController!.pushViewController(controller, animated: true)
 	}
 	

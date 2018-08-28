@@ -1,5 +1,5 @@
 //
-//  TopRatedViewController.swift
+//  UpcomingViewController.swift
 //  Rappi_pt
 //
 //  Created by Luciano Schillagi on 19/08/2018.
@@ -13,22 +13,24 @@ import UIKit
 /* Abstract:
 */
 
-class TopRatedViewController: UIViewController {
+class UpcomingViewController: UIViewController {
 	
 	//*****************************************************************
 	// MARK: - Properties
 	//*****************************************************************
 	
 	//
-	var topRatedMovies: [TMDbMovie] = [TMDbMovie]()
+	var upcomingMovies: [TMDbMovie] = [TMDbMovie]()
 	
-	
+
 	//*****************************************************************
 	// MARK: - IBOutlets
 	//*****************************************************************
 	
+
 	@IBOutlet weak var tableView: UITableView!
 	@IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+	
 	
 	
 	//*****************************************************************
@@ -37,6 +39,8 @@ class TopRatedViewController: UIViewController {
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
+		
+		debugPrint("↗️\(upcomingMovies)")
 		
 		// networking 🚀
 		startRequest()
@@ -52,7 +56,7 @@ class TopRatedViewController: UIViewController {
 	func startRequest() {
 		
 		// networking ⬇
-		TMDbClient.getTopRatedMovies { (success, topRatedMovies, error) in
+		TMDbClient.getUpcomingMovies { (success, upcomingMovies, error) in
 			
 			// dispatch
 			DispatchQueue.main.async {
@@ -62,13 +66,13 @@ class TopRatedViewController: UIViewController {
 					print("HOLA")
 					
 					// comprueba si el 'popularMovies' recibido contiene algún valor
-					if let topRatedMovies = topRatedMovies {
+					if let upcomingMovies = upcomingMovies {
 						// si es así, se lo asigna a la propiedad ´popularMovies´
-						self.topRatedMovies = topRatedMovies // 🔌 👏
+						self.upcomingMovies = upcomingMovies // 🔌 👏
 						self.stopActivityIndicator()
 						self.tableView.reloadData()
 						
-						debugPrint("↗️\(topRatedMovies.count)")
+						debugPrint("↗️\(upcomingMovies.count)")
 						
 						
 						
@@ -80,14 +84,10 @@ class TopRatedViewController: UIViewController {
 				
 			}
 			
-			
-			
-			
-			
-			
 		}
 		
 	}
+	
 	
 	//*****************************************************************
 	// MARK: - Activity Indicator
@@ -103,6 +103,8 @@ class TopRatedViewController: UIViewController {
 		self.activityIndicator.stopAnimating()
 	}
 	
+	
+	
 
 } // end class
 
@@ -111,21 +113,22 @@ class TopRatedViewController: UIViewController {
 // MARK: - Table View Data Source Methods
 //*****************************************************************
 
-extension TopRatedViewController: UITableViewDataSource {
+extension UpcomingViewController: UITableViewDataSource {
 	
 	// task: determinar cuantas filas tendrá la tabla
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-
-		return topRatedMovies.count
+		
+		debugPrint("Upcoming \(upcomingMovies.count)")
+		return upcomingMovies.count
 	}
 	
 	// task: configurar las celdas de la tabla
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		
 		let cellReuseId = "cell"
-		let movie = topRatedMovies[(indexPath as NSIndexPath).row]
+		let movie = upcomingMovies[(indexPath as NSIndexPath).row]
 		let cell = tableView.dequeueReusableCell(withIdentifier: cellReuseId, for: indexPath) as UITableViewCell!
-		//cell?.textLabel?.text = movie.title
+		cell?.textLabel?.text = movie.title
 		
 		
 		
@@ -158,18 +161,17 @@ extension TopRatedViewController: UITableViewDataSource {
 // MARK: - Table View Delegate Methods
 //*****************************************************************
 
-extension TopRatedViewController: UITableViewDelegate {
+extension UpcomingViewController: UITableViewDelegate {
 	
 	// task: almacenar el nombre de la tarjeta seleccionada para su posterior uso en la solicitud web
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		
 		let controller = storyboard!.instantiateViewController(withIdentifier: "Detail") as! MovieDetailViewController
-		controller.detailMovie = topRatedMovies[(indexPath as NSIndexPath).row]
+		controller.selectedMovie = upcomingMovies[(indexPath as NSIndexPath).row]
 		navigationController!.pushViewController(controller, animated: true)
 	}
 	
 } // end ext
-
 
 //*****************************************************************
 // MARK: - Navigation (Segue)

@@ -29,8 +29,9 @@ extension TMDbClient {
 		static let ApiScheme = "https"
 		static let ApiHost = "api.themoviedb.org"
 		static let ApiPath = "/3"
-		static let AuthorizationURL = "https://www.themoviedb.org/authenticate/"
-		static let AccountURL = "https://www.themoviedb.org/account/"
+	
+		// MARK: Youtbe
+		static let YouTubeBaseURL = "https://www.youtube.com/watch?v="
 	}
 	
 	//*****************************************************************
@@ -42,11 +43,15 @@ extension TMDbClient {
 		static let SearchPopularMovie = "/movie/popular"
 		static let SearchTopRatedMovies = "/movie/top_rated"
 		static let SearchUpcomingMovies = "/movie/upcoming"
+		static let SearchMovie = "/movie/"
+		static let SearchVideo = "/videos"
 		
 //		// MARK: Config
 //		static let Config = "/configuration"
 		
 	}
+	
+	//https://api.themoviedb.org/3/movie/19404/videos?api_key=0942529e191d0558f888245403b4dca7&language=en-US
 	
 	//*****************************************************************
 	// MARK: - URL Keys
@@ -72,9 +77,10 @@ extension TMDbClient {
 	//*****************************************************************
 	
 	struct ParameterValues {
+		
 		static let ApiKey = "0942529e191d0558f888245403b4dca7"
 		static let Language = "en-US"
-		static let Page = "1"
+		static let Page = "1" // TODO: cambiar, que devuelva una página aleatoriamente sobre todas las recibidas
 		
 		// MARK: Get Poster Images
 		static let secureBaseImageURLString = "https://image.tmdb.org/t/p/"
@@ -105,13 +111,6 @@ extension TMDbClient {
 		static let StatusMessage = "status_message"
 		static let StatusCode = "status_code"
 
-		// MARK: Authorization
-		static let RequestToken = "request_token"
-		static let SessionID = "session_id"
-
-		// MARK: Account
-		static let UserID = "id"
-
 		// MARK: Config
 		static let ConfigBaseImageURL = "base_url"
 		static let ConfigSecureBaseImageURL = "secure_base_url"
@@ -129,9 +128,11 @@ extension TMDbClient {
 		static let MovieResults = "results"
 		static let MovieAverage = "vote_average"
 		static let MoviePopularity = "popularity"
+		
+		// MARK: Video
+		static let MovieVideoKey = "key"
 
-	}
-	
+		}
 	}
 
 

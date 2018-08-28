@@ -18,6 +18,10 @@ valores buscados 🔎 a extraer y almacenar 📦
 -id
 -poster path
 -release year
+-overview
+-vote average
+-popularity
+-video key
 */
 
 struct TMDbMovie {
@@ -26,13 +30,14 @@ struct TMDbMovie {
 	// MARK: - Properties
 	//*****************************************************************
 	
-	let title: String
-	let id: Int
+	let title: String?
+	let id: Int?
 	let posterPath: String?
 	let releaseYear: String?
 	let overview: String?
 	let voteAverage: Double?
 	let popularity: Double?
+	let videoKey: String?
 	
 	//*****************************************************************
 	// MARK: - Initializers
@@ -40,12 +45,13 @@ struct TMDbMovie {
 	
 	// construye el objeto 'TMDbMovie' desde un diccionario  👈
 	init(dictionary: [String:AnyObject]) {
-		title = dictionary[TMDbClient.JSONResponseKeys.MovieTitle] as! String // "title"
-		id = dictionary[TMDbClient.JSONResponseKeys.MovieID] as! Int // "id"
+		title = dictionary[TMDbClient.JSONResponseKeys.MovieTitle] as? String // "title"
+		id = dictionary[TMDbClient.JSONResponseKeys.MovieID] as? Int // "id"
 		posterPath = dictionary[TMDbClient.JSONResponseKeys.MoviePosterPath] as? String // "poster_path"
 		overview = dictionary[TMDbClient.JSONResponseKeys.MovieOverview] as? String // "poster_path"
 		voteAverage = dictionary[TMDbClient.JSONResponseKeys.MovieAverage] as? Double // "vote_average"
 		popularity = dictionary[TMDbClient.JSONResponseKeys.MoviePopularity] as? Double // "popularity"
+		videoKey = dictionary[TMDbClient.JSONResponseKeys.MovieVideoKey] as? String // "key"
 		
 		if let releaseDateString = dictionary[TMDbClient.JSONResponseKeys.MovieReleaseDate] as? String, releaseDateString.isEmpty == false {
 			releaseYear = releaseDateString.substring(to: releaseDateString.characters.index(releaseDateString.startIndex, offsetBy: 4))

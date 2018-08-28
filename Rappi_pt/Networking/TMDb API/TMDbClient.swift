@@ -156,71 +156,8 @@ class TMDbClient: NSObject {
 		}
 	}
 	
-	
-	
-//	func taskForGETImage(_ size: String, filePath: String, completionHandlerForImage: @escaping (_ imageData: Data?, _ error: NSError?) -> Void) -> URLSessionTask {
-//
-//		/* 1. Set the parameters */
-//		// There are none...
-//
-//		/* 2/3. Build the URL and configure the request */
-//		let baseURL = URL(string: config.baseImageURLString)!
-//		let url = baseURL.appendingPathComponent(size).appendingPathComponent(filePath)
-//		let request = URLRequest(url: url)
-//
-//		/* 4. Make the request */
-//		let task = session.dataTask(with: request) { (data, response, error) in
-//
-//			func sendError(_ error: String) {
-//				print(error)
-//				let userInfo = [NSLocalizedDescriptionKey : error]
-//				completionHandlerForImage(nil, NSError(domain: "taskForGETMethod", code: 1, userInfo: userInfo))
-//			}
-//
-//			/* GUARD: Was there an error? */
-//			guard (error == nil) else {
-//				sendError("There was an error with your request: \(error!)")
-//				return
-//			}
-//
-//			/* GUARD: Did we get a successful 2XX response? */
-//			guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode <= 299 else {
-//				sendError("Your request returned a status code other than 2xx!")
-//				return
-//			}
-//
-//			/* GUARD: Was there any data returned? */
-//			guard let data = data else {
-//				sendError("No data was returned by the request!")
-//				return
-//			}
-//
-//			/* 5/6. Parse the data and use the data (happens in completion handler) */
-//			completionHandlerForImage(data, nil)
-//		}
-//
-//		/* 7. Start the request */
-//		task.resume()
-//
-//		return task
-//	}
-//
-	
-	
 	// MARK: Get Images
 	// task: obtener las imágenes (posters) de las películas
-	
-//	Images
-//	You'll notice that movie, TV and person objects contain references to different file paths. In order to generate a fully working image URL, you'll need 3 pieces of data. Those pieces are a base_url, a file_size and a file_path.
-//
-//	The first two pieces can be retrieved by calling the  API and the third is the file path you're wishing to grab on a particular media object. Here's what a full image URL looks like if the poster_path of /kqjL17yufvn9OVLyXYpvtyrFfak.jpg was returned for a movie, and you were looking for the w500 size:
-//
-//	https://image.tmdb.org/t/p/w500/kqjL17yufvn9OVLyXYpvtyrFfak.jpg
-	
-	// base_url: https://image.tmdb.org/t/p
-	// file_size: /w500
-	// file_path: /kqjL17yufvn9OVLyXYpvtyrFfak.jpg
-	
 	static func getPosterImage(_ size: String, filePath: String, _ completionHandlerForPosterImage: @escaping ( _ imageData: Data?, _ error: String?) -> Void) {
 		
 		/* 2/3. Build the URL and configure the request */
@@ -258,7 +195,48 @@ class TMDbClient: NSObject {
 	}
 	
 	
-	
+	// MARK: Get Video
+	// task: obtener el video de una película en particular
+	static func getMovieTrailer(_ videoMethod: String, _ completionHandlerForVideo: @escaping ( _ video: [TMDbMovie]?, _ error: String?) -> Void) {
+		
+		//"https://api.themoviedb.org/3/movie/19404/videos?api_key=0942529e191d0558f888245403b4dca7&language=en-US"
+		
+		
+		/* 1. 📞 Realiza la llamada a la API, a través de la función request() de Alamofire 🚀 */
+		Alamofire.request(configureUrl(videoMethod)).responseJSON { response in
+			
+			// response status code
+			if let status = response.response?.statusCode {
+				switch(status){
+				case 200:
+					print("example success")
+				default:
+					let errorMessage = "error with response status: \(status)"
+					completionHandlerForVideo(nil, errorMessage)
+				}
+			}
+			
+			/* 2. Almacena la respuesta del servidor (response.result.value) en la constante 'jsonObjectResult' 📦 */
+			if let jsonObjectResult: Any = response.result.value {
+				
+				let jsonObjectResultDictionary = jsonObjectResult as! [String:AnyObject]
+				
+				debugPrint("🤜JSON POPULAR MOVIES: \(jsonObjectResult)") // JSON obtenido
+				
+				if let results = jsonObjectResultDictionary["results"] {
+					
+					let resultsVideoMovie = TMDbMovie.moviesFromResults(results as! [[String : AnyObject]])
+					
+					//test
+					debugPrint("🤾🏼‍♂️ TMDBMovie...\(resultsVideoMovie)")
+					
+					completionHandlerForVideo(resultsVideoMovie, nil)
+					
+				}
+			}
+		}
+		
+	}
 	
 	
 	

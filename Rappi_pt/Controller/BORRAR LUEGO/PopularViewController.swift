@@ -179,7 +179,7 @@ extension PopularViewController: UITableViewDelegate {
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		
 		let controller = storyboard!.instantiateViewController(withIdentifier: "Detail") as! MovieDetailViewController
-		controller.detailMovie = popularMovies[(indexPath as NSIndexPath).row]
+		controller.selectedMovie = popularMovies[(indexPath as NSIndexPath).row]
 		navigationController!.pushViewController(controller, animated: true)
 	}
 	
