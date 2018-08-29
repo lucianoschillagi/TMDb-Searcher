@@ -75,12 +75,7 @@ class MovieViewController: UIViewController {
 
     }
 	
-	override func viewWillAppear(_ animated: Bool) {
-		
-		
-		
-		
-	}
+	override func viewWillAppear(_ animated: Bool) {}
 	
 	//*****************************************************************
 	// MARK: - Helpers

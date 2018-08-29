@@ -89,13 +89,28 @@
                     <view key="view" contentMode="scaleToFill" id="tiR-Yl-jSd">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ckD-gH-aQc" customClass="YouTubePlayerView" customModule="YouTubePlayer_Swift">
+                                <rect key="frame" x="0.0" y="225" width="375" height="217"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="ckD-gH-aQc" firstAttribute="top" secondItem="lbo-I5-Wov" secondAttribute="top" constant="161" id="ORu-PY-QyM"/>
+                            <constraint firstItem="ckD-gH-aQc" firstAttribute="centerY" secondItem="tiR-Yl-jSd" secondAttribute="centerY" id="cko-u3-Oyd"/>
+                            <constraint firstItem="ckD-gH-aQc" firstAttribute="leading" secondItem="tiR-Yl-jSd" secondAttribute="leading" id="hKz-xC-smp"/>
+                            <constraint firstAttribute="trailing" secondItem="ckD-gH-aQc" secondAttribute="trailing" id="jz3-Q7-3DL"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="lbo-I5-Wov"/>
                     </view>
+                    <connections>
+                        <outlet property="videoView" destination="ckD-gH-aQc" id="3A2-ss-pYa"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lhJ-aV-fFz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1434" y="1340"/>
+            <point key="canvasLocation" x="-1434.4000000000001" y="1339.8800599700151"/>
         </scene>
         <!--Movie View Controller-->
         <scene sceneID="0Ph-Lr-O2N">

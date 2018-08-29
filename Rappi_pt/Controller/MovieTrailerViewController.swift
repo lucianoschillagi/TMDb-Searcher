@@ -9,6 +9,7 @@
 /* Controller */
 
 import UIKit
+import YouTubePlayer_Swift
 
 /* Abstract:
 Una pantalla que muestra el trailer de la película seleccionada.
@@ -29,6 +30,14 @@ class MovieTrailerViewController: UIViewController {
 	
 	
 	//*****************************************************************
+	// MARK: - IBOutlets
+	//*****************************************************************
+
+	@IBOutlet weak var videoView: YouTubePlayerView!	
+
+	
+	
+	//*****************************************************************
 	// MARK: - VC Life Cycle
 	//*****************************************************************
 
@@ -37,7 +46,12 @@ class MovieTrailerViewController: UIViewController {
 
         startRequest()
 			
+			//test
 			debugPrint("😅 siiii\(selectedMovie?.id)")
+			
+
+
+			
     }
 	
 	//*****************************************************************
@@ -71,15 +85,28 @@ class MovieTrailerViewController: UIViewController {
 			
 			// TODO: falta seguridad!!!
 			oficialVideoKey = videosKey.first!
+			debugPrint("🎬\(oficialVideoKey)")
 			
 			let youtube = TMDbClient.Constants.YouTubeBaseURL
 			
 			// url trailer youtube 👈
 			var urlTrailerYouTube = "\(youtube)\(oficialVideoKey)"
 			debugPrint("⚽️\(urlTrailerYouTube)")
+						
+			
+			self.videoView.playerVars = ["playerInline": 1 as AnyObject,
+															"showinfo": 0 as AnyObject,
+															"controls": 0 as AnyObject]
+			
+			//https://www.youtube.com/watch?v=c25GKl5VNeY
+			self.videoView.loadVideoID(oficialVideoKey)
 		}
-	}
+		
+		
+	} // end func
 	
+	
+
 
     
 
