@@ -72,7 +72,7 @@
 				A6561A512135B93A00DA3437 /* MovieTheme.swift */,
 			);
 			name = VIew;
-			path = "New Group";
+			path = View;
 			sourceTree = "<group>";
 		};
 		A6561A562135EAC700DA3437 /* BORRAR LUEGO */ = {
@@ -452,7 +452,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.luko.Rappi-pt";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -472,7 +472,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.luko.Rappi-pt";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

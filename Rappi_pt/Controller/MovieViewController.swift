@@ -75,6 +75,12 @@ class MovieViewController: UIViewController {
 
     }
 	
+	override func viewWillAppear(_ animated: Bool) {
+		
+		
+		
+		
+	}
 	
 	//*****************************************************************
 	// MARK: - Helpers
@@ -296,6 +302,23 @@ extension MovieViewController: UISearchBarDelegate {
 		
 		
 		debugPrint("el scope seleccionado es el: \(selectedScope)")
+		
+		
+		// MARK: update navigation title item
+		if selectedScope == 0 {
+			
+			self.navigationItem.title = "Popular Movies"
+		}
+		
+		if selectedScope == 1 {
+			
+			self.navigationItem.title = "Top Rated Movies"
+		}
+		
+		if selectedScope == 2 {
+			
+			self.navigationItem.title = "Upcoming Movies"
+		}
 		
 		if selectedScope == 3 {
 		// networking ⬇

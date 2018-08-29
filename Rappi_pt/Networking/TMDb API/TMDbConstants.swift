@@ -117,8 +117,12 @@ extension TMDbClient {
 		static let ConfigImages = "images"
 		static let ConfigPosterSizes = "poster_sizes"
 		static let ConfigProfileSizes = "profile_sizes"
-
+		
 		// MARK: Movies
+		static let Results = "results"
+		static let TotalPages = "total_pages"
+
+		// MARK: Movie
 		static let MovieID = "id"
 		static let MovieTitle = "title"
 		static let MoviePosterPath = "poster_path"

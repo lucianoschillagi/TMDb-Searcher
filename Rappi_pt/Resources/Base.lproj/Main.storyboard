@@ -40,7 +40,10 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CZv-yD-FKa">
-                                <rect key="frame" x="321" y="639" width="33" height="27"/>
+                                <rect key="frame" x="321" y="647" width="33" height="10"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="10" id="Zv5-34-4pp"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <state key="normal" title="trailer">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -58,7 +61,7 @@
                             <constraint firstItem="TEI-lO-6zg" firstAttribute="trailing" secondItem="eCD-xw-JBh" secondAttribute="trailing" constant="30" id="Cht-c8-1CE"/>
                             <constraint firstItem="waj-Uw-N7f" firstAttribute="leading" secondItem="TEI-lO-6zg" secondAttribute="leading" constant="38" id="LdK-eQ-Qw8"/>
                             <constraint firstItem="TEI-lO-6zg" firstAttribute="bottom" secondItem="lln-Uu-qoA" secondAttribute="bottom" constant="51" id="R8n-nU-Xwr"/>
-                            <constraint firstItem="TEI-lO-6zg" firstAttribute="bottom" secondItem="CZv-yD-FKa" secondAttribute="bottom" constant="1" id="RTO-3b-fuf"/>
+                            <constraint firstItem="TEI-lO-6zg" firstAttribute="bottom" secondItem="CZv-yD-FKa" secondAttribute="bottom" constant="10" id="RTO-3b-fuf"/>
                             <constraint firstItem="TEI-lO-6zg" firstAttribute="trailing" secondItem="waj-Uw-N7f" secondAttribute="trailing" constant="41" id="Whz-Mw-qg6"/>
                             <constraint firstItem="TEI-lO-6zg" firstAttribute="trailing" secondItem="lln-Uu-qoA" secondAttribute="trailing" constant="68" id="faG-l3-uyo"/>
                             <constraint firstItem="lln-Uu-qoA" firstAttribute="top" secondItem="waj-Uw-N7f" secondAttribute="bottom" constant="14" id="gZF-dL-tgZ"/>
@@ -72,6 +75,7 @@
                         <outlet property="movieOverview" destination="lln-Uu-qoA" id="Uzo-dP-8ey"/>
                         <outlet property="moviePoster" destination="waj-Uw-N7f" id="2LI-Rl-fN5"/>
                         <outlet property="movieVoteAverage" destination="eCD-xw-JBh" id="jN5-hZ-iJB"/>
+                        <outlet property="trailerButton" destination="CZv-yD-FKa" id="ndU-fF-drY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="q3n-Up-kSG" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -159,7 +163,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="5Of-KX-X4g"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Movies" largeTitleDisplayMode="always" id="OaS-Md-jAP"/>
+                    <navigationItem key="navigationItem" title="Popular Movies" largeTitleDisplayMode="always" id="OaS-Md-jAP">
+                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="XUf-ko-jQ6"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="activityIndicator" destination="hQt-PI-0ou" id="MmO-Hr-cnm"/>
                         <outlet property="searchBar" destination="vTn-6b-pr5" id="Srg-Yb-Vft"/>

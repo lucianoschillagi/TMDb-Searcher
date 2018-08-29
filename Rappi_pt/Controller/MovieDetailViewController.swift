@@ -46,30 +46,31 @@ class MovieDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 			
-			debugPrint("😆\(selectedMovie)")
-			
 			getTitleAndYear()
 			configureUIDetail()
-			
-			
-			
-			//TODO: obtener la imagen del poster y ponerla en el image view
-			// poster path
-			if let posterPath = selectedMovie?.posterPath {
-				let _ = TMDbClient.getPosterImage(TMDbClient.ParameterValues.posterSizes[2], filePath: posterPath , { (imageData, error) in
-					if let image = UIImage(data: imageData!) {
-						DispatchQueue.main.async {
-							self.moviePoster.contentMode = UIView.ContentMode.scaleAspectFit
-							self.moviePoster.image = UIImage(data: imageData!)
-						}
-					} else {
-						print(error ?? "empty error")
-					}
-				})
-			}
-			
+			getPosterImage()
     }
-    
+	
+	
+	// task: obtener la imagen del poster y ponerla en el image view
+	func getPosterImage() {
+		
+		// poster path
+		if let posterPath = selectedMovie?.posterPath {
+			let _ = TMDbClient.getPosterImage(TMDbClient.ParameterValues.posterSizes[2], filePath: posterPath , { (imageData, error) in
+				if let image = UIImage(data: imageData!) {
+					DispatchQueue.main.async {
+						self.moviePoster.contentMode = UIView.ContentMode.scaleAspectFit
+						self.moviePoster.image = UIImage(data: imageData!)
+					}
+				} else {
+					print(error ?? "empty error")
+				}
+			})
+		}
+		
+		
+	}
 	
 	//*****************************************************************
 	// MARK: - Configure UI Elements

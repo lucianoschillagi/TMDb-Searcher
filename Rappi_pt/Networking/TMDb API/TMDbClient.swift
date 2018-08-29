@@ -36,6 +36,10 @@ class TMDbClient: NSObject {
 	// MARK: - Networking Methods
 	//*****************************************************************
 	
+	
+	
+	
+	
 	// MARK: Popular Movies
 	// task: obtener las películas máspopulares de TMDb
 	static func getPopularMovies(_ completionHandlerForGetPopularMovies: @escaping ( _ success: Bool, _ popularMovies: [TMDbMovie]?, _ errorString: String?) -> Void) {
@@ -61,9 +65,10 @@ class TMDbClient: NSObject {
 				
 				debugPrint("🤜JSON POPULAR MOVIES: \(jsonObjectResult)") // JSON obtenido
 				
-				if let results = jsonObjectResultDictionary["results"] {
+				if let results = jsonObjectResultDictionary[TMDbClient.JSONResponseKeys.Results], let totalPages = jsonObjectResultDictionary[TMDbClient.JSONResponseKeys.TotalPages] {
 				
 				let resultsFavoriteMovies = TMDbMovie.moviesFromResults(results as! [[String : AnyObject]])
+					debugPrint("total de páginas: \(totalPages)")
 					
 					//test
 					debugPrint("🤾🏼‍♂️ TMDBMovie...\(resultsFavoriteMovies)")
@@ -79,9 +84,13 @@ class TMDbClient: NSObject {
 	// MARK: Top Rated Movies
 	// task: obtener las películar mejor ranqueadas de TMDb
 	static func getTopRatedMovies(_ completionHandlerForTopRatedMovies: @escaping ( _ success: Bool, _ topRatedMovies:  [TMDbMovie]?, _ errorString: String?) -> Void) {
+	
+		// 0. total pages random
+		var totalPagesRandom = Int.random(in: 1 ..< 308)
+		var choosenPage = String(totalPagesRandom)
 		
 		/* 1. 📞 Realiza la llamada a la API, a través de la función request() de Alamofire 🚀 */
-		Alamofire.request(configureUrl(TMDbClient.Methods.SearchTopRatedMovies)).responseJSON { response in
+		Alamofire.request(configureUrl(TMDbClient.Methods.SearchTopRatedMovies, page: choosenPage)).responseJSON { response in
 			
 			// response status code
 			if let status = response.response?.statusCode {
@@ -101,7 +110,7 @@ class TMDbClient: NSObject {
 				
 				debugPrint("🤜JSON POPULAR MOVIES: \(jsonObjectResult)") // JSON obtenido
 				
-				if let results = jsonObjectResultDictionary["results"] {
+				if let results = jsonObjectResultDictionary[TMDbClient.JSONResponseKeys.Results] {
 					
 					let resultsTopRatedMovies = TMDbMovie.moviesFromResults(results as! [[String : AnyObject]])
 					
@@ -248,7 +257,7 @@ class TMDbClient: NSObject {
 	//*****************************************************************
 	
 	// task: configurar las diversas URLs a enviar en las APi calls
-	static func configureUrl(_ methodRequest: String) -> URL {
+	static func configureUrl(_ methodRequest: String, page: String? = nil) -> URL {
 
 		var components = URLComponents()
 		components.scheme = TMDbClient.Constants.ApiScheme
@@ -257,7 +266,7 @@ class TMDbClient: NSObject {
 		components.queryItems = [URLQueryItem]()
 		let queryItem1 = URLQueryItem(name: TMDbClient.ParameterKeys.ApiKey, value: TMDbClient.ParameterValues.ApiKey)
 		let queryItem2 = URLQueryItem(name: TMDbClient.ParameterKeys.Language, value: TMDbClient.ParameterValues.Language)
-		let queryItem3 = URLQueryItem(name: TMDbClient.ParameterKeys.Page, value: TMDbClient.ParameterValues.Page)
+		let queryItem3 = URLQueryItem(name: TMDbClient.ParameterKeys.Page, value: page)
 		components.queryItems!.append(queryItem1)
 		components.queryItems?.append(queryItem2)
 		components.queryItems?.append(queryItem3)
