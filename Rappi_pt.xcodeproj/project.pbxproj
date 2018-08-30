@@ -11,9 +11,6 @@
 		A6561A522135B93A00DA3437 /* MovieTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6561A512135B93A00DA3437 /* MovieTheme.swift */; };
 		A6561A552135EAA900DA3437 /* MovieTrailerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6561A542135EAA900DA3437 /* MovieTrailerViewController.swift */; };
 		A67B4B7E2129143300097CB9 /* TMDbClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A67B4B7D2129143300097CB9 /* TMDbClient.swift */; };
-		A67B4B822129171D00097CB9 /* PopularViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A67B4B812129171D00097CB9 /* PopularViewController.swift */; };
-		A67B4B842129172B00097CB9 /* TopRatedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A67B4B832129172B00097CB9 /* TopRatedViewController.swift */; };
-		A67B4B862129173400097CB9 /* UpcomingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A67B4B852129173400097CB9 /* UpcomingViewController.swift */; };
 		A681CA4321372D650041A36D /* YouTubePlayer_Swift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A681CA4221372D650041A36D /* YouTubePlayer_Swift.framework */; };
 		A6B227142128A49D0024E410 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6B227132128A49D0024E410 /* AppDelegate.swift */; };
 		A6B227192128A49D0024E410 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A6B227172128A49D0024E410 /* Main.storyboard */; };
@@ -32,9 +29,6 @@
 		A6561A512135B93A00DA3437 /* MovieTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieTheme.swift; sourceTree = "<group>"; };
 		A6561A542135EAA900DA3437 /* MovieTrailerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieTrailerViewController.swift; sourceTree = "<group>"; };
 		A67B4B7D2129143300097CB9 /* TMDbClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TMDbClient.swift; sourceTree = "<group>"; };
-		A67B4B812129171D00097CB9 /* PopularViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularViewController.swift; sourceTree = "<group>"; };
-		A67B4B832129172B00097CB9 /* TopRatedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopRatedViewController.swift; sourceTree = "<group>"; };
-		A67B4B852129173400097CB9 /* UpcomingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingViewController.swift; sourceTree = "<group>"; };
 		A681CA4221372D650041A36D /* YouTubePlayer_Swift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = YouTubePlayer_Swift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A6B227102128A49D0024E410 /* Rappi_pt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Rappi_pt.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A6B227132128A49D0024E410 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -79,16 +73,6 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		A6561A562135EAC700DA3437 /* BORRAR LUEGO */ = {
-			isa = PBXGroup;
-			children = (
-				A67B4B812129171D00097CB9 /* PopularViewController.swift */,
-				A67B4B832129172B00097CB9 /* TopRatedViewController.swift */,
-				A67B4B852129173400097CB9 /* UpcomingViewController.swift */,
-			);
-			path = "BORRAR LUEGO";
-			sourceTree = "<group>";
-		};
 		A67B4B7F212916E200097CB9 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
@@ -103,7 +87,6 @@
 				A6CA8C47213439CE00AB0D67 /* MovieViewController.swift */,
 				A6E7B356212919AD00CCFBB2 /* MovieDetailViewController.swift */,
 				A6561A542135EAA900DA3437 /* MovieTrailerViewController.swift */,
-				A6561A562135EAC700DA3437 /* BORRAR LUEGO */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -292,15 +275,12 @@
 			files = (
 				A6BAFE44212F516E00A7E1C9 /* TMDbMovie.swift in Sources */,
 				A6E7B359212919DE00CCFBB2 /* TMDbConstants.swift in Sources */,
-				A67B4B862129173400097CB9 /* UpcomingViewController.swift in Sources */,
-				A67B4B822129171D00097CB9 /* PopularViewController.swift in Sources */,
 				A6561A522135B93A00DA3437 /* MovieTheme.swift in Sources */,
 				A67B4B7E2129143300097CB9 /* TMDbClient.swift in Sources */,
 				A6CA8C48213439CE00AB0D67 /* MovieViewController.swift in Sources */,
 				A6561A552135EAA900DA3437 /* MovieTrailerViewController.swift in Sources */,
 				A6B227142128A49D0024E410 /* AppDelegate.swift in Sources */,
 				A6E7B357212919AD00CCFBB2 /* MovieDetailViewController.swift in Sources */,
-				A67B4B842129172B00097CB9 /* TopRatedViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -282,9 +282,9 @@ extension MovieViewController: UITableViewDataSource {
 			let cellReuseId = "cell"
 			let cell = tableView.dequeueReusableCell(withIdentifier: cellReuseId, for: indexPath) as UITableViewCell
 			cell.textLabel?.text = movie?.title
-			//let popularity = Float((movie?.popularity!)!)
-			//cell?.detailTextLabel?.text = "popularity: \(String(popularity)) "
-			
+			let popularity = Float((movie?.popularity!)!)
+			cell.detailTextLabel?.text = "popularity: \(String(popularity)) "
+		
 			// poster path
 			if let posterPath = movie?.posterPath {
 				let _ = TMDbClient.getPosterImage(TMDbClient.ParameterValues.posterSizes[0], filePath: posterPath , { (imageData, error) in
@@ -314,12 +314,29 @@ extension MovieViewController: UITableViewDataSource {
 
 //extension MovieViewController: UITableViewDelegate {
 //
-//	// task: guardar el nombre de la tarjeta seleccionada para su posterior uso en la solicitud web 💳 👈
+//	// task: ---
 //	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 //		let storyboardId = "Detail"
 //		let controller = storyboard!.instantiateViewController(withIdentifier: storyboardId) as! MovieDetailViewController
-//		controller.selectedMovie = topRatedMoviesArray[(indexPath as NSIndexPath).row]
-//		navigationController!.pushViewController(controller, animated: true)
+//		
+//		switch navigationItem.title {
+//			
+//			case "Popular Movies":
+//				controller.selectedMovie = popularMoviesArray[(indexPath as NSIndexPath).row]
+//				navigationController!.pushViewController(controller, animated: true)
+//			
+//			case "Top Rated Movies":
+//				controller.selectedMovie = topRatedMoviesArray[(indexPath as NSIndexPath).row]
+//				navigationController!.pushViewController(controller, animated: true)
+//			
+//			case "Upcoming Movies":
+//				controller.selectedMovie = upcomingMoviesArray[(indexPath as NSIndexPath).row]
+//				navigationController!.pushViewController(controller, animated: true)
+//			
+//			default:
+//				print("")
+//			}
+//
 //	}
 //
 //} // end ext
