@@ -44,8 +44,12 @@ class TMDbClient: NSObject {
 	// task: obtener las películas máspopulares de TMDb
 	static func getPopularMovies(_ completionHandlerForGetPopularMovies: @escaping ( _ success: Bool, _ popularMovies: [TMDbMovie]?, _ errorString: String?) -> Void) {
 		
+		// 0. total pages random
+		var totalPagesRandom = Int.random(in: 1 ..< 306)
+		var choosenPage = String(totalPagesRandom)
+		
 		/* 1. 📞 Realiza la llamada a la API, a través de la función request() de Alamofire 🚀 */
-		Alamofire.request(configureUrl(TMDbClient.Methods.SearchPopularMovie)).responseJSON { response in
+		Alamofire.request(configureUrl(TMDbClient.Methods.SearchPopularMovie, page: choosenPage)).responseJSON { response in
 			
 			// response status code
 			if let status = response.response?.statusCode {
@@ -86,7 +90,7 @@ class TMDbClient: NSObject {
 	static func getTopRatedMovies(_ completionHandlerForTopRatedMovies: @escaping ( _ success: Bool, _ topRatedMovies:  [TMDbMovie]?, _ errorString: String?) -> Void) {
 	
 		// 0. total pages random
-		var totalPagesRandom = Int.random(in: 1 ..< 308)
+		var totalPagesRandom = Int.random(in: 1 ..< 15)
 		var choosenPage = String(totalPagesRandom)
 		
 		/* 1. 📞 Realiza la llamada a la API, a través de la función request() de Alamofire 🚀 */
@@ -130,8 +134,12 @@ class TMDbClient: NSObject {
 	// task: obtener las películas por venir de TMDb
 	static func getUpcomingMovies(_ completionHandlerForUpcomingMovies: @escaping ( _ success: Bool, _ upcomingMovies: [TMDbMovie]?, _ errorString: String?) -> Void) {
 
+		// 0. total pages random
+		var totalPagesRandom = Int.random(in: 1 ..< 15)
+		var choosenPage = String(totalPagesRandom)
+		
 		/* 1. 📞 Realiza la llamada a la API, a través de la función request() de Alamofire 🚀 */
-		Alamofire.request(configureUrl(TMDbClient.Methods.SearchUpcomingMovies)).responseJSON { response in
+		Alamofire.request(configureUrl(TMDbClient.Methods.SearchUpcomingMovies, page: choosenPage)).responseJSON { response in
 			
 			// response status code
 			if let status = response.response?.statusCode {
@@ -174,8 +182,6 @@ class TMDbClient: NSObject {
 		let url = baseURL.appendingPathComponent(size).appendingPathComponent(filePath)
 		let request = URLRequest(url: url)
 		
-		
-
 		/* 1. 📞 Realiza la llamada a la API, a través de la función request() de Alamofire 🚀 */
 		Alamofire.request(request).responseData { response in
 			
@@ -207,9 +213,6 @@ class TMDbClient: NSObject {
 	// MARK: Get Video
 	// task: obtener el video de una película en particular
 	static func getMovieTrailer(_ videoMethod: String, _ completionHandlerForVideo: @escaping ( _ video: [TMDbMovie]?, _ error: String?) -> Void) {
-		
-		//"https://api.themoviedb.org/3/movie/19404/videos?api_key=0942529e191d0558f888245403b4dca7&language=en-US"
-		
 		
 		/* 1. 📞 Realiza la llamada a la API, a través de la función request() de Alamofire 🚀 */
 		Alamofire.request(configureUrl(videoMethod)).responseJSON { response in
@@ -246,11 +249,6 @@ class TMDbClient: NSObject {
 		}
 		
 	}
-	
-	
-	
-	
-	
 	
 	//*****************************************************************
 	// MARK: - Helpers
