@@ -76,18 +76,9 @@ struct TMDbMovie {
 		
 		return movies
 	}
-}
+	
+} // end class
 
-
-//*****************************************************************
-// MARK: - Protocol Extension
-//*****************************************************************
-
-extension TMDbMovie: Equatable {}
-
-func ==(lhs: TMDbMovie, rhs: TMDbMovie) -> Bool {
-	return lhs.id == rhs.id
-}
 
 
 /*
