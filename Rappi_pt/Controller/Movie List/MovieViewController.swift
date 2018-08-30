@@ -71,7 +71,24 @@ class MovieViewController: UIViewController {
 	// task: ejecutarse cuando el botón ´refrescar´ es tapeado
 	@IBAction func refreshButtonPressed(_ sender: UIBarButtonItem) {
 		
-		
+		switch navigationItem.title {
+			
+		// si el título de la barra de navegación es "Popular Movies", contar ´popularMoviesArray´
+		case category["Popular Movies"]:
+			getPopularMovies()
+			
+		// si el título de la barra de navegación es "Top Rated Movies", contar ´topRatedMoviesArray´
+		case category["Top Rated Movies"]:
+			getTopRatedMovies()
+			
+		// si el título de la barra de navegación es "Upcoming Movies", contar ´upcomingMoviesArray´
+		case category["Upcoming Movies"]:
+			getUpcomingMovies()
+			
+		default:
+			print("")
+		}
+
 	}
 	
 	//*****************************************************************

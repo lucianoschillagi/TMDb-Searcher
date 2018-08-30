@@ -93,11 +93,6 @@ class MovieTrailerViewController: UIViewController {
 			var urlTrailerYouTube = "\(youtube)\(oficialVideoKey)"
 			debugPrint("⚽️\(urlTrailerYouTube)")
 						
-			
-			self.videoView.playerVars = ["playerInline": 1 as AnyObject,
-															"showinfo": 0 as AnyObject,
-															"controls": 0 as AnyObject]
-			
 			//https://www.youtube.com/watch?v=c25GKl5VNeY
 			self.videoView.loadVideoID(oficialVideoKey)
 		}
