@@ -212,7 +212,7 @@ class TMDbClient: NSObject {
 	
 	// MARK: Get Video
 	// task: obtener el video de una película en particular
-	static func getMovieTrailer(_ videoMethod: String, _ completionHandlerForVideo: @escaping ( _ video: [TMDbMovie]?, _ error: String?) -> Void) {
+	static func getMovieTrailer(_ videoMethod: String, _ completionHandlerForVideo: @escaping (_ success: Bool, _ video: [TMDbMovie]?, _ error: String?) -> Void) {
 		
 		/* 1. 📞 Realiza la llamada a la API, a través de la función request() de Alamofire 🚀 */
 		Alamofire.request(configureUrl(videoMethod)).responseJSON { response in
@@ -224,7 +224,7 @@ class TMDbClient: NSObject {
 					print("example success")
 				default:
 					let errorMessage = "error with response status: \(status)"
-					completionHandlerForVideo(nil, errorMessage)
+					completionHandlerForVideo(false, nil, errorMessage)
 				}
 			}
 			
@@ -242,7 +242,7 @@ class TMDbClient: NSObject {
 					//test
 					debugPrint("🤾🏼‍♂️ TMDBMovie...\(resultsVideoMovie)")
 					
-					completionHandlerForVideo(resultsVideoMovie, nil)
+					completionHandlerForVideo(true, resultsVideoMovie, nil)
 					
 				}
 			}

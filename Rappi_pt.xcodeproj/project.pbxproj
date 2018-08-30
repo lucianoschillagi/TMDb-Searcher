@@ -84,8 +84,8 @@
 		A646EBCC21389EED0070349D /* Movie Detail */ = {
 			isa = PBXGroup;
 			children = (
-				A6561A542135EAA900DA3437 /* MovieTrailerViewController.swift */,
 				A6E7B356212919AD00CCFBB2 /* MovieDetailViewController.swift */,
+				A6561A542135EAA900DA3437 /* MovieTrailerViewController.swift */,
 			);
 			path = "Movie Detail";
 			sourceTree = "<group>";

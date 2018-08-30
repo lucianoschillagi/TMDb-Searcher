@@ -136,12 +136,42 @@ class MovieViewController: UIViewController {
 		let categories = ["Popular", "Top Rated", "Upcoming"]
 		searchController.searchBar.scopeButtonTitles = categories
 	}
-
 	
 	// MARK: Status Bar
 	override var prefersStatusBarHidden: Bool {
 		return true
 	}
+	
+	//*****************************************************************
+	// MARK: - Alert View
+	//*****************************************************************
+	
+	/**
+	Muestra al usuario un mensaje acerca de porqué la solicitud falló.
+	
+	- Parameter title: El título del error.
+	- Parameter message: El mensaje acerca del error.
+	
+	*/
+	func displayAlertView(_ title: String?, _ error: String?) {
+		
+		// si ocurre un error en la solicitud, mostrar una vista de alerta!
+		if error != nil {
+			
+			let alertController = UIAlertController(title: title, message: error, preferredStyle: .alert)
+			
+			let OKAction = UIAlertAction(title: "OK", style: .default) { action in
+			
+			}
+			
+			alertController.addAction(OKAction)
+			self.present(alertController, animated: true) {}
+		}
+	}
+	
+
+	
+
 
 } // end class
 

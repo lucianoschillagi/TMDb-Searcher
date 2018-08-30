@@ -14,7 +14,6 @@ import UIKit
 Contiene métodos concernientes a la tabla.
 */
 
-	
 	extension MovieViewController: UITableViewDataSource {
 		
 		//*****************************************************************

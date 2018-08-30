@@ -34,7 +34,7 @@ class MovieTrailerViewController: UIViewController {
 	//*****************************************************************
 
 	@IBOutlet weak var videoView: YouTubePlayerView!	
-
+	@IBOutlet weak var activityIndicator: UIActivityIndicatorView!
 	
 	
 	//*****************************************************************
@@ -44,13 +44,9 @@ class MovieTrailerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        startRequest()
+			startActivityIndicator()
+			startRequest()
 			
-			//test
-			debugPrint("😅 siiii\(selectedMovie?.id)")
-			
-
-
 			
     }
 	
@@ -73,36 +69,59 @@ class MovieTrailerViewController: UIViewController {
 		let videoMethod = TMDbClient.Methods.SearchMovie + movieId + TMDbClient.Methods.SearchVideo
 		
 		// networking 🚀
-		TMDbClient.getMovieTrailer (videoMethod){ (video, error) in
+		TMDbClient.getMovieTrailer (videoMethod){ (success, videoTrailer, error) in
 			
 			// TODO: if success...
 			var videosKey: [String] = []
 			var oficialVideoKey: String = String()
 			
-			for item in video! {
-				videosKey.append(item.videoKey!)
-			}
-			
-			// TODO: falta seguridad!!!
-			oficialVideoKey = videosKey.first!
-			debugPrint("🎬\(oficialVideoKey)")
-			
-			let youtube = TMDbClient.Constants.YouTubeBaseURL
-			
-			// url trailer youtube 👈
-			var urlTrailerYouTube = "\(youtube)\(oficialVideoKey)"
-			debugPrint("⚽️\(urlTrailerYouTube)")
+			// dispatch
+			DispatchQueue.main.async {
+				
+				// si la solicitud fue exitosa
+				if success {
+					
+					self.stopActivityIndicator()
+					
+					// comprueba si el 'popularMovies' recibido contiene algún valor
+					if let videoTrailer = videoTrailer {
+						// si es así, se lo asigna a la propiedad ´popularMovies´
+						for item in videoTrailer {
+							videosKey.append(item.videoKey!)
+						}
 						
-			//https://www.youtube.com/watch?v=c25GKl5VNeY
-			self.videoView.loadVideoID(oficialVideoKey)
+						// TODO: falta seguridad!!!
+						oficialVideoKey = videosKey.first!
+						debugPrint("🎬\(oficialVideoKey)")
+						
+						let youtube = TMDbClient.Constants.YouTubeBaseURL
+						// url trailer youtube 👈
+						var urlTrailerYouTube = "\(youtube)\(oficialVideoKey)"
+						debugPrint("⚽️\(urlTrailerYouTube)")
+						self.videoView.loadVideoID(oficialVideoKey)
+					}
+						
+				} else {
+					// si devuelve un error
+					//self.displayAlertView("Error Request", error)
+				}
+			}
 		}
-		
-		
 	} // end func
 	
+	//*****************************************************************
+	// MARK: - Activity Indicator
+	//*****************************************************************
 	
-
-
-    
-
+	func startActivityIndicator() {
+		activityIndicator.alpha = 1.0
+		activityIndicator.startAnimating()
+	}
+	
+	func stopActivityIndicator() {
+		activityIndicator.alpha = 0.0
+		self.activityIndicator.stopAnimating()
+	}
+	
+	
 } // end class

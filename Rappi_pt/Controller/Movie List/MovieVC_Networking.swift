@@ -42,10 +42,8 @@ extension MovieViewController {
 					}
 					
 				} else {
-					
-					//TODO: alert view
-					print(error)
-					
+					// si devuelve un error
+					self.displayAlertView("Error Request", error)
 				}
 				
 			}
@@ -57,8 +55,7 @@ extension MovieViewController {
 	// MARK: Get Top Rated Movies
 	// task: obtener, mediante una solicitud web a la API de TMDb, el array de películas mejor rankeadas
 	func getTopRatedMovies() {
-		
-		debugPrint("📞getTopRatedMovies")
+
 		// networking ⬇ : Top Rated Movies
 		TMDbClient.getTopRatedMovies { (success, topRatedMovies, error) in
 			
@@ -77,8 +74,8 @@ extension MovieViewController {
 					}
 					
 				} else {
-					//TODO: alert view
-					print(error)
+					// si devuelve un error
+					self.displayAlertView("Error Request", error)
 				}
 				
 			}
@@ -109,8 +106,8 @@ extension MovieViewController {
 					}
 					
 				} else {
-					//TODO: alert view
-					print(error)
+					// si devuelve un error
+					self.displayAlertView("Error Request", error)
 				}
 			}
 		}
