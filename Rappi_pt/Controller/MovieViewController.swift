@@ -11,7 +11,7 @@
 import UIKit
 
 /* Abstract:
-
+Una pantalla con un listado de películas ordenadas por categorías. También contiene un buscador para filtrar por nombre.
 */
 
 class MovieViewController: UIViewController {
@@ -24,12 +24,11 @@ class MovieViewController: UIViewController {
 	// un objeto que representa a UNA película
 	var movie: TMDbMovie?
 	// trae las 'popular movies'
-	var popularMovies: [TMDbMovie] = [TMDbMovie]()
+	var popularMoviesArray = [TMDbMovie]()
 	// trae las 'top rated movies'
-	var topRatedMovies: [TMDbMovie] = [TMDbMovie]()
+	var topRatedMoviesArray = [TMDbMovie]()
 	// trae las 'upcoming movies'
-	var upcomingMovies: [TMDbMovie] = [TMDbMovie]()
-
+	var upcomingMoviesArray = [TMDbMovie]()
 	
 	// MARK: Status Bar
 	override var prefersStatusBarHidden: Bool {
@@ -42,14 +41,6 @@ class MovieViewController: UIViewController {
 	// MARK: Search Controller 🔎
 	let searchController = UISearchController(searchResultsController: nil)
 	
-	
-//	// MODEL
-//	// un array para contener todos los candies
-//	var candies = [Candy]()
-//	// un array para contener sólo los candies filtrados
-//	var filteredCandies = [Candy]()
-	
-	
 	//*****************************************************************
 	// MARK: - IBOutlets
 	//*****************************************************************
@@ -58,110 +49,45 @@ class MovieViewController: UIViewController {
 	@IBOutlet weak var tableView: UITableView!
 	@IBOutlet weak var activityIndicator: UIActivityIndicatorView!
 
-	
 	//*****************************************************************
 	// MARK: - VC Life Cycle
 	//*****************************************************************
-
+	
+	// task: ejecutarse una vez que la pantalla se carga
     override func viewDidLoad() {
         super.viewDidLoad()
-			
+		
 			// search & scope bar
 			configureSearchAndScopeBar()
 			// detail vc
 			configureDetailVC()
-			// network request
-			startRequest()
+			// network request 🚀
+			getPopularMovies()
 
     }
 	
-	override func viewWillAppear(_ animated: Bool) {}
-	
-	//*****************************************************************
-	// MARK: - Helpers
-	//*****************************************************************
-	
-	
-	func setModel() {
-		
-		// the model (data source)
-		//			candies = [
-		//				Candy(category:"Chocolate", name:"Chocolate Bar"),
-		//				Candy(category:"Chocolate", name:"Chocolate Chip"),
-		//				Candy(category:"Chocolate", name:"Dark Chocolate"),
-		//				Candy(category:"Hard", name:"Lollipop"),
-		//				Candy(category:"Hard", name:"Candy Cane"),
-		//				Candy(category:"Hard", name:"Jaw Breaker"),
-		//				Candy(category:"Other", name:"Caramel"),
-		//				Candy(category:"Other", name:"Sour Chew"),
-		//				Candy(category:"Other", name:"Gummi Bear"),
-		//				Candy(category:"Other", name:"Candy Floss"),
-		//				Candy(category:"Chocolate", name:"Chocolate Coin"),
-		//				Candy(category:"Chocolate", name:"Chocolate Egg"),
-		//				Candy(category:"Other", name:"Jelly Beans"),
-		//				Candy(category:"Other", name:"Liquorice"),
-		//				Candy(category:"Hard", name:"Toffee Apple")
-		//			]
-		
-	}
-	
-	
-	
-	
-	
-	// task: -----
-	func configureDetailVC(){
-		if let splitViewController = splitViewController {
-			let controllers = splitViewController.viewControllers
-			detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? MovieDetailViewController
-		}
-	}
-	
-
-	// task: configurar la barra de búsqueda y la barra de alcance
-	func configureSearchAndScopeBar() {
-		
-		// MARK: Configurando el 'Search Controller'
-		// conforma el search controller con el protocolo 'UISearchResultsUpdating'
-		searchController.searchResultsUpdater = self
-		// no oscurecer el fondo cuando se presentan los resultados
-		searchController.obscuresBackgroundDuringPresentation = false
-		// agrega la barra de búsqueda dentro de la barra de navegación
-		navigationItem.searchController = searchController
-		// para que no permanezca la barra de búsqueda si el usuario navega hacia otro vc
-		definesPresentationContext = true
-		
-		// MARK: Configurando el 'Scope Bar'
-		searchController.searchBar.delegate = self
-		let categories = ["Popular", "Top Rated", "Uncoming"]
-		searchController.searchBar.scopeButtonTitles = categories
-	}
-
 	//*****************************************************************
 	// MARK: - Networking
 	//*****************************************************************
 	
-	// task: obtener, mediante una solicitud web a la API de TMDb, el array de películas populares
-	func startRequest() {
-		
-		// networking ⬇
-		TMDbClient.getTopRatedMovies { (success, topRatedMovies, error) in
+	func getPopularMovies() {
+		// networking ⬇ : Popular Movies
+		TMDbClient.getPopularMovies { (success, popularMovies, error) in
 			
 			// dispatch
 			DispatchQueue.main.async {
 				
 				// si la solicitud fue exitosa
 				if success {
-					print("HOLA")
 					
 					// comprueba si el 'popularMovies' recibido contiene algún valor
-					if let topRatedMovies = topRatedMovies {
+					if let popularMovies = popularMovies {
 						// si es así, se lo asigna a la propiedad ´popularMovies´
-						self.topRatedMovies = topRatedMovies // 🔌 👏
+						self.popularMoviesArray = popularMovies // 🔌 👏
 						self.stopActivityIndicator()
 						self.tableView.reloadData()
 						
-						debugPrint("↗️\(topRatedMovies.count)")
+						debugPrint("POPULAR MOVIES: \(popularMovies.count)")
 						
 						
 						
@@ -177,146 +103,43 @@ class MovieViewController: UIViewController {
 		
 	}
 	
-	//*****************************************************************
-	// MARK: - Activity Indicator
-	//*****************************************************************
-	
-	func startActivityIndicator() {
-		activityIndicator.alpha = 1.0
-		activityIndicator.startAnimating()
-	}
-	
-	func stopActivityIndicator() {
-		activityIndicator.alpha = 0.0
-		self.activityIndicator.stopAnimating()
-	}
-
-
-} // end class
-
-
-//*****************************************************************
-// MARK: - Table View Data Source Methods
-//*****************************************************************
-
-extension MovieViewController: UITableViewDataSource {
-	
-	// task: determinar cuantas filas tendrá la tabla
-	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+	// task: obtener, mediante una solicitud web a la API de TMDb, el array de películas populares
+	func getTopRatedMovies() {
 		
-		//return topRatedMovies.count
-		return topRatedMovies.count
-	}
-	
-	// task: configurar las celdas de la tabla
-	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		
-		let cellReuseId = "cell"
-		
-		
-		if searchBar.selectedScopeButtonIndex == 3 {
+		debugPrint("📞getTopRatedMovies")
+		// networking ⬇ : Top Rated Movies
+		TMDbClient.getTopRatedMovies { (success, topRatedMovies, error) in
 			
-			debugPrint("SIIIII")
-			let movie = upcomingMovies[(indexPath as NSIndexPath).row]
-			
-		}
-		
-		let movie = topRatedMovies[(indexPath as NSIndexPath).row]
-		
-		
-		
-		let cell = tableView.dequeueReusableCell(withIdentifier: cellReuseId, for: indexPath) as UITableViewCell!
-		cell?.textLabel?.text = movie.title
-		let popularity = Float(movie.popularity!)
-		cell?.detailTextLabel?.text = "popularity: \(String(popularity)) "
-	
-			// poster path
-			if let posterPath = movie.posterPath {
-				let _ = TMDbClient.getPosterImage(TMDbClient.ParameterValues.posterSizes[0], filePath: posterPath , { (imageData, error) in
-					if let image = UIImage(data: imageData!) {
-						DispatchQueue.main.async {
-							cell?.imageView!.image = image
-							debugPrint("👈\(image)")
-						}
-					} else {
-						print(error ?? "empty error")
+			// dispatch
+			DispatchQueue.main.async {
+				
+				// si la solicitud fue exitosa
+				if success {
+					
+					// comprueba si el 'popularMovies' recibido contiene algún valor
+					if let topRatedMovies = topRatedMovies {
+						// si es así, se lo asigna a la propiedad ´popularMovies´
+						self.topRatedMoviesArray = topRatedMovies // 🔌 👏
+						self.stopActivityIndicator()
+						self.tableView.reloadData()
+						
+						debugPrint("↗️\(topRatedMovies.count)")
+
 					}
-				})
+					
+				} else {
+					
+				}
+				
 			}
-		
-		return cell!
-		
-	}
-		
-		
-	
-} // end class
-
-
-//*****************************************************************
-// MARK: - Table View Delegate Methods
-//*****************************************************************
-
-extension MovieViewController: UITableViewDelegate {
-	
-	// task: almacenar el nombre de la tarjeta seleccionada para su posterior uso en la solicitud web
-	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		let storyboardId = "Detail"
-		let controller = storyboard!.instantiateViewController(withIdentifier: storyboardId) as! MovieDetailViewController
-		controller.selectedMovie = topRatedMovies[(indexPath as NSIndexPath).row]
-		navigationController!.pushViewController(controller, animated: true)
-	}
-	
-} // end ext
-
-
-
-
-//*****************************************************************
-// MARK: - Search Result Updating Method
-//*****************************************************************
-
-extension MovieViewController: UISearchResultsUpdating {
-	// MARK: - UISearchResultsUpdating Delegate
-	
-	// task: actualizar los resultados de la búsqueda de acuerdo a la información ingresada por el usuario en le barra de búsqueda
-	func updateSearchResults(for searchController: UISearchController) { // 👈
-		//filterContentForSearchText(searchController.searchBar.text!)
-	}
-	
-}
-
-//*****************************************************************
-// MARK: - Search Bar Delegate
-//*****************************************************************
-
-extension MovieViewController: UISearchBarDelegate {
-	// MARK: - UISearchBar Delegate
-	func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
-		//filterContentForSearchText(searchBar.text!, scope: searchBar.scopeButtonTitles![selectedScope])
-		
-		
-		debugPrint("el scope seleccionado es el: \(selectedScope)")
-		
-		
-		// MARK: update navigation title item
-		if selectedScope == 0 {
 			
-			self.navigationItem.title = "Popular Movies"
 		}
 		
-		if selectedScope == 1 {
-			
-			self.navigationItem.title = "Top Rated Movies"
-		}
-		
-		if selectedScope == 2 {
-			
-			self.navigationItem.title = "Upcoming Movies"
-		}
-		
-		if selectedScope == 3 {
-		// networking ⬇
+	}
+
+
+	func getUpcomingMovies() {
+		// networking ⬇ : Upcoming Movies
 		TMDbClient.getUpcomingMovies { (success, upcomingMovies, error) in
 			
 			// dispatch
@@ -324,12 +147,11 @@ extension MovieViewController: UISearchBarDelegate {
 				
 				// si la solicitud fue exitosa
 				if success {
-					print("UPCOMING MOVIES")
 					
 					// comprueba si el 'popularMovies' recibido contiene algún valor
 					if let upcomingMovies = upcomingMovies {
-						// si es así, se lo asigna a la propiedad ´upcomingMovies´
-						self.upcomingMovies = upcomingMovies // 🔌 👏
+						// si es así, se lo asigna a la propiedad ´popularMovies´
+						self.upcomingMoviesArray = upcomingMovies // 🔌 👏
 						self.stopActivityIndicator()
 						self.tableView.reloadData()
 						
@@ -346,9 +168,213 @@ extension MovieViewController: UISearchBarDelegate {
 			}
 			
 		}
-		
-		} // end if
-		
 	}
+	
+	//*****************************************************************
+	// MARK: - Activity Indicator
+	//*****************************************************************
+	
+	func startActivityIndicator() {
+		activityIndicator.alpha = 1.0
+		activityIndicator.startAnimating()
+	}
+	
+	func stopActivityIndicator() {
+		activityIndicator.alpha = 0.0
+		self.activityIndicator.stopAnimating()
+	}
+
+	//*****************************************************************
+	// MARK: - Helpers
+	//*****************************************************************
+	
+	// task: -----
+	func configureDetailVC(){
+		if let splitViewController = splitViewController {
+			let controllers = splitViewController.viewControllers
+			detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? MovieDetailViewController
+		}
+	}
+	
+	
+	// task: configurar la barra de búsqueda y la barra de alcance (search & scope bar)
+	func configureSearchAndScopeBar() {
+		
+		// MARK: Configurando el 'Search Controller'
+		// conforma el search controller con el protocolo 'UISearchResultsUpdating'
+		searchController.searchResultsUpdater = self
+		// no oscurecer el fondo cuando se presentan los resultados
+		searchController.obscuresBackgroundDuringPresentation = false
+		// agrega la barra de búsqueda dentro de la barra de navegación
+		navigationItem.searchController = searchController
+		// para que no permanezca la barra de búsqueda si el usuario navega hacia otro vc
+		definesPresentationContext = true
+		
+		// MARK: Configurando el 'Scope Bar'
+		searchController.searchBar.delegate = self
+		let categories = ["Popular", "Top Rated", "Upcoming"]
+		searchController.searchBar.scopeButtonTitles = categories
+	}
+
+
+} // end class
+
+
+//*****************************************************************
+// MARK: - Table View Data Source Methods
+//*****************************************************************
+
+extension MovieViewController: UITableViewDataSource {
+	
+	// task: determinar cuantas filas tendrá la tabla
+	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+		
+		switch navigationItem.title {
+			
+		// si el título de la barra de navegación es "Popular Movies", contar ´popularMoviesArray´
+		case "Popular Movies":
+			debugPrint("contando el array de popular movies \(popularMoviesArray.count)")
+			return popularMoviesArray.count
+			
+		// si el título de la barra de navegación es "Top Rated Movies", contar ´topRatedMoviesArray´
+		case "Top Rated Movies":
+			debugPrint("contando el array de top rated movies \(topRatedMoviesArray.count)")
+			return topRatedMoviesArray.count
+
+		// si el título de la barra de navegación es "Upcoming Movies", contar ´upcomingMoviesArray´
+		case "Upcoming Movies":
+			debugPrint("contando el array de upcoming movies \(upcomingMoviesArray.count)")
+			return upcomingMoviesArray.count
+			
+		default:
+			print("")
+		}
+		
+		return 0
+	}
+	
+	// task: configurar las celdas de la tabla
+	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+		
+		var movie: TMDbMovie?
+		
+		switch navigationItem.title {
+			
+			// si el título de la barra de navegación es "Popular Movies", contar ´popularMoviesArray´
+			case "Popular Movies":
+				movie = popularMoviesArray[(indexPath as NSIndexPath).row]
+			debugPrint("🧛🏻‍♂️\(movie)")
+			
+			// si el título de la barra de navegación es "Top Rated Movies", contar ´topRatedMoviesArray´
+			case "Top Rated Movies":
+				movie = topRatedMoviesArray[(indexPath as NSIndexPath).row]
+			debugPrint("🧛🏻‍♂️\(movie)")
+			
+			// si el título de la barra de navegación es "Upcoming Movies", contar ´upcomingMoviesArray´
+			case "Upcoming Movies":
+				movie = upcomingMoviesArray[(indexPath as NSIndexPath).row]
+			debugPrint("🧛🏻‍♂️\(movie)")
+			
+			default:
+				print("")
+		}
+		
+			let cellReuseId = "cell"
+			let cell = tableView.dequeueReusableCell(withIdentifier: cellReuseId, for: indexPath) as UITableViewCell
+			cell.textLabel?.text = movie?.title
+			//let popularity = Float((movie?.popularity!)!)
+			//cell?.detailTextLabel?.text = "popularity: \(String(popularity)) "
+			
+			// poster path
+			if let posterPath = movie?.posterPath {
+				let _ = TMDbClient.getPosterImage(TMDbClient.ParameterValues.posterSizes[0], filePath: posterPath , { (imageData, error) in
+					if let image = UIImage(data: imageData!) {
+						DispatchQueue.main.async {
+							cell.imageView!.image = image
+							debugPrint("👈\(image)")
+						}
+					} else {
+						print(error ?? "empty error")
+					}
+				})
+			}
+		
+		// devuelve la celda ya configurada
+		return cell
+			
+		}
+	
+	
+} // end class
+
+
+//*****************************************************************
+// MARK: - Table View Delegate Methods
+//*****************************************************************
+
+//extension MovieViewController: UITableViewDelegate {
+//
+//	// task: guardar el nombre de la tarjeta seleccionada para su posterior uso en la solicitud web 💳 👈
+//	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//		let storyboardId = "Detail"
+//		let controller = storyboard!.instantiateViewController(withIdentifier: storyboardId) as! MovieDetailViewController
+//		controller.selectedMovie = topRatedMoviesArray[(indexPath as NSIndexPath).row]
+//		navigationController!.pushViewController(controller, animated: true)
+//	}
+//
+//} // end ext
+
+
+//*****************************************************************
+// MARK: - Search Result Updating Method
+//*****************************************************************
+
+extension MovieViewController: UISearchResultsUpdating {
+	
+	
+	// task: actualizar los resultados de la búsqueda de acuerdo a la información ingresada por el usuario en la barra de búsqueda
+	func updateSearchResults(for searchController: UISearchController) { // 👈
+		//filterContentForSearchText(searchController.searchBar.text!)
+	}
+	
+}
+
+//*****************************************************************
+// MARK: - Search Bar Delegate
+//*****************************************************************
+
+extension MovieViewController: UISearchBarDelegate {
+
+	// task: decirle al delegado que el índice del botón de ´scope´ cambió
+	func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
+		
+		//filterContentForSearchText(searchBar.text!, scope: searchBar.scopeButtonTitles![selectedScope])
+		
+		debugPrint("😠 el scope seleccionado es el: \(selectedScope)")
+		
+		// MARK: update navigation title item
+		
+		switch selectedScope {
+			
+		case 0:
+			self.navigationItem.title = "Popular Movies"
+			getPopularMovies()
+		case 1:
+				self.navigationItem.title = "Top Rated Movies"
+				debugPrint("título de la barra de navegación: \(navigationItem.title)")
+				// networking 🚀
+				getTopRatedMovies()
+			
+			
+		case 2:
+				self.navigationItem.title = "Upcoming Movies"
+			getUpcomingMovies()
+			
+		default:
+			print("")
+		}
+	}
+	
+	
 } // end ext
 
