@@ -45,9 +45,7 @@ extension TMDbClient {
 		static let SearchUpcomingMovies = "/movie/upcoming"
 		static let SearchMovie = "/movie/"
 		static let SearchVideo = "/videos"
-		
-//		// MARK: Config
-//		static let Config = "/configuration"
+		static let SearchTextMovie = "/search/movie"
 		
 	}
 	
@@ -69,6 +67,7 @@ extension TMDbClient {
 		static let ApiKey = "api_key"
 		static let Language = "language"
 		static let Page = "page"
+		static let Query = "query"
 	}
 	
 	

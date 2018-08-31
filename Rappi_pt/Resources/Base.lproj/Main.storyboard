@@ -189,7 +189,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="5Of-KX-X4g"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Popular Movies" largeTitleDisplayMode="always" id="OaS-Md-jAP">
+                    <navigationItem key="navigationItem" title="Movies" largeTitleDisplayMode="always" id="OaS-Md-jAP">
                         <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="XUf-ko-jQ6">
                             <connections>
                                 <action selector="refreshButtonPressed:" destination="3Tp-jd-D2j" id="6ci-xa-gef"/>

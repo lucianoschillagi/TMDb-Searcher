@@ -29,6 +29,8 @@ class MovieViewController: UIViewController {
 	var topRatedMoviesArray = [TMDbMovie]()
 	// trae las 'upcoming movies'
 	var upcomingMoviesArray = [TMDbMovie]()
+	// un array que contiene la películas filtradas
+	var filteredMoviesArray = [TMDbMovie]()
 	
 	// MARK: Movie Detail VC 🔜
 	var detailViewController: MovieDetailViewController? = nil // una instancia del 'movie detail view controller'
@@ -37,7 +39,7 @@ class MovieViewController: UIViewController {
 	let searchController = UISearchController(searchResultsController: nil)
 	
 	// MARK: Las categorías disponibles
-	let category = ["Popular Movies": "Popular Movies", "Top Rated Movies": "Top Rated Movies", "Upcoming Movies": "Upcoming Movies"]
+	let category = ["Explore": "Explore", "Popular Movies": "Popular Movies", "Top Rated Movies": "Top Rated Movies", "Upcoming Movies": "Upcoming Movies"]
 	
 	//*****************************************************************
 	// MARK: - IBOutlets
@@ -54,13 +56,15 @@ class MovieViewController: UIViewController {
 	// task: ejecutarse una vez que la pantalla se carga
     override func viewDidLoad() {
         super.viewDidLoad()
+			
+			navigationItem.title = "Explore"
 		
 			// search & scope bar
 			configureSearchAndScopeBar()
 			// detail vc
 			configureDetailVC()
 			// network request 🚀
-			getPopularMovies()
+			getSearchTextMovies()
 
     }
 	
@@ -81,6 +85,10 @@ class MovieViewController: UIViewController {
 	@IBAction func refreshButtonPressed(_ sender: UIBarButtonItem) {
 		
 		switch navigationItem.title {
+			
+		// si el título de la barra de navegación es "All", contar ´TTTTTTTTTT´
+		case category["Explore"]:
+			getSearchTextMovies()
 			
 		// si el título de la barra de navegación es "Popular Movies", contar ´popularMoviesArray´
 		case category["Popular Movies"]:
@@ -142,7 +150,7 @@ class MovieViewController: UIViewController {
 		
 		// MARK: Configurando el 'Scope Bar'
 		searchController.searchBar.delegate = self
-		let categories = ["Popular", "Top Rated", "Upcoming"]
+		let categories = ["Explore", "Popular", "Top Rated", "Upcoming"]
 		searchController.searchBar.scopeButtonTitles = categories
 	}
 	

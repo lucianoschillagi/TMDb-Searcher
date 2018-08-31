@@ -36,10 +36,6 @@ class TMDbClient: NSObject {
 	// MARK: - Networking Methods
 	//*****************************************************************
 	
-	
-	
-	
-	
 	// MARK: Popular Movies
 	// task: obtener las películas máspopulares de TMDb
 	static func getPopularMovies(_ completionHandlerForGetPopularMovies: @escaping ( _ success: Bool, _ popularMovies: [TMDbMovie]?, _ errorString: String?) -> Void) {
@@ -49,7 +45,7 @@ class TMDbClient: NSObject {
 		var choosenPage = String(totalPagesRandom)
 		
 		/* 1. 📞 Realiza la llamada a la API, a través de la función request() de Alamofire 🚀 */
-		Alamofire.request(configureUrl(TMDbClient.Methods.SearchPopularMovie, page: choosenPage)).responseJSON { response in
+		Alamofire.request(configureUrl(TMDbClient.Methods.SearchPopularMovie)).responseJSON { response in
 			
 			// response status code
 			if let status = response.response?.statusCode {
@@ -216,7 +212,7 @@ class TMDbClient: NSObject {
 		
 		/* 1. 📞 Realiza la llamada a la API, a través de la función request() de Alamofire 🚀 */
 		Alamofire.request(configureUrl(videoMethod)).responseJSON { response in
-			
+
 			// response status code
 			if let status = response.response?.statusCode {
 				switch(status){
@@ -227,35 +223,90 @@ class TMDbClient: NSObject {
 					completionHandlerForVideo(false, nil, errorMessage)
 				}
 			}
+
+			/* 2. Almacena la respuesta del servidor (response.result.value) en la constante 'jsonObjectResult' 📦 */
+			if let jsonObjectResult: Any = response.result.value {
+
+				let jsonObjectResultDictionary = jsonObjectResult as! [String:AnyObject]
+
+				debugPrint("🤜JSON POPULAR MOVIES: \(jsonObjectResult)") // JSON obtenido
+
+				if let results = jsonObjectResultDictionary["results"] {
+
+					let resultsVideoMovie = TMDbMovie.moviesFromResults(results as! [[String : AnyObject]])
+
+					//test
+					debugPrint("🤾🏼‍♂️ TMDBMovie...\(resultsVideoMovie)")
+
+					completionHandlerForVideo(true, resultsVideoMovie, nil)
+
+				}
+			}
+		}
+	}
+	
+	// MARK: Get Search Movie
+	// task: obtener las películas que se correspondan con el texto de búsqueda
+	static func getMoviesForSearchString(_ searchString: String, completionHandlerForMovies: @escaping (_ success: Bool, _ result: [TMDbMovie]?, _ error: String?) -> Void)  {
+		
+		// GET /search/movie
+		//https://api.themoviedb.org/3/search/movie?
+		//api_key=0942529e191d0558f888245403b4dca7&
+		//language=en-US&
+		//query=Is&
+		//page=1&
+		//include_adult=false
+	
+		//https://api.themoviedb.org/3/search/movie?api_key=0942529e191d0558f888245403b4dca7&language=en-US&query=rocket&page=1&include_adult=false
+		
+		// query element, LUEGO BORRAR
+		//let parameters = ["query": searchString]
+		
+//		Alamofire.request(configureUrl(TMDbClient.Methods.SearchTextMovie, searchString: searchString)).responseJSON { response in
+		Alamofire.request("https://api.themoviedb.org/3/search/movie?api_key=0942529e191d0558f888245403b4dca7&language=en-US&query=rocket&page=1&include_adult=false").responseJSON { response in
+
+		
+			// response status code
+			if let status = response.response?.statusCode {
+				switch(status){
+				case 200:
+					print("example success")
+				default:
+					let errorMessage = "error with response status: \(status)"
+					completionHandlerForMovies(false, nil, errorMessage)
+				}
+			}
 			
 			/* 2. Almacena la respuesta del servidor (response.result.value) en la constante 'jsonObjectResult' 📦 */
 			if let jsonObjectResult: Any = response.result.value {
 				
 				let jsonObjectResultDictionary = jsonObjectResult as! [String:AnyObject]
 				
-				debugPrint("🤜JSON POPULAR MOVIES: \(jsonObjectResult)") // JSON obtenido
+				debugPrint("🤜JSON TEXT SEARCH MOVIES: \(jsonObjectResult)") // JSON obtenido
 				
-				if let results = jsonObjectResultDictionary["results"] {
+				if let results = jsonObjectResultDictionary[TMDbClient.JSONResponseKeys.Results] {
 					
-					let resultsVideoMovie = TMDbMovie.moviesFromResults(results as! [[String : AnyObject]])
+					let resultsMovieTextSearch = TMDbMovie.moviesFromResults(results as! [[String : AnyObject]])
 					
 					//test
-					debugPrint("🤾🏼‍♂️ TMDBMovie...\(resultsVideoMovie)")
+					debugPrint("🤾🏼‍♂️ TMDBMovie...\(resultsMovieTextSearch)")
 					
-					completionHandlerForVideo(true, resultsVideoMovie, nil)
+					completionHandlerForMovies(true, resultsMovieTextSearch, nil)
 					
 				}
 			}
+			
 		}
-		
+			
 	}
+	
 	
 	//*****************************************************************
 	// MARK: - Helpers
 	//*****************************************************************
 	
 	// task: configurar las diversas URLs a enviar en las APi calls
-	static func configureUrl(_ methodRequest: String, page: String? = nil) -> URL {
+	static func configureUrl(_ methodRequest: String, page: String? = nil, searchString: String? = nil) -> URL {
 
 		var components = URLComponents()
 		components.scheme = TMDbClient.Constants.ApiScheme
@@ -265,9 +316,11 @@ class TMDbClient: NSObject {
 		let queryItem1 = URLQueryItem(name: TMDbClient.ParameterKeys.ApiKey, value: TMDbClient.ParameterValues.ApiKey)
 		let queryItem2 = URLQueryItem(name: TMDbClient.ParameterKeys.Language, value: TMDbClient.ParameterValues.Language)
 		let queryItem3 = URLQueryItem(name: TMDbClient.ParameterKeys.Page, value: page)
+		let queryItem4 = URLQueryItem(name: TMDbClient.ParameterKeys.Query, value: searchString)
 		components.queryItems!.append(queryItem1)
 		components.queryItems?.append(queryItem2)
 		components.queryItems?.append(queryItem3)
+		components.queryItems?.append(queryItem4)
 		
 		return components.url!
 	}

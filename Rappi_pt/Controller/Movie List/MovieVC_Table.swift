@@ -26,6 +26,11 @@ Contiene métodos concernientes a la tabla.
 			switch navigationItem.title {
 				
 			// si el título de la barra de navegación es "Popular Movies", contar ´popularMoviesArray´
+			case category["Explore"]:
+				debugPrint("contando el array de popular movies \(popularMoviesArray.count)")
+				return filteredMoviesArray.count
+				
+			// si el título de la barra de navegación es "Popular Movies", contar ´popularMoviesArray´
 			case category["Popular Movies"]:
 				debugPrint("contando el array de popular movies \(popularMoviesArray.count)")
 				return popularMoviesArray.count
@@ -53,6 +58,12 @@ Contiene métodos concernientes a la tabla.
 			var movie: TMDbMovie?
 			
 			switch navigationItem.title {
+				
+			// si el título de la barra de navegación es "Popular Movies", mostrar ese grupo en las celdas de la tabla
+			case category["Explore"]:
+				movie = filteredMoviesArray[(indexPath as NSIndexPath).row]
+				debugPrint("🧛🏻‍♂️\(movie)")
+				
 				
 			// si el título de la barra de navegación es "Popular Movies", mostrar ese grupo en las celdas de la tabla
 			case category["Popular Movies"]:
@@ -116,6 +127,10 @@ Contiene métodos concernientes a la tabla.
 			let controller = storyboard!.instantiateViewController(withIdentifier: storyboardId) as! MovieDetailViewController
 			
 			switch navigationItem.title {
+				
+			case category["Explore"]:
+				controller.selectedMovie = filteredMoviesArray[(indexPath as NSIndexPath).row]
+				navigationController!.pushViewController(controller, animated: true)
 				
 			case category["Popular Movies"]:
 				controller.selectedMovie = popularMoviesArray[(indexPath as NSIndexPath).row]

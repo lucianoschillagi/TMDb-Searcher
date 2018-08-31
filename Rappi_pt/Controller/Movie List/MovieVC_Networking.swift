@@ -113,4 +113,49 @@ extension MovieViewController {
 		}
 	}
 	
+	// MARK: Get Search Text Movies
+	// task: obtener, mediante una solicitud web a la API de TMDb, el array de películas filtradas por texto
+	func getSearchTextMovies() {
+		
+		// networking ⬇ : Upcoming Movies
+		TMDbClient.getMoviesForSearchString("") { (success, searchTextMovies, error) in
+			
+			// dispatch
+			DispatchQueue.main.async {
+				
+				// si la solicitud fue exitosa
+				if success {
+					
+					// comprueba si el 'popularMovies' recibido contiene algún valor
+					if let searchTextMovies = searchTextMovies {
+						// si es así, se lo asigna a la propiedad ´popularMovies´
+						self.filteredMoviesArray = searchTextMovies // 🔌 👏
+						self.stopActivityIndicator()
+						self.tableView.reloadData()
+						
+					}
+					
+				} else {
+					// si devuelve un error
+					self.displayAlertView("Error Request", error)
+				}
+			}
+		}
+		
+		
+		
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 } // end ext
