@@ -64,6 +64,15 @@ class MovieViewController: UIViewController {
 
     }
 	
+	override func viewWillAppear(_ animated: Bool) {
+		if splitViewController!.isCollapsed {
+			if let selectionIndexPath = self.tableView.indexPathForSelectedRow {
+				self.tableView.deselectRow(at: selectionIndexPath, animated: animated)
+			}
+		}
+		super.viewWillAppear(animated)
+	}
+	
 	//*****************************************************************
 	// MARK: - IBActions
 	//*****************************************************************
