@@ -65,4 +65,11 @@ extension MovieViewController: UISearchBarDelegate {
 	}
 	
 	
+	// task: comprobar si la barra de búsqueda está vacía o no
+	func searchBarIsEmpty() -> Bool {
+		// Returns true if the text is empty or nil
+		return searchController.searchBar.text?.isEmpty ?? true
+	}
+	
+	
 } // end ext
