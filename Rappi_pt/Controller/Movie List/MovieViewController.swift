@@ -41,13 +41,18 @@ class MovieViewController: UIViewController {
 	// MARK: Las categorías disponibles
 	let category = ["Explore": "Explore", "Popular Movies": "Popular Movies", "Top Rated Movies": "Top Rated Movies", "Upcoming Movies": "Upcoming Movies"]
 	
+	// el texto ingresado por el usuario para realizar la búsqueda
+	//var searchUserText = String()
+	
+	// la tarea de descarga de datos más reciente. Mantenemos una referencia para que se pueda cancelar cada vez que cambie el texto de búsqueda
+	var searchTask: URLSessionDataTask?
+	
 	//*****************************************************************
 	// MARK: - IBOutlets
 	//*****************************************************************
 	
 	@IBOutlet weak var searchBar: UISearchBar!
-	@IBOutlet weak var tableView: UITableView!
-	@IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+	@IBOutlet weak var movieTableView: UITableView!
 
 	//*****************************************************************
 	// MARK: - VC Life Cycle
@@ -64,14 +69,14 @@ class MovieViewController: UIViewController {
 			// detail vc
 			configureDetailVC()
 			// network request 🚀
-			getSearchTextMovies()
+			//getSearchTextMovies()
 
     }
 	
 	override func viewWillAppear(_ animated: Bool) {
 		if splitViewController!.isCollapsed {
-			if let selectionIndexPath = self.tableView.indexPathForSelectedRow {
-				self.tableView.deselectRow(at: selectionIndexPath, animated: animated)
+			if let selectionIndexPath = self.movieTableView.indexPathForSelectedRow {
+				self.movieTableView.deselectRow(at: selectionIndexPath, animated: animated)
 			}
 		}
 		super.viewWillAppear(animated)
@@ -85,11 +90,7 @@ class MovieViewController: UIViewController {
 	@IBAction func refreshButtonPressed(_ sender: UIBarButtonItem) {
 		
 		switch navigationItem.title {
-			
-		// si el título de la barra de navegación es "All", contar ´TTTTTTTTTT´
-		case category["Explore"]:
-			getSearchTextMovies()
-			
+	
 		// si el título de la barra de navegación es "Popular Movies", contar ´popularMoviesArray´
 		case category["Popular Movies"]:
 			getPopularMovies()
@@ -106,20 +107,6 @@ class MovieViewController: UIViewController {
 			print("")
 		}
 
-	}
-	
-	//*****************************************************************
-	// MARK: - Activity Indicator
-	//*****************************************************************
-	
-	func startActivityIndicator() {
-		activityIndicator.alpha = 1.0
-		activityIndicator.startAnimating()
-	}
-	
-	func stopActivityIndicator() {
-		activityIndicator.alpha = 0.0
-		self.activityIndicator.stopAnimating()
 	}
 
 	//*****************************************************************
@@ -186,8 +173,19 @@ class MovieViewController: UIViewController {
 		}
 	}
 	
-
+	//*****************************************************************
+	// MARK: - Activity Indicator
+	//*****************************************************************
 	
+//	func startActivityIndicator() {
+//		activityIndicator.alpha = 1.0
+//		activityIndicator.startAnimating()
+//	}
+//	
+//	func stopActivityIndicator() {
+//		activityIndicator.alpha = 0.0
+//		self.activityIndicator.stopAnimating()
+//	}
 
 
 } // end class

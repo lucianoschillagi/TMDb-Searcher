@@ -36,8 +36,8 @@ extension MovieViewController {
 					if let popularMovies = popularMovies {
 						// si es así, se lo asigna a la propiedad ´popularMovies´
 						self.popularMoviesArray = popularMovies // 🔌 👏
-						self.stopActivityIndicator()
-						self.tableView.reloadData()
+						//self.stopActivityIndicator()
+						self.movieTableView.reloadData()
 						
 					}
 					
@@ -69,8 +69,8 @@ extension MovieViewController {
 					if let topRatedMovies = topRatedMovies {
 						// si es así, se lo asigna a la propiedad ´popularMovies´
 						self.topRatedMoviesArray = topRatedMovies // 🔌 👏
-						self.stopActivityIndicator()
-						self.tableView.reloadData()
+						//self.stopActivityIndicator()
+						self.movieTableView.reloadData()
 					}
 					
 				} else {
@@ -100,8 +100,8 @@ extension MovieViewController {
 					if let upcomingMovies = upcomingMovies {
 						// si es así, se lo asigna a la propiedad ´popularMovies´
 						self.upcomingMoviesArray = upcomingMovies // 🔌 👏
-						self.stopActivityIndicator()
-						self.tableView.reloadData()
+					//	self.stopActivityIndicator()
+						self.movieTableView.reloadData()
 						
 					}
 					
@@ -115,23 +115,27 @@ extension MovieViewController {
 	
 	// MARK: Get Search Text Movies
 	// task: obtener, mediante una solicitud web a la API de TMDb, el array de películas filtradas por texto
-	func getSearchTextMovies() {
+	func getSearchTextMovies(_ searchText: String) {
 		
 		// networking ⬇ : Upcoming Movies
-		TMDbClient.getMoviesForSearchString("") { (success, searchTextMovies, error) in
+		TMDbClient.getMoviesForSearchString(searchText) { (success, searchTextMovies, error) in
+			
+			//test
+			//debugPrint("😡 ->\(self.searchUserText)")
 			
 			// dispatch
 			DispatchQueue.main.async {
 				
+				
 				// si la solicitud fue exitosa
 				if success {
-					
 					// comprueba si el 'popularMovies' recibido contiene algún valor
 					if let searchTextMovies = searchTextMovies {
 						// si es así, se lo asigna a la propiedad ´popularMovies´
+						debugPrint("🧙🏽‍♀️\(searchTextMovies)")
 						self.filteredMoviesArray = searchTextMovies // 🔌 👏
-						self.stopActivityIndicator()
-						self.tableView.reloadData()
+						//self.stopActivityIndicator()
+						self.movieTableView.reloadData()
 						
 					}
 					

@@ -83,9 +83,9 @@ class MovieTrailerViewController: UIViewController {
 					
 					self.stopActivityIndicator()
 					
-					// comprueba si el 'popularMovies' recibido contiene algún valor
+					// comprueba si el 'videoTrailer' recibido contiene algún valor
 					if let videoTrailer = videoTrailer {
-						// si es así, se lo asigna a la propiedad ´popularMovies´
+						// si es así, se lo asigna a la propiedad ´videoTrailer´
 						for item in videoTrailer {
 							videosKey.append(item.videoKey!)
 						}

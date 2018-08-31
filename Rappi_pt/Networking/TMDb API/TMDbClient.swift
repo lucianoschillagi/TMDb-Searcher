@@ -41,11 +41,11 @@ class TMDbClient: NSObject {
 	static func getPopularMovies(_ completionHandlerForGetPopularMovies: @escaping ( _ success: Bool, _ popularMovies: [TMDbMovie]?, _ errorString: String?) -> Void) {
 		
 		// 0. total pages random
-		var totalPagesRandom = Int.random(in: 1 ..< 306)
+		let totalPagesRandom = Int.random(in: 1 ..< 306)
 		var choosenPage = String(totalPagesRandom)
 		
 		/* 1. 📞 Realiza la llamada a la API, a través de la función request() de Alamofire 🚀 */
-		Alamofire.request(configureUrl(TMDbClient.Methods.SearchPopularMovie)).responseJSON { response in
+		Alamofire.request(configureUrl(TMDbClient.Methods.SearchPopularMovie, page: choosenPage)).responseJSON { response in
 			
 			// response status code
 			if let status = response.response?.statusCode {
@@ -86,8 +86,8 @@ class TMDbClient: NSObject {
 	static func getTopRatedMovies(_ completionHandlerForTopRatedMovies: @escaping ( _ success: Bool, _ topRatedMovies:  [TMDbMovie]?, _ errorString: String?) -> Void) {
 	
 		// 0. total pages random
-		var totalPagesRandom = Int.random(in: 1 ..< 15)
-		var choosenPage = String(totalPagesRandom)
+		let totalPagesRandom = Int.random(in: 1 ..< 15)
+		let choosenPage = String(totalPagesRandom)
 		
 		/* 1. 📞 Realiza la llamada a la API, a través de la función request() de Alamofire 🚀 */
 		Alamofire.request(configureUrl(TMDbClient.Methods.SearchTopRatedMovies, page: choosenPage)).responseJSON { response in
@@ -131,8 +131,8 @@ class TMDbClient: NSObject {
 	static func getUpcomingMovies(_ completionHandlerForUpcomingMovies: @escaping ( _ success: Bool, _ upcomingMovies: [TMDbMovie]?, _ errorString: String?) -> Void) {
 
 		// 0. total pages random
-		var totalPagesRandom = Int.random(in: 1 ..< 15)
-		var choosenPage = String(totalPagesRandom)
+		let totalPagesRandom = Int.random(in: 1 ..< 15)
+		let choosenPage = String(totalPagesRandom)
 		
 		/* 1. 📞 Realiza la llamada a la API, a través de la función request() de Alamofire 🚀 */
 		Alamofire.request(configureUrl(TMDbClient.Methods.SearchUpcomingMovies, page: choosenPage)).responseJSON { response in
@@ -249,21 +249,9 @@ class TMDbClient: NSObject {
 	// task: obtener las películas que se correspondan con el texto de búsqueda
 	static func getMoviesForSearchString(_ searchString: String, completionHandlerForMovies: @escaping (_ success: Bool, _ result: [TMDbMovie]?, _ error: String?) -> Void)  {
 		
-		// GET /search/movie
-		//https://api.themoviedb.org/3/search/movie?
-		//api_key=0942529e191d0558f888245403b4dca7&
-		//language=en-US&
-		//query=Is&
-		//page=1&
-		//include_adult=false
-	
-		//https://api.themoviedb.org/3/search/movie?api_key=0942529e191d0558f888245403b4dca7&language=en-US&query=rocket&page=1&include_adult=false
-		
-		// query element, LUEGO BORRAR
-		//let parameters = ["query": searchString]
-		
-//		Alamofire.request(configureUrl(TMDbClient.Methods.SearchTextMovie, searchString: searchString)).responseJSON { response in
-		Alamofire.request("https://api.themoviedb.org/3/search/movie?api_key=0942529e191d0558f888245403b4dca7&language=en-US&query=rocket&page=1&include_adult=false").responseJSON { response in
+		//https://api.themoviedb.org/3/search/movie?api_key=0942529e191d0558f888245403b4dca7&query=Is
+		/* 1. 📞 Realiza la llamada a la API, a través de la función request() de Alamofire 🚀 */
+		Alamofire.request(configureUrlSearchText(TMDbClient.Methods.SearchTextMovie, searchString: searchString)).responseJSON { response in
 
 		
 			// response status code
@@ -316,12 +304,37 @@ class TMDbClient: NSObject {
 		let queryItem1 = URLQueryItem(name: TMDbClient.ParameterKeys.ApiKey, value: TMDbClient.ParameterValues.ApiKey)
 		let queryItem2 = URLQueryItem(name: TMDbClient.ParameterKeys.Language, value: TMDbClient.ParameterValues.Language)
 		let queryItem3 = URLQueryItem(name: TMDbClient.ParameterKeys.Page, value: page)
-		let queryItem4 = URLQueryItem(name: TMDbClient.ParameterKeys.Query, value: searchString)
-		components.queryItems!.append(queryItem1)
-		components.queryItems?.append(queryItem2)
-		components.queryItems?.append(queryItem3)
-		components.queryItems?.append(queryItem4)
 		
+		//https://api.themoviedb.org/3/search/movie?api_key=0942529e191d0558f888245403b4dca7&language=en-US&query=rocket&page=1&include_adult=false
+		// api key
+		components.queryItems?.append(queryItem1)
+		// language
+		components.queryItems?.append(queryItem2)
+		// page
+		components.queryItems?.append(queryItem3)
+		
+		return components.url!
+	}
+	
+	
+	// task: configurar la url para el método 'getMoviesForSearchString'
+	static func configureUrlSearchText(_ methodRequest: String, searchString: String?) -> URL {
+		
+		var components = URLComponents()
+		components.scheme = TMDbClient.Constants.ApiScheme
+		components.host = TMDbClient.Constants.ApiHost
+		components.path = TMDbClient.Constants.ApiPath + methodRequest
+		components.queryItems = [URLQueryItem]()
+		let queryItem1 = URLQueryItem(name: TMDbClient.ParameterKeys.ApiKey, value: TMDbClient.ParameterValues.ApiKey)
+		let queryItem2 = URLQueryItem(name: TMDbClient.ParameterKeys.Query, value: searchString)
+
+		// api key
+		components.queryItems?.append(queryItem1)
+		// query
+		components.queryItems?.append(queryItem2)
+
+		// test
+		debugPrint("😡 --> URL: \(components.url!)")
 		return components.url!
 	}
 	

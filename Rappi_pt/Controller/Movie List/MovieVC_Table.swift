@@ -25,9 +25,9 @@ Contiene métodos concernientes a la tabla.
 			
 			switch navigationItem.title {
 				
-			// si el título de la barra de navegación es "Popular Movies", contar ´popularMoviesArray´
+			// si el título de la barra de navegación es "Explore", contar ´filteredMoviesArray´
 			case category["Explore"]:
-				debugPrint("contando el array de popular movies \(popularMoviesArray.count)")
+				debugPrint("contando el array de popular movies \(filteredMoviesArray.count)")
 				return filteredMoviesArray.count
 				
 			// si el título de la barra de navegación es "Popular Movies", contar ´popularMoviesArray´
@@ -59,11 +59,10 @@ Contiene métodos concernientes a la tabla.
 			
 			switch navigationItem.title {
 				
-			// si el título de la barra de navegación es "Popular Movies", mostrar ese grupo en las celdas de la tabla
+			// si el título de la barra de navegación es "Explore", mostrar ese grupo en las celdas de la tabla
 			case category["Explore"]:
 				movie = filteredMoviesArray[(indexPath as NSIndexPath).row]
 				debugPrint("🧛🏻‍♂️\(movie)")
-				
 				
 			// si el título de la barra de navegación es "Popular Movies", mostrar ese grupo en las celdas de la tabla
 			case category["Popular Movies"]:
