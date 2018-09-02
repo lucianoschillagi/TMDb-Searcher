@@ -31,7 +31,8 @@ struct TMDbMovie {
 	//*****************************************************************
 	
 	let title: String?
-	let id: Int?
+	let movieId: Int?
+	let trailerId: Int?
 	let posterPath: String?
 	let releaseYear: String?
 	let overview: String?
@@ -46,7 +47,8 @@ struct TMDbMovie {
 	// construye el objeto 'TMDbMovie' desde un diccionario  👈
 	init(dictionary: [String:AnyObject]) {
 		title = dictionary[TMDbClient.JSONResponseKeys.MovieTitle] as? String // "title"
-		id = dictionary[TMDbClient.JSONResponseKeys.MovieID] as? Int // "id"
+		movieId = dictionary[TMDbClient.JSONResponseKeys.MovieID] as? Int // "id"
+		trailerId = dictionary[TMDbClient.JSONResponseKeys.TrailerID] as? Int // "id"
 		posterPath = dictionary[TMDbClient.JSONResponseKeys.MoviePosterPath] as? String // "poster_path"
 		overview = dictionary[TMDbClient.JSONResponseKeys.MovieOverview] as? String // "poster_path"
 		voteAverage = dictionary[TMDbClient.JSONResponseKeys.MovieAverage] as? Double // "vote_average"

@@ -23,11 +23,13 @@ class MovieTrailerViewController: UIViewController {
 	
 	var selectedMovie: TMDbMovie?
 	
+	var trailerArray: [TMDbMovie]?
+	var firstTrailerArray: [TMDbMovie] = []
+	
 	// esconde la barra de estado
 	override var prefersStatusBarHidden: Bool {
 		return true
 	}
-	
 	
 	//*****************************************************************
 	// MARK: - IBOutlets
@@ -36,78 +38,27 @@ class MovieTrailerViewController: UIViewController {
 	@IBOutlet weak var videoView: YouTubePlayerView!	
 	@IBOutlet weak var activityIndicator: UIActivityIndicatorView!
 	
-	
 	//*****************************************************************
 	// MARK: - VC Life Cycle
 	//*****************************************************************
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
 			startActivityIndicator()
-			startRequest()
-			
-			
+			showTrailer()
     }
 	
 	//*****************************************************************
 	// MARK: - Networking
 	//*****************************************************************
 	
-	// task: obtener los datos para solicitar el trailer de la película
-	func startRequest() {
-		//TODO: refactorizar luego este método
-		
-	
-		var movieId: String = String()
-		
-		if let selectedMovieId = selectedMovie?.id {
-			movieId = String(selectedMovieId)
-		}
-		
-
-		let videoMethod = TMDbClient.Methods.SearchMovie + movieId + TMDbClient.Methods.SearchVideo
-		
-		// networking 🚀
-		TMDbClient.getMovieTrailer (videoMethod){ (success, videoTrailer, error) in
-			
-			// TODO: if success...
-			var videosKey: [String] = []
-			var oficialVideoKey: String = String()
-			
-			// dispatch
-			DispatchQueue.main.async {
-				
-				// si la solicitud fue exitosa
-				if success {
-					
-					self.stopActivityIndicator()
-					
-					// comprueba si el 'videoTrailer' recibido contiene algún valor
-					if let videoTrailer = videoTrailer {
-						// si es así, se lo asigna a la propiedad ´videoTrailer´
-						for item in videoTrailer {
-							videosKey.append(item.videoKey!)
-						}
-						
-						// TODO: falta seguridad!!!
-						oficialVideoKey = videosKey.first!
-						debugPrint("🎬\(oficialVideoKey)")
-						
-						let youtube = TMDbClient.Constants.YouTubeBaseURL
-						// url trailer youtube 👈
-						var urlTrailerYouTube = "\(youtube)\(oficialVideoKey)"
-						debugPrint("⚽️\(urlTrailerYouTube)")
-						self.videoView.loadVideoID(oficialVideoKey)
-					}
-						
-				} else {
-					// si devuelve un error
-					//self.displayAlertView("Error Request", error)
-				}
-			}
-		}
-	} // end func
+	// task: mostrar el trailer de la película
+	func showTrailer() {
+		for item in trailerArray! { firstTrailerArray.append(item)}
+		let firstTrailer = firstTrailerArray.first
+		let oficialVideoKey = firstTrailer?.videoKey
+		self.videoView.loadVideoID(oficialVideoKey!)
+	}
 	
 	//*****************************************************************
 	// MARK: - Activity Indicator
@@ -121,6 +72,30 @@ class MovieTrailerViewController: UIViewController {
 	func stopActivityIndicator() {
 		activityIndicator.alpha = 0.0
 		self.activityIndicator.stopAnimating()
+	}
+	
+	//*****************************************************************
+	// MARK: - Alert View
+	//*****************************************************************
+	
+	/**
+	Muestra al usuario un mensaje acerca de porqué la solicitud falló.
+	
+	- Parameter title: El título del error.
+	- Parameter message: El mensaje acerca del error.
+	
+	*/
+	func displayAlertView(_ title: String?, _ error: String?) {
+		
+		// si ocurre un error en la solicitud, mostrar una vista de alerta!
+		if error != nil {
+			let alertController = UIAlertController(title: title, message: error, preferredStyle: .alert)
+			let OKAction = UIAlertAction(title: "OK", style: .default) { action in
+			}
+			
+			alertController.addAction(OKAction)
+			self.present(alertController, animated: true) {}
+		}
 	}
 	
 	

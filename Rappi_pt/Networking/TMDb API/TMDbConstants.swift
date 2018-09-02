@@ -123,6 +123,7 @@ extension TMDbClient {
 
 		// MARK: Movie
 		static let MovieID = "id"
+		static let TrailerID = "id"
 		static let MovieTitle = "title"
 		static let MoviePosterPath = "poster_path"
 		static let MovieReleaseDate = "release_date"

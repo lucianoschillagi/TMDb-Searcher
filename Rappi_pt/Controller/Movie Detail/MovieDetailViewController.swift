@@ -16,13 +16,15 @@ Una pantalla que muestra el detalle de la película seleccionada en la pantalla 
 
 class MovieDetailViewController: UIViewController {
 	
-	
 	//*****************************************************************
 	// MARK: - Properties
 	//*****************************************************************
 	
 	// la película seleccionada en la pantalla anterior
 	var selectedMovie: TMDbMovie?
+	
+	// el trailer que se mostrará en la siguiente pantalla
+	var firstTrailer = [TMDbMovie]()
 	
 	// esconde la barra de estado
 	override var prefersStatusBarHidden: Bool {
@@ -51,14 +53,12 @@ class MovieDetailViewController: UIViewController {
 			getPosterImage()
     }
 	
-	
 	// task: obtener la imagen del poster y ponerla en el image view
 	func getPosterImage() {
 		
-		// poster path
 		if let posterPath = selectedMovie?.posterPath {
 			let _ = TMDbClient.getPosterImage(TMDbClient.ParameterValues.posterSizes[2], filePath: posterPath , { (imageData, error) in
-				if let image = UIImage(data: imageData!) {
+				if UIImage(data: imageData!) != nil {
 					DispatchQueue.main.async {
 						self.moviePoster.contentMode = UIView.ContentMode.scaleAspectFit
 						self.moviePoster.image = UIImage(data: imageData!)
@@ -68,8 +68,48 @@ class MovieDetailViewController: UIViewController {
 				}
 			})
 		}
+	}
+	
+	
+	//*****************************************************************
+	// MARK: - IBActions
+	//*****************************************************************
+	
+	@IBAction func trailerButtonPressed(_ sender: UIButton) {
 		
+		var movieId: String = String()
 		
+		if let selectedMovieId = selectedMovie?.movieId {
+			movieId = String(selectedMovieId)
+		}
+		
+		let videoMethod = TMDbClient.Methods.SearchMovie + movieId + TMDbClient.Methods.SearchVideo
+		
+		// networking 🚀
+		TMDbClient.getMovieTrailer (videoMethod){ (success, videoTrailer, error) in
+	
+			// dispatch
+			DispatchQueue.main.async {
+				
+				// si la solicitud fue exitosa
+				if success {
+					// comprueba si la película tiene un trailer disponible
+					if videoTrailer?.count == 0 {
+						self.displayAlertView("Trailer No Disponible", "Esta película aún no tiene trailer 😕")
+					} else {
+						// si tiene trailers disponbiles
+						for item in videoTrailer! {
+							// los agrega en el array 'firstTrailer'...
+							self.firstTrailer.append(item)
+						}
+						// ... y los envía a la siguiente pantalla
+						self.performSegue(withIdentifier: "toTrailer", sender: nil)
+					}
+				} else {
+					debugPrint(error ?? "")
+				}
+			}
+		} // end trailing closure
 	}
 	
 	//*****************************************************************
@@ -101,24 +141,52 @@ class MovieDetailViewController: UIViewController {
 		
 	}
 	
+	//*****************************************************************
+	// MARK: - Alert View
+	//*****************************************************************
+	
+	/**
+	Muestra al usuario un mensaje acerca de porqué la solicitud falló.
+	
+	- Parameter title: El título del error.
+	- Parameter message: El mensaje acerca del error.
+	
+	*/
+	func displayAlertView(_ title: String?, _ error: String?) {
+		
+		// si ocurre un error en la solicitud, mostrar una vista de alerta!
+		if error != nil {
+			
+			let alertController = UIAlertController(title: title, message: error, preferredStyle: .alert)
+			let OKAction = UIAlertAction(title: "OK", style: .default) { action in
+			}
+			
+			alertController.addAction(OKAction)
+			self.present(alertController, animated: true) {}
+		}
+	}
 	
 	
 } // end class
+
+//*****************************************************************
+// MARK: - Segue
+//*****************************************************************
 
 extension MovieDetailViewController {
 	
 	// task: inyectar a 'MovieTrailerViewController' el 'selected moview object'
 	override func prepare(for segue: UIStoryboardSegue,sender: Any?) {
-		
+
 		if segue.identifier == "toTrailer" {
-			
+
 			// el destino de la transición, el 'MovieTrailerViewController'
 			let trailerVC = segue.destination as! MovieTrailerViewController
-			
-			// el controlador de datos
+
+			// los datos a pasar
 			trailerVC.selectedMovie = selectedMovie
-			
+			trailerVC.trailerArray = firstTrailer
+
 		}
-		
 	}
 }

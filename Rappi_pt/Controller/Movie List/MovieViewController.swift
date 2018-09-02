@@ -172,21 +172,6 @@ class MovieViewController: UIViewController {
 			self.present(alertController, animated: true) {}
 		}
 	}
-	
-	//*****************************************************************
-	// MARK: - Activity Indicator
-	//*****************************************************************
-	
-//	func startActivityIndicator() {
-//		activityIndicator.alpha = 1.0
-//		activityIndicator.startAnimating()
-//	}
-//	
-//	func stopActivityIndicator() {
-//		activityIndicator.alpha = 0.0
-//		self.activityIndicator.stopAnimating()
-//	}
-
 
 } // end class
 
