@@ -12,7 +12,7 @@ import Foundation
 import Alamofire
 
 /* Abstract:
-Esta clase agrupa los métodos necesarios para interactuar con la API de TMDb.
+Esta clase agrupa los métodos necesarios para solicitar los datos a la API de TMDb que conformarán el Modelo.
 */
   
 class TMDbClient: NSObject {

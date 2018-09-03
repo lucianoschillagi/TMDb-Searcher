@@ -24,12 +24,10 @@ class MovieDetailViewController: UIViewController {
 	var selectedMovie: TMDbMovie?
 	
 	// el trailer que se mostrará en la siguiente pantalla
-	var firstTrailer = [TMDbMovie]()
+	var movieTrailers = [TMDbMovie]()
 	
 	// esconde la barra de estado
-	override var prefersStatusBarHidden: Bool {
-		return true
-	}
+	override var prefersStatusBarHidden: Bool { return true }
 	
 	//*****************************************************************
 	// MARK: - IBOutlets
@@ -40,17 +38,13 @@ class MovieDetailViewController: UIViewController {
 	@IBOutlet weak var movieVoteAverage: UILabel!
 	@IBOutlet weak var trailerButton: UIButton!
 	
-	
 	//*****************************************************************
 	// MARK: - VC Life Cycle
 	//*****************************************************************
 
     override func viewDidLoad() {
         super.viewDidLoad()
-			
-			getTitleAndYear()
-			configureUIDetail()
-			getPosterImage()
+			getTitleAndYear(); configureUIDetail(); getPosterImage()
     }
 	
 	// task: obtener la imagen del poster y ponerla en el image view
@@ -70,7 +64,6 @@ class MovieDetailViewController: UIViewController {
 		}
 	}
 	
-	
 	//*****************************************************************
 	// MARK: - IBActions
 	//*****************************************************************
@@ -79,28 +72,24 @@ class MovieDetailViewController: UIViewController {
 		
 		var movieId: String = String()
 		
-		if let selectedMovieId = selectedMovie?.movieId {
-			movieId = String(selectedMovieId)
-		}
+		if let selectedMovieId = selectedMovie?.movieId { movieId = String(selectedMovieId) }
 		
 		let videoMethod = TMDbClient.Methods.SearchMovie + movieId + TMDbClient.Methods.SearchVideo
 		
 		// networking 🚀
-		TMDbClient.getMovieTrailer (videoMethod){ (success, videoTrailer, error) in
-	
-			// dispatch
+		TMDbClient.getMovieTrailer (videoMethod){ (success, movieTrailers, error) in
+			
 			DispatchQueue.main.async {
 				
-				// si la solicitud fue exitosa
 				if success {
 					// comprueba si la película tiene un trailer disponible
-					if videoTrailer?.count == 0 {
+					if movieTrailers?.count == 0 {
 						self.displayAlertView("Trailer No Disponible", "Esta película aún no tiene trailer 😕")
 					} else {
 						// si tiene trailers disponbiles
-						for item in videoTrailer! {
+						for item in movieTrailers! {
 							// los agrega en el array 'firstTrailer'...
-							self.firstTrailer.append(item)
+							self.movieTrailers.append(item)
 						}
 						// ... y los envía a la siguiente pantalla
 						self.performSegue(withIdentifier: "toTrailer", sender: nil)
@@ -175,7 +164,7 @@ class MovieDetailViewController: UIViewController {
 
 extension MovieDetailViewController {
 	
-	// task: inyectar a 'MovieTrailerViewController' el 'selected moview object'
+	// task: inyectar a 'MovieTrailerViewController' los objetos 'selected movie' y 'movieTrailers' 
 	override func prepare(for segue: UIStoryboardSegue,sender: Any?) {
 
 		if segue.identifier == "toTrailer" {
@@ -185,7 +174,7 @@ extension MovieDetailViewController {
 
 			// los datos a pasar
 			trailerVC.selectedMovie = selectedMovie
-			trailerVC.trailerArray = firstTrailer
+			trailerVC.movieTrailersArray = movieTrailers
 
 		}
 	}

@@ -18,37 +18,27 @@ Contiene métodos concernientes a las búsquedas.
 // MARK: - Search Result Updating Method
 //*****************************************************************
 
-// UISearchResultsUpdating protocol
-extension MovieViewController: UISearchResultsUpdating {
+extension MovieListViewController: UISearchResultsUpdating {
 	// MARK: - UISearchResultsUpdating Delegate
 	
 	// task: actualizar los resultados de la búsqueda de acuerdo a la información ingresada por el usuario en le barra de búsqueda
 	func updateSearchResults(for searchController: UISearchController) {
-		debugPrint("me tocaron, soy la barra de búsqueda")
 		let searchBar = searchController.searchBar
 		let scope = searchBar.scopeButtonTitles![searchBar.selectedScopeButtonIndex]
-		
 		// si la barra de búsqueda está vacía, no hacer nada...
 		if searchBar.text == "" {
-			debugPrint("la barra no tiene ningún texto")
 		} else {
-			debugPrint("la barra ya tiene al menos una letra")
 		// ... si tiene algún texto, tomarlo para usarlo como ´query´ del método
 		filterContentForSearchText(searchController.searchBar.text!, scope: scope)
-			debugPrint("😡 \(searchBar.text!)")
+		}
 	}
-		
-	}
-	
 }
-
-
 
 //*****************************************************************
 // MARK: - Search Bar Delegate
 //*****************************************************************
 
-extension MovieViewController: UISearchBarDelegate {
+extension MovieListViewController: UISearchBarDelegate {
 
 	// task: le dice al controlador que el usuario cambió el texto de la barra de búsqueda
 	// cada vez que el texto de búsqueda cambia se cancela la descarga actual y empieza una nueva 👈
@@ -86,7 +76,6 @@ extension MovieViewController: UISearchBarDelegate {
 			
 		case 0:
 			self.navigationItem.title = "Explore"
-			//getSearchTextMovies() // TODO: LUEGO CAMBIAR
 		case 1:
 			self.navigationItem.title = "Popular Movies"
 			getPopularMovies()
@@ -102,7 +91,6 @@ extension MovieViewController: UISearchBarDelegate {
 		}
 	}
 	
-	
 	// task: comprobar si la barra de búsqueda está vacía o no
 	func searchBarIsEmpty() -> Bool {
 		// Returns true if the text is empty or nil
@@ -112,11 +100,6 @@ extension MovieViewController: UISearchBarDelegate {
 	
 	// task: filtrar las películas de acuerdo al texto de búsqueda ingresado por el usuario 👈
 	func filterContentForSearchText(_ searchText: String, scope: String = "Explore") {
-		
-		
-		debugPrint("El texto ingresado por el ususario es: \(searchText)")
-		
-		//searchUserText = searchText
 		
 			filteredMoviesArray = filteredMoviesArray.filter({( movie : TMDbMovie) -> Bool in
 					let doesCategoryMatch = (scope == "Explore") //|| (movie.category == scope)
@@ -128,8 +111,6 @@ extension MovieViewController: UISearchBarDelegate {
 					}
 				})
 				movieTableView.reloadData()
-	
-		
 	}
 	
 	// task: determinar si actualmente se están filtrando resultados o no

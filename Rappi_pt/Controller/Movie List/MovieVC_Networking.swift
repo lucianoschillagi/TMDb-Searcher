@@ -14,7 +14,7 @@ import UIKit
 Contiene métodos concernientes a las solicitudes web.
 */
 
-extension MovieViewController {
+extension MovieListViewController {
 	
 	//*****************************************************************
 	// MARK: - Networking
@@ -26,30 +26,22 @@ extension MovieViewController {
 		// networking ⬇ : Popular Movies
 		TMDbClient.getPopularMovies { (success, popularMovies, error) in
 			
-			// dispatch
 			DispatchQueue.main.async {
 				
-				// si la solicitud fue exitosa
 				if success {
-					
 					// comprueba si el 'popularMovies' recibido contiene algún valor
 					if let popularMovies = popularMovies {
 						// si es así, se lo asigna a la propiedad ´popularMovies´
 						self.popularMoviesArray = popularMovies // 🔌 👏
 						//self.stopActivityIndicator()
 						self.movieTableView.reloadData()
-						
 					}
-					
 				} else {
 					// si devuelve un error
 					self.displayAlertView("Error Request", error)
 				}
-				
 			}
-			
 		}
-		
 	}
 	
 	// MARK: Get Top Rated Movies
@@ -62,7 +54,6 @@ extension MovieViewController {
 			// dispatch
 			DispatchQueue.main.async {
 				
-				// si la solicitud fue exitosa
 				if success {
 					
 					// comprueba si el 'popularMovies' recibido contiene algún valor
@@ -77,11 +68,8 @@ extension MovieViewController {
 					// si devuelve un error
 					self.displayAlertView("Error Request", error)
 				}
-				
 			}
-			
 		}
-		
 	}
 	
 	// MARK: Get Upcoming Movies
@@ -120,14 +108,8 @@ extension MovieViewController {
 		// networking ⬇ : Upcoming Movies
 		TMDbClient.getMoviesForSearchString(searchText) { (success, searchTextMovies, error) in
 			
-			//test
-			//debugPrint("😡 ->\(self.searchUserText)")
-			
-			// dispatch
 			DispatchQueue.main.async {
-				
-				
-				// si la solicitud fue exitosa
+
 				if success {
 					// comprueba si el 'popularMovies' recibido contiene algún valor
 					if let searchTextMovies = searchTextMovies {
@@ -145,21 +127,6 @@ extension MovieViewController {
 				}
 			}
 		}
-		
-		
-		
-		
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 } // end ext

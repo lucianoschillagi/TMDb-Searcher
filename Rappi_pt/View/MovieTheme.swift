@@ -11,7 +11,7 @@
 import UIKit
 
 /* Abstract:
----
+Extiende la clase ´UIColor´ preconfigurando un color determinado.
 */
 
 extension UIColor {

@@ -1,5 +1,5 @@
 //
-//  MasterViewController.swift
+//  MovieMasterViewController.swift
 //  Rappi_pt
 //
 //  Created by Luciano Schillagi on 27/08/2018.
@@ -14,7 +14,7 @@ import UIKit
 Una pantalla con un listado de películas ordenadas por categorías. También contiene un buscador para filtrar por nombre.
 */
 
-class MovieViewController: UIViewController {
+class MovieListViewController: UIViewController {
 	
 	//*****************************************************************
 	// MARK: - Properties
@@ -29,7 +29,7 @@ class MovieViewController: UIViewController {
 	var topRatedMoviesArray = [TMDbMovie]()
 	// trae las 'upcoming movies'
 	var upcomingMoviesArray = [TMDbMovie]()
-	// un array que contiene la películas filtradas
+	// contiene la películas filtradas
 	var filteredMoviesArray = [TMDbMovie]()
 	
 	// MARK: Movie Detail VC 🔜
@@ -41,10 +41,7 @@ class MovieViewController: UIViewController {
 	// MARK: Las categorías disponibles
 	let category = ["Explore": "Explore", "Popular Movies": "Popular Movies", "Top Rated Movies": "Top Rated Movies", "Upcoming Movies": "Upcoming Movies"]
 	
-	// el texto ingresado por el usuario para realizar la búsqueda
-	//var searchUserText = String()
-	
-	// la tarea de descarga de datos más reciente. Mantenemos una referencia para que se pueda cancelar cada vez que cambie el texto de búsqueda
+	// la tarea de descarga de datos más reciente. Una referencia para que se pueda cancelar cada vez que cambie el texto de búsqueda
 	var searchTask: URLSessionDataTask?
 	
 	//*****************************************************************
@@ -58,7 +55,6 @@ class MovieViewController: UIViewController {
 	// MARK: - VC Life Cycle
 	//*****************************************************************
 	
-	// task: ejecutarse una vez que la pantalla se carga
     override func viewDidLoad() {
         super.viewDidLoad()
 			
@@ -68,9 +64,6 @@ class MovieViewController: UIViewController {
 			configureSearchAndScopeBar()
 			// detail vc
 			configureDetailVC()
-			// network request 🚀
-			//getSearchTextMovies()
-
     }
 	
 	override func viewWillAppear(_ animated: Bool) {
@@ -86,7 +79,7 @@ class MovieViewController: UIViewController {
 	// MARK: - IBActions
 	//*****************************************************************
 	
-	// task: ejecutarse cuando el botón ´refrescar´ es tapeado
+	// task: ejecutarse cuando el botón ´refresh´ es tapeado
 	@IBAction func refreshButtonPressed(_ sender: UIBarButtonItem) {
 		
 		switch navigationItem.title {
@@ -106,21 +99,18 @@ class MovieViewController: UIViewController {
 		default:
 			print("")
 		}
-
 	}
 
 	//*****************************************************************
 	// MARK: - Helpers
 	//*****************************************************************
 	
-	// task: -----
 	func configureDetailVC(){
 		if let splitViewController = splitViewController {
 			let controllers = splitViewController.viewControllers
 			detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? MovieDetailViewController
 		}
 	}
-	
 	
 	// task: configurar la barra de búsqueda y la barra de alcance (search & scope bar)
 	func configureSearchAndScopeBar() {
@@ -142,9 +132,7 @@ class MovieViewController: UIViewController {
 	}
 	
 	// MARK: Status Bar
-	override var prefersStatusBarHidden: Bool {
-		return true
-	}
+	override var prefersStatusBarHidden: Bool { return true }
 	
 	//*****************************************************************
 	// MARK: - Alert View

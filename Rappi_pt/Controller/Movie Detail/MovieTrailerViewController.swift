@@ -23,7 +23,7 @@ class MovieTrailerViewController: UIViewController {
 	
 	var selectedMovie: TMDbMovie?
 	
-	var trailerArray: [TMDbMovie]?
+	var movieTrailersArray: [TMDbMovie]?
 	var firstTrailerArray: [TMDbMovie] = []
 	
 	// esconde la barra de estado
@@ -35,7 +35,7 @@ class MovieTrailerViewController: UIViewController {
 	// MARK: - IBOutlets
 	//*****************************************************************
 
-	@IBOutlet weak var videoView: YouTubePlayerView!	
+	@IBOutlet weak var movieTrailerVideo: YouTubePlayerView!	
 	@IBOutlet weak var activityIndicator: UIActivityIndicatorView!
 	
 	//*****************************************************************
@@ -52,12 +52,12 @@ class MovieTrailerViewController: UIViewController {
 	// MARK: - Networking
 	//*****************************************************************
 	
-	// task: mostrar el trailer de la película
+	// task: mostrar el trailer de la película en youtube
 	func showTrailer() {
-		for item in trailerArray! { firstTrailerArray.append(item)}
+		for trailer in movieTrailersArray! { firstTrailerArray.append(trailer)}
 		let firstTrailer = firstTrailerArray.first
-		let oficialVideoKey = firstTrailer?.videoKey
-		self.videoView.loadVideoID(oficialVideoKey!)
+		let oficialVideoKey = firstTrailer?.videoKey; stopActivityIndicator()
+		self.movieTrailerVideo.loadVideoID(oficialVideoKey!)
 	}
 	
 	//*****************************************************************

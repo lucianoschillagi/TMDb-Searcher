@@ -14,7 +14,7 @@ import UIKit
 Contiene métodos concernientes a la tabla.
 */
 
-	extension MovieViewController: UITableViewDataSource {
+	extension MovieListViewController: UITableViewDataSource {
 		
 		//*****************************************************************
 		// MARK: - Table View Data Source Methods
@@ -27,22 +27,18 @@ Contiene métodos concernientes a la tabla.
 				
 			// si el título de la barra de navegación es "Explore", contar ´filteredMoviesArray´
 			case category["Explore"]:
-				debugPrint("contando el array de popular movies \(filteredMoviesArray.count)")
 				return filteredMoviesArray.count
 				
 			// si el título de la barra de navegación es "Popular Movies", contar ´popularMoviesArray´
 			case category["Popular Movies"]:
-				debugPrint("contando el array de popular movies \(popularMoviesArray.count)")
 				return popularMoviesArray.count
 				
 			// si el título de la barra de navegación es "Top Rated Movies", contar ´topRatedMoviesArray´
 			case category["Top Rated Movies"]:
-				debugPrint("contando el array de top rated movies \(topRatedMoviesArray.count)")
 				return topRatedMoviesArray.count
 				
 			// si el título de la barra de navegación es "Upcoming Movies", contar ´upcomingMoviesArray´
 			case category["Upcoming Movies"]:
-				debugPrint("contando el array de upcoming movies \(upcomingMoviesArray.count)")
 				return upcomingMoviesArray.count
 				
 			default:
@@ -62,22 +58,18 @@ Contiene métodos concernientes a la tabla.
 			// si el título de la barra de navegación es "Explore", mostrar ese grupo en las celdas de la tabla
 			case category["Explore"]:
 				movie = filteredMoviesArray[(indexPath as NSIndexPath).row]
-				debugPrint("🧛🏻‍♂️\(movie)")
 				
 			// si el título de la barra de navegación es "Popular Movies", mostrar ese grupo en las celdas de la tabla
 			case category["Popular Movies"]:
 				movie = popularMoviesArray[(indexPath as NSIndexPath).row]
-				debugPrint("🧛🏻‍♂️\(movie)")
 				
 			// si el título de la barra de navegación es "Top Rated Movies", mostrar ese grupo en las celdas de la tabla
 			case category["Top Rated Movies"]:
 				movie = topRatedMoviesArray[(indexPath as NSIndexPath).row]
-				debugPrint("🧛🏻‍♂️\(movie)")
 				
 			// si el título de la barra de navegación es "Upcoming Movies", mostrar ese grupo en las celdas de la tabla
 			case category["Upcoming Movies"]:
 				movie = upcomingMoviesArray[(indexPath as NSIndexPath).row]
-				debugPrint("🧛🏻‍♂️\(movie)")
 				
 			default:
 				print("")
@@ -117,7 +109,7 @@ Contiene métodos concernientes a la tabla.
 	// MARK: - Table View Delegate Methods
 	//*****************************************************************
 	
-	extension MovieViewController: UITableViewDelegate {
+	extension MovieListViewController: UITableViewDelegate {
 		
 		// task: navegar hacia el detalle de la película (de acuerdo al listado de películas actual)
 		func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
