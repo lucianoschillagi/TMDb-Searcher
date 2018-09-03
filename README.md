@@ -58,12 +58,12 @@ En definitiva: la idea es reunir la cosas que cambian por las mismas razones y s
 
 ## Características de un buen código
 
-1- No te repitas (DRY: Don’t repeat yourself).
-2- Legible
-3- Organizado
-4- Bien documentado
-5- Asignar la responsabilidad correcta a cada clase
-6- Usar nombres descriptivos para las clases, métodos y variables
+1. No te repitas (DRY: Don’t repeat yourself).
+1. Legible
+1. Organizado
+1. Bien documentado
+1. Asignar la responsabilidad correcta a cada clase
+1. Usar nombres descriptivos para las clases, métodos y variables
 
 
 
