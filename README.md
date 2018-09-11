@@ -31,7 +31,5 @@
 
 ### Resources:
 
-[https://github.com/gilesvangruisen/Swift-YouTube-Player]()
-
-
-
+* swift-youtube-player: [https://github.com/gilesvangruisen/Swift-YouTube-Player]()
+* the movie data base API: [https://developers.themoviedb.org/3/getting-started/introduction]()
