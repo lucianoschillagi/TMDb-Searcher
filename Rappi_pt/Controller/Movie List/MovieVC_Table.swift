@@ -53,6 +53,8 @@ Contiene métodos concernientes a la tabla.
 			
 			var movie: TMDbMovie?
 			
+			let preImage = UIImage(named: "preImage")
+			
 			switch navigationItem.title {
 				
 			// si el título de la barra de navegación es "Explore", mostrar ese grupo en las celdas de la tabla
@@ -81,6 +83,7 @@ Contiene métodos concernientes a la tabla.
 			cell.textLabel?.text = movie?.title
 			let popularity = Float((movie?.popularity!)!)
 			cell.detailTextLabel?.text = "popularity: \(String(popularity)) "
+			cell.imageView?.image = preImage
 			
 			// poster path (image)
 			if let posterPath = movie?.posterPath {
@@ -100,7 +103,6 @@ Contiene métodos concernientes a la tabla.
 			return cell
 			
 		}
-		
 		
 	} // end class
 	
