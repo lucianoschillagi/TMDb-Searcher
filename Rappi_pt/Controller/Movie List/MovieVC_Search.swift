@@ -67,10 +67,6 @@ extension MovieListViewController: UISearchBarDelegate {
 	// task: decirle al delegado que el index del botón de ´scope´ cambió
 	func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
 		
-		// test
-		debugPrint("decirle al controller que el índice del botón de ´scope´ cambió")
-		debugPrint("😠 el scope seleccionado es el: \(selectedScope)")
-		
 		// MARK: update navigation title item
 		switch selectedScope {
 			
@@ -102,7 +98,7 @@ extension MovieListViewController: UISearchBarDelegate {
 	func filterContentForSearchText(_ searchText: String, scope: String = "Explore") {
 		
 			filteredMoviesArray = filteredMoviesArray.filter({( movie : TMDbMovie) -> Bool in
-					let doesCategoryMatch = (scope == "Explore") //|| (movie.category == scope)
+					let doesCategoryMatch = (scope == "Explore") 
 		
 					if searchBarIsEmpty() {
 						return doesCategoryMatch

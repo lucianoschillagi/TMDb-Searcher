@@ -76,13 +76,6 @@ class MovieTrailerViewController: UIViewController {
 	// MARK: - Alert View
 	//*****************************************************************
 	
-	/**
-	Muestra al usuario un mensaje acerca de porqué la solicitud falló.
-	
-	- Parameter title: El título del error.
-	- Parameter message: El mensaje acerca del error.
-	
-	*/
 	func displayAlertView(_ title: String?, _ error: String?) {
 		
 		// si ocurre un error en la solicitud, mostrar una vista de alerta!

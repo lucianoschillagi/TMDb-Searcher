@@ -155,7 +155,6 @@ class MovieDetailViewController: UIViewController {
 		}
 	}
 	
-	
 } // end class
 
 //*****************************************************************
