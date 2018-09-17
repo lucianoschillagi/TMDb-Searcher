@@ -22,6 +22,12 @@
 * Si tapea sobre alguna de las celdas navegará hacia la siguiente pantalla donde encontrará mayor información sobre la película (año de lanzamiento, descripción, promedio de votos), así como un botón para ver su trailer.
 * Si tapea sobre ese botón navegará hacia una tercer pantalla desde donde podrá ver el trailer de la película.
 
+## Built With
+
+* [Swift 4](https://developer.apple.com/swift/) - The Programming Language used
+* 
+
+
 ### Testing The App:
 
 * Download the project to your computer from this project page.

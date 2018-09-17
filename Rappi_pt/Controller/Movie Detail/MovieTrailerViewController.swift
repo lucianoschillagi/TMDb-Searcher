@@ -27,9 +27,7 @@ class MovieTrailerViewController: UIViewController {
 	var firstTrailerArray: [TMDbMovie] = []
 	
 	// esconde la barra de estado
-	override var prefersStatusBarHidden: Bool {
-		return true
-	}
+	override var prefersStatusBarHidden: Bool { return true }
 	
 	//*****************************************************************
 	// MARK: - IBOutlets
